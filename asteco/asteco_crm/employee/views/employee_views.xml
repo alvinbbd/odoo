@@ -1,0 +1,54 @@
+<odoo>
+    <data>
+        <record id="view_employee_form_inherit" model="ir.ui.view">
+			<field name="name">res.employee.form</field>
+			<field name="model">hr.employee</field>
+			<field name="inherit_id" ref="hr.view_employee_form"/>
+			<field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="attributes">
+					<attribute name="invisible">1</attribute>
+				</xpath>
+                <div class="oe_title">
+<!--                    <label for="name_employee" class="oe_edit_only"/>-->
+                    <h1>
+                        <field name="name_employee" placeholder="Employee's Name" required="True"/>
+                    </h1>
+                </div>
+                <xpath expr="//field[@name='user_id']" position="after">
+					<field name="emp_user_type" options="{'no_create': True, 'no_open': True}"  widget="selection"/>
+                    <field name="emp_user_status" options="{'no_create': True, 'no_open': True}" widget="selection"/>
+                    <field name="emp_agent_status"/>
+                    <field name="company_id"/>
+                    <field name="manage_rota" widget="radio"/>
+				</xpath>
+
+                 <xpath expr="//field[@name='coach_id']" position="before">
+                     <field name="team_id" />
+                 </xpath>
+
+                 <xpath expr="//field[@name='resource_calendar_id']" position="after">
+                    <field name="confidence_score"/>
+                 </xpath>
+            </field>
+        </record>
+
+        <record id="view_asteco_sale_team" model="ir.ui.view">
+            <field name="name">asteco.sale.team.form</field>
+            <field name="model">asteco.sale.team</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <field name="name"/>
+                        <field name="company_id" options="{'no_create':True,'no_open':True}"/>
+                        <field name="member_ids" invisible="1"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.menu" id="hr.menu_hr_root">
+            <field name="groups_id" eval="[(6,0,[ref('asteco_crm.group_super_admin')])]"/>
+        </record>
+
+    </data>
+</odoo>

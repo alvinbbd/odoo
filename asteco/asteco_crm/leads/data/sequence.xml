@@ -1,0 +1,16 @@
+<odoo>
+    <data noupdate="1">
+        <record id="atk_lead_seq" model="ir.sequence">
+			<field name="name">Lead Sequence</field>
+            <field name="code">atk.lead.lead</field>
+            <field name="padding">4</field>
+            <field name="prefix">-L-</field>
+		</record>
+		<record id="atk_lead_rotation" model="ir.sequence">
+			<field name="name">Lead Rotation Sequence</field>
+            <field name="code">atk.lead.rotation</field>
+            <field name="padding">4</field>
+            <field name="prefix">ROTA-</field>
+		</record>
+    </data>
+</odoo>

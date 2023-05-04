@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<template id="deal_commission_report_pdf">
+		<t t-call="web.html_container">
+			<t t-call="asteco_crm.asteco_report_analysis_layout">
+				<div class="page" style="font-family:sans-serif;">
+					<div class="col-xs-12" style="padding:0;">
+                        <div class="col-xs-6" style="padding:0;">
+                            <div class="col-xs-12" style="padding:0;">
+                                <div class="col-xs-3" style="padding:0;">
+                                    <span style="font-weight:bold;">Start Date</span>
+                                </div>
+                                <div class="col-xs-1">:</div>
+                                <div class="col-xs-8" style="padding:0;">
+                                    <span t-esc="data['date_from']"/>
+                                </div>
+                            </div>
+						</div>
+						<div class="col-xs-6" style="padding:0;">
+                            <div class="col-xs-12" style="padding:0;">
+                                <div class="col-xs-4" style="padding-left:20px;">
+                                    <span style="font-weight:bold;">End Date</span>
+                                </div>
+                                <div class="col-xs-1">:</div>
+                                <div class="col-xs-7" style="padding:0;">
+                                    <span t-esc="data['date_to']"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12" style="margin:30px 0;background-color:grey;color:white;">
+                        <center><b><span style="font-size:16px;">Commission Received Report</span></b></center>
+                    </div>
+					<div class="row" style="color:#747474;font-size:14px;">
+						<div class="col-xs-12">
+						</div>
+						<div class="col-xs-12">
+							<table class="table">
+								<thead>
+									<tr>
+										<th>Agent</th>
+										<th>Current Month</th>
+										<th>Quarter One</th>
+										<th>Quarter Two</th>
+                                        <th>Quarter Three</th>
+                                        <th>Quarter Four</th>
+                                        <th>Half Yearly</th>
+                                        <th>Yearly</th>
+									</tr>
+								</thead>
+								<tbody>
+									<t t-foreach="deal_commission_summary" t-as="deal_commission">
+										<tr>
+											<td><span t-esc="deal_commission['agent']"/></td>
+											<td><span t-esc="deal_commission['current_month']"/></td>
+											<td><span t-esc="deal_commission['q1']"/></td>
+											<td><span t-esc="deal_commission['q2']"/></td>
+                                            <td><span t-esc="deal_commission['q3']"/></td>
+                                            <td><span t-esc="deal_commission['q4']"/></td>
+                                            <td><span t-esc="deal_commission['half_yearly']"/></td>
+                                            <td><span t-esc="deal_commission['yearly']"/></td>
+										</tr>
+									</t>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</t>
+		</t>
+	</template>
+
+	<report
+		id = "report_deal_commission_pdf"
+		model="analytics.reports"
+		string="Deal Commission Report"
+		report_type="qweb-html"
+		name="asteco_crm.deal_commission_report_pdf"
+		file="asteco_crm.deal_commission_report_pdf"
+		menu="False"
+	/>
+</odoo>

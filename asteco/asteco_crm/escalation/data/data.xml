@@ -1,0 +1,29 @@
+<odoo>
+	<data noupdate="1">
+		<record id="auto_action_seq" model="ir.sequence">
+			<field name="name">Auto Action Reference</field>
+			<field name="code">auto.action</field>
+			<field name="prefix">-AUTO-ACTION-</field>
+		</record>
+		<record id="auto_action_task_schedule_seq" model="ir.sequence">
+			<field name="name">Auto Action Task Scheduler Reference</field>
+			<field name="code">auto.action.task.scheduler</field>
+			<field name="prefix">ATS</field>
+		</record>
+
+		<record id="agent" model="email.recipients">
+			<field name="name">Agent</field>
+		</record>
+		<record id="contact" model="email.recipients">
+			<field name="name">Contact</field>
+		</record>
+		<record id="co_ordinator" model="email.recipients">
+			<field name="name">Co-ordinator</field>
+		</record>
+		<record id="manager" model="email.recipients">
+			<field name="name">Manager</field>
+		</record>
+
+		<function model="action.field.value" name="update_field_values"/>
+	</data>
+</odoo>

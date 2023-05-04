@@ -1,0 +1,5 @@
+<odoo>
+	<data noupdate="0">
+		<function model="res.country.code" name="_create_country_code"/>
+	</data>
+</odoo>

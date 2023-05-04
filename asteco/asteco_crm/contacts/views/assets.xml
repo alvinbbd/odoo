@@ -1,0 +1,10 @@
+<odoo>
+	<data>
+		<template id="asteco_assets_backend_contacts" inherit_id="web.assets_backend" name="Asteco Assets Backend Contacts">
+	        <xpath expr="." position="inside">
+	            <link rel='stylesheet' href='/asteco_custom_theme/static/src/css/backend-style.css'
+	              type='text/css'/>
+	        </xpath>
+	    </template>
+	</data>
+</odoo>

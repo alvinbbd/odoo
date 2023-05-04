@@ -1,0 +1,137 @@
+<odoo>
+    <data>
+
+        <record id="temporary_receipt_form_view" model="ir.ui.view">
+            <field name="name">Temporary Receipt View</field>
+            <field name="model">crm.temporary.receipt</field>
+            <field name="arch" type="xml">
+                <form create="0" duplicate="0" delete="0">
+                    <header>
+
+                        <button name="change_state_to_received" type="object" states="draft" string="Received" class="oe_asteco_default" style="background-color: #086bbf;border-color: #086bbf;"/>
+                        <button name="receipt_print" type="object" string="Print" class="oe_asteco_default"/>
+                        <button name="send_mail" string="Email" type="object" class="oe_asteco_default"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <script>
+                            $(document).ready(function(){
+                                $('.fa-external-link').addClass("hidden");
+                            });    
+                        </script>
+
+                        <div class="row asteco-form-div">
+                            <div class="col-xs-12">
+                                <div class="col-xs-12">
+                                    <div class="col-xs-12 ast_field">
+                                        <label for="name"/>
+                                        <field name="name" readonly="1"/>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-xs-12">
+                                <div class="col-xs-12">
+                                    <div class="col-xs-12 col-md-4 ast_field">
+                                        <label for="pro_invoice_id"/><br/>
+                                        <field name="pro_invoice_id" options="{'no_create': True, 'no_open': False}" attrs="{'readonly':[('state','in',['received'])]}"/>
+                                    </div>
+                                    <div class="col-xs-12 col-md-4 ast_field">
+                                        <label for="deal_id"/><br/>
+                                        <field name="deal_id" options="{'no_create': True, 'no_open': False}" attrs="{'readonly':[('state','in',['received'])]}"/>
+                                    </div>
+                                    <div class="col-xs-12 col-md-4 ast_field">
+                                        <label for="payment_date"/><br/>
+                                        <field name="payment_date" attrs="{'readonly':[('state','in',['received'])]}"/>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12">
+                                    <div class="col-xs-12 col-md-4 ast_field">
+                                        <label for="partner_id"/><br/>
+                                        <field name="partner_id" options="{'no_create':True, 'no_open':True}" domain="[('customer', '=', True),('is_contact', '=', True)]" string="Customer" attrs="{'readonly':[('state','in',['received'])]}"/>
+                                    </div>
+                                    <div class="col-xs-12 col-md-4 ast_field">
+                                        <label for="mobile"/><br/>
+                                        <field name="mobile" attrs="{'readonly':[('state','in',['received'])]}"/>
+                                    </div>
+                                    <div class="col-xs-12 col-md-4 ast_field">
+                                        <label for="email"/><br/>
+                                        <field name="email" attrs="{'readonly':[('state','in',['received'])]}"/>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12">
+                                    <div class="col-xs-12 col-md-4 ast_field">
+                                        <label for="address"/><br/>
+                                        <field name="address" attrs="{'readonly':[('state','in',['received'])]}"/>
+                                    </div>
+                                    <div class="col-xs-12 col-md-4 ast_field">
+                                        <label for="agent_id"/><br/>
+                                        <field name="agent_id" options="{'no_create':True, 'no_open':True}" readonly="1" attrs="{'readonly':[('state','in',['received'])]}"/>
+                                    </div>
+                                    <div class="col-xs-12 col-md-4 ast_field">
+                                        <label for="payment_type"/><br/>
+                                        <field name="payment_type" attrs="{'readonly':[('payment_type','!=',False)]}" required="1"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12">
+                                <div class="col-xs-12">
+                                    <div class="col-xs-12" style="border-top:1px solid #bec4ce;margin-top:25px;" />
+                                </div>
+                                <div class="col-md-6 col-xs-12" style="padding-left:25px;">
+                                    <!-- <group>
+                                        <field name="payment_term_id" invisible="0" options="{'no_create':False, 'no_open':True}"/>
+                                    </group> -->
+                                </div>
+                                <div class="col-md-2 col-xs-12">
+                                    <group invisible="1">
+                                        <field name="currency_id" invisible="1"/>
+                                        <field name="company_id" invisible="1"/>
+                                    </group>
+                                </div>
+                                <div class="col-md-4 col-xs-12" style="padding-right:30px;">
+                                    <group class="oe_subtotal_footer oe_right">
+                                        <field name="payment_amount" attrs="{'readonly':[('state','in',['received'])]}"/>
+                                        <field name="vat_amount" attrs="{'readonly':[('state','in',['received'])]}"/>
+                                        <field name="net_amount" class="oe_subtotal_footer_separator"/>
+                                    </group>
+                                </div>
+                            </div>
+
+                        </div>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+         <record id="receipt_view_tree" model="ir.ui.view">
+                <field name="name">Receipt Tree View</field>
+                <field name="model">crm.temporary.receipt</field>
+                <field name="arch" type="xml">
+                    <tree create="0" duplicate="0" delete="0" default_order='payment_date desc'>
+                        <field name="payment_date"/>
+                        <field name="name"/>
+                        <field name="payment_type"/>
+                        <field name="partner_id"/>
+                        <field name="payment_amount"/>
+                        <field name="state"/>
+                        <field name="company_id"/>
+                    </tree>
+                </field>
+        </record>
+
+        <record id="receipt_action" model="ir.actions.act_window">
+			<field name="name">Temporary Receipt</field>
+            <field name="res_model">crm.temporary.receipt</field>
+            <field name="view_mode">tree,form</field>
+		</record>
+
+        <menuitem id="receipt_root_menu" sequence="2" name="Temporary Receipt" parent="transaction_crm_root_menu" action="receipt_action"/>
+
+    </data>
+</odoo>

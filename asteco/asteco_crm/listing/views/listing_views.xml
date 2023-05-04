@@ -1,0 +1,1198 @@
+<odoo>
+    <data>
+
+        <record id="crm_notes_form" model="ir.ui.view">
+            <field name="name">CRM notes Form view</field>
+            <field name="model">crm.notes</field>
+            <field name="arch" type="xml">
+                <form>
+                    <script>
+                        $(document).ready(function(){
+                            $("button[class='btn btn-sm btn-primary']:eq(1)").hide();
+                        });
+                    </script>
+                    <group>
+                        <field name="name"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="listing_form_view" model="ir.ui.view">
+            <field name="name">listing.form</field>
+            <field name="model">listing.listing</field>
+            <field name="arch" type="xml">
+                <form delete="0">
+                    
+                    <script>
+                        $(document).ready(function(){
+                            $('.fa-external-link').addClass("hidden");
+                            $('div[name="other_media"] .o-kanban-button-new').html("Add");
+                            $('div[name="floor_plan_ids"] .o-kanban-button-new').html("Add");
+
+                            $('div[name="matching_leads"] > div[class="table-responsive"] > table > thead > tr').prepend("&amp;lt;td class='sang-in-chk'>&amp;lt;td>");
+                            $('div[name="matching_leads"] > div[class="table-responsive"] > table > tbody > tr').prepend("&amp;lt;td class='sang-in-chk'> &amp;lt;input type='checkbox' />&amp;lt;td>");
+                            $('div[name="matching_leads"] > div[class="table-responsive"] > table > thead > tr > td:nth-child(2)').addClass("hidden");
+                            $('div[name="matching_leads"] > div[class="table-responsive"] > table > tbody > tr > td:nth-child(2)').addClass("hidden");
+
+                            $('.sang-in-chk').click(function(e){
+                                e.stopPropagation();
+                                <!-- e.preventDefault(); -->
+                                e.stopImmediatePropagation();
+                                <!-- $(this).prop('checked', true); -->
+                                    <!-- return false; -->
+                            })
+                            $('div[name="matching_leads"] > div[class="table-responsive"] > table > tbody > tr:not(.o_data_row)').hide();
+                            $(".o_required_modifier").siblings('label').addClass('so-mandtry-star');
+                        });
+                        $(".ast-previe-send-mail").on('click', function(){
+                            listing_id = $('.ast-listing-id').text()
+                            partner_ids = [];
+                            $('[name=email_recipients] span.badge').each(function(){
+                                partner_ids.push($(this).attr("data-id"));
+                            });
+                            if(partner_ids.length > 0){
+                                $("#wait").css("display","block");
+                                $.ajax({
+                                    url: "/preview/send/html/mail",
+                                    type: "post",
+                                    data: {'partner_ids':JSON.stringify(partner_ids), 'listing_id':listing_id},
+                                    cache: false,
+                                    dataType:"json",
+                                    success: function(response){
+                                        if(response['success']=='1'){
+                                            $("#wait").css("display", "none");
+                                            swal("Email has been sent!", "", "success");
+                                        }
+                                    },
+                                    error:function(a,b,c){
+                                        console.log(a);
+                                        console.log(b);
+                                        console.log(c);
+                                    },  
+                                });
+                            }
+                        });
+                        
+                        $(".ast-listing-send-mail").on('click', function(){
+                            lead_ids = [];
+                            $('div[name="matching_leads"] > div[class="table-responsive"] > table > tbody > tr').each(function() {
+                                if($(this).find('.sang-in-chk').find('input').is(':checked')){
+                                    item = $(this).find('.ast-match-lead-id').text();
+                                    if (item){
+                                        lead_ids.push(item);
+                                    }
+                                }
+                            });
+                            listing_id = $('.ast-listing-id').text()
+                            $.ajax({
+                                url: "/listing/send/mail",
+                                type: "post",
+                                data: {'lead_ids':JSON.stringify(lead_ids), 'listing_id':listing_id},
+                                cache: false,
+                                dataType:"json",
+                                success: function(response){
+                                    if(response['success'] == '1'){
+                                        location.href=response['mail'];
+                                    }
+                                    else{
+                                        swal("Sorry!!!", "No Matching Leads Selected!");
+                                    }
+                                },
+                                error:function(a,b,c){
+                                    console.log(a);
+                                    console.log(b);
+                                    console.log(c);
+                                },  
+                            });
+                        });
+                        
+                    </script>
+                    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+                    <style>
+                        .ast-create-date.o_field_date{ width : auto;}
+                        .ast-m2m-tag .o_tag{
+                            font-size:14px !important;
+                        }
+                        .ast-doc-attach .btn-default{
+                            background-color:#4494af !important;
+                            border:none;
+                            color:white;
+                        }
+                        .media-images{}
+                        .media-images .o-kanban-button-new{
+                            display:none;
+                        }
+                    </style>
+
+                    <header>
+                        <button name="preview" type="object" string="Preview Listing" class="oe_asteco_default"/>
+                        <button name="block_unit" type="object" string="Block Unit" class="oe_asteco_default"/>
+                        <field name="current_user" invisible="1"/>
+                        <field name="approval_required_or_not" invisible="1" />
+                        
+                        <button name="request_publish" type="object" string="Request for Publish" attrs="{'invisible':[('approval_required_or_not', 'in', ['None','Publish','Unpublish'] )]}" 
+                        class="oe_asteco_default"/>
+
+                        <button name="listing_publish" type="object" string="Publish" attrs="
+                        {'invisible':[('approval_required_or_not', 'in', ['None','Request','Unpublish'])]}" 
+                        class="oe_asteco_default"/>
+
+                        <button name="listing_unpublish" type="object" string="Unpublish" attrs="{'invisible':[('approval_required_or_not', 'not in', 'Unpublish')]}" class="oe_asteco_default"/>
+
+                        <field name ="active" invisible="True"/>
+                        <button name="action_set_unactive" string="Archive"
+                            type="object"
+                            attrs="{'invisible': [('active','=',False)]}" class="oe_asteco_default"/>
+                        <field name="listing_status" widget="statusbar"/>
+                    </header>
+
+                    <sheet>
+                        <h2 style="margin:-5px 0 5px 0;" class="col-xs-12 col-md-8 col-lg-8 col-sm-8">
+                            <field name="name" readonly="1"/>
+                        </h2>
+                        <field name="company_id" readonly="0" invisible="1"/>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="action_listing_quality"
+                                type="object" class="oe_stat_button">
+                                <field name="overall_quality" widget="percentpie" string="Listing Quality"/>
+                            </button>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-md-8 col-lg-8 col-sm-8" style="border-right:1px solid #bec4ce;line-height:20px !important;">
+                                <notebook>
+                                    <page string="Listing" name="notebook1">
+                                        <div class="col-xs-12 col-md-12" style="padding-top:15px;">
+                                            <h3 class="asteco-grp-title">Listing details</h3>
+                                            <div class="row" style="border-bottom:1px solid #bec4ce;margin-bottom:15px;" />
+                                            <div class="col-xs-12 col-md-4" style="padding:2px;">
+                                                <field name="photo" widget="image_popup"/>
+                                            </div>
+                                            <div class="col-xs-12 col-md-8" style="padding-top:0px;">
+                                                <div class="row asteco-form-div" style="padding-left:15px;">
+                                                    <div class="col-xs-12 col-md-7 ast_field" >
+                                                        <label for="ref_name"/><br/>
+                                                        <field name="ref_name" readonly="1"/>
+                                                    </div>
+                                                    <div class="row" style="padding:0px 15px;">
+                                                        <div class="col-xs-12 col-md-7 ast_field" attrs="{'invisible':[('is_user_company','=',False),('id','!=',False)]}">
+                                                            <label for="customer_id" string="Contact"/><br/>
+                                                            <field name="customer_id" options="{'no_create': False, 'no_open':False, 'no_quick_create': True}" context="{'name':'sang','form_view_ref':'asteco_crm.atk_contacts_view_form','default_is_contact':True}"
+                                                                   required="1" attrs="{'readonly':[('id','!=',False)]}"/><br />
+                                                                   <field name="is_user_company" invisible="1"/>
+                                                        </div>
+                                                        <div class="col-xs-12 col-md-5 ast_field">
+                                                            <label for="listing_type"/><br/>
+                                                            <field name="listing_type" widget="radio" options="{'horizontal':true}" required="1" attrs="{'readonly':[('id','!=',False)]}"/><br/>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row" style="padding:0px 15px;" attrs="{'invisible':[('is_user_company','=',False),('id','!=',False)]}">
+                                                        <div class="col-md-3 col-xs-12 ast_field" >
+                                                            <label for="isd_code_id" string="IDD"/><br />
+                                                            <field name="isd_code_id" required="1" options="{'no_create':True, 'no_open':True}" attrs="{'readonly':[('id','!=',False)]}"/>
+                                                        </div>
+                                                        <div class="col-xs-12 col-md-4 ast_field">
+                                                            <label for="customer_mobile"/><br/>
+                                                            <field name="customer_mobile" required="1" attrs="{'readonly':[('id','!=',False)]}"/>
+                                                        </div>
+                                                        <div class="col-xs-12 col-md-5 ast_field">
+                                                            <label for="customer_email_id"/><br/>
+                                                            <field name="customer_email_id"  attrs="{'readonly':[('id','!=',False)]}"/>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xs-6 col-md-3 ast_field">
+                                                        <label for="price"/><br/>
+                                                        <field name="price" required="1"/>
+                                                    </div>
+                                                    <div class="col-xs-6 col-md-4 ast_field">
+                                                        <label for="deposit_amount"/><br/>
+                                                        <field name="deposit_amount"/>
+                                                    </div>
+                                                    <div class="col-xs-12 col-md-5 ast_field" >
+                                                        <label for="property_status_id"/><br/>
+                                                        <field name="property_status_id" required="1" options="{'no_create': True, 'no_open': True}" widget="selection"  attrs="{'readonly':False}"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-md-12">
+                                            <h3 class="asteco-grp-title">Unit details</h3>
+                                            <!-- <h3 class="asteco-grp-title">Property Details</h3> -->
+                                            <div class="row" style="border-bottom:1px solid #bec4ce;margin-bottom:15px;" />
+                                            <div class="row asteco-form-div">
+                                                <div class="col-xs-12 col-md-6 ast_field">
+                                                    <label for="listing_region"/><br/>
+                                                    <field name="listing_region" required="1"/><br/>
+                                                </div>
+                                                <div class="col-xs-12 col-md-6 ast_field">
+                                                    <label for="visibility_id"/><br/>
+                                                    <field name="visibility_id" required="1" options="{'no_create': True, 'no_open': True}" widget="radio"/><br/>
+                                                </div><br/>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-md-12">
+                                            <div class="row asteco-form-div">
+                                                <div class="col-xs-12 col-md-6 ast_field">
+                                                    <label for="agent_id"/><br/>
+                                                    <field name="agent_id" required="1" options="{'no_create': True, 'no_open': True}" widget="selection"/>
+                                                </div>
+                                                <div class="col-xs-12 col-md-6 ast_field">
+                                                    <label for="listing_source_id"/><br/>
+                                                    <field name="listing_source_id" required="1" options="{'no_create': True, 'no_open': True}" />
+                                                </div>
+                                            </div>
+                                            <div class="row asteco-form-div">
+                                                <div class="col-xs-12 col-md-6 ast_field">
+                                                    <label for="available_date"/><br/>
+                                                    <field name="available_date"/>
+                                                </div>
+                                                <div class="col-xs-12 col-md-6 ast_field">
+                                                    <label for="share_scope" string="Share with"/><br/>
+                                                    <field name="share_scope" widget="radio" options="{'horizontal':True}"/>
+                                                </div>
+                                            </div>
+                                             <div class="row asteco-form-div">
+                                                <div class="col-xs-12 col-md-6 ast_field" attrs="{'invisible':[('share_scope','=','External_Sub_broker')]}">
+                                                    <label for="agent_ids" string="Share with Agents"/><br/>
+                                                    <field name="agent_ids" widget="many2many_tags" options="{'no_create': True, 'no_open': True}"/>
+                                                </div>
+
+                                                <div class="col-xs-12 col-md-6 ast_field" attrs="{'invisible':[('share_scope','=','Internal')]}">
+                                                    <label for="contact_ids" string="Share with Sub-broker"/><br/>
+                                                    <field name="contact_ids" widget="many2many_tags" options="{'no_create': True, 'no_open': True}"/>
+                                                </div>
+                                                 <div class="col-xs-12 col-md-6 ast_field" >
+                                                    <label for="managed_status_id"/><br/>
+                                                    <field name="managed_status_id" required="1" options="{'no_create': True, 'no_open': True}" widget="selection"/>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-xs-12"  >
+                                            <div class="row" style="border-bottom:1px solid #bec4ce;margin-bottom:15px;" />
+                                            <div class="row asteco-form-div">
+                                                <div class="col-xs-12 col-md-6 ast_field">
+                                                    <label for="emirate_id"/><br/>
+                                                    <field name="emirate_id" domain="[('country_id', '=', country_id)]" options="{'no_create': True, 'no_open': True}" required="1" />
+                                                    <field name="country_id" invisible="1"/>
+                                                </div>
+                                                <div class="col-xs-12 col-md-6 ast_field">
+                                                    <label for="location_id" string="Location\Project"/><br/>
+                                                    <field name="location_id" required="1" domain="[('emirate_id', '=', emirate_id)]" options="{'no_create': True, 'no_open': True}"/>
+                                                </div>
+                                            </div>
+                                            <div class="row asteco-form-div">
+                                                <div class="col-xs-12 col-md-6 ast_field">
+                                                    <label for="sub_location_id" string="Sub-location\Building"/><br/>
+                                                    <field name="sub_location_id" required="1" domain="[('location_id', '=', location_id)]" options="{'no_create': True, 'no_open': True}" />
+                                                </div>
+                                                <div class="col-xs-12 col-md-6 ast_field">
+                                                    <label for="street"/><br/>
+                                                    <field name="street"/>
+                                                </div>
+                                            </div>
+
+                                            <div class="row" style="border-bottom:1px solid #bec4ce;padding:10px;margin-bottom:15px;" />
+
+                                            <div class="row asteco-form-div">
+                                                <div class="col-xs-12 col-md-6 ast_field">
+                                                    <label for="category_id"/><br/>
+                                                    <field name="category_id" required="1"  options="{'no_create': True, 'no_open': True}" widget="selection"/>
+                                                </div>
+                                            </div>
+                                            <div class="row asteco-form-div">
+                                                <div class="col-xs-6 col-md-6 ast_field" attrs="{'invisible':[('is_office','=',True)]}">
+                                                    <label for="bed_id"/><br/>
+                                                    <field name="bed_id" options="{'no_create': True, 'no_open': True}" widget="selection"/>
+                                                </div>
+                                                <div class="col-xs-6 col-md-6 ast_field" attrs="{'invisible':[('is_office','=',False)]}">
+                                                    <label for="fitted_id"/><br/>
+                                                    <field name="fitted_id" options="{'no_create': True, 'no_open': True}" widget="selection"/>
+                                                </div>
+                                                <div class="col-xs-6 col-md-6 ast_field">
+                                                    <label for="bath_id"/><br/>
+                                                    <field name="bath_id" options="{'no_create': True, 'no_open': True}" widget="selection"/>
+                                                </div>
+                                            </div>
+                                            <div class="row asteco-form-div">
+                                                <div class="col-xs-12 col-md-6 ast_field">
+                                                    <label for="floor"/><br/>
+                                                    <field name="floor"/>
+                                                </div>
+                                                <div class="col-xs-12 col-md-6 ast_field">
+                                                    <label for="key_location"/><br/>
+                                                    <field name="key_location"/>
+                                                </div>
+                                            </div>
+                                            <div class="row asteco-form-div">
+                                                <div class="col-xs-12 col-md-6 ast_field">
+                                                    <label for="build_up_area_sqf" /><br/>
+                                                    <field name="build_up_area_sqf" required='1'/>
+                                                </div>
+                                                <div class="col-xs-12 col-md-6 ast_field">
+                                                    <label for="build_up_area_sqm"/><br/>
+                                                    <field name="build_up_area_sqm"  required='1'/>
+                                                </div>
+                                            </div>
+                                            <div class="row asteco-form-div">
+                                                <div class="col-xs-12 col-md-6 ast_field">
+                                                    <label for="plot_area"/><br/>
+                                                    <field name="plot_area"/>
+                                                </div>
+                                                <div class="col-xs-12 col-md-6 ast_field">
+                                                    <label for="regulatory_permit"/><br/>
+                                                    <field name="regulatory_permit"/>
+                                                </div>
+                                            </div>
+                                            <div class="row asteco-form-div">
+                                                <div class="col-xs-12 col-md-6 ast_field">
+                                                    <label for="unit"/><br/>
+                                                    <field name="unit"/>
+                                                </div>
+
+                                                <div class="col-xs-12 col-md-6 ast_field">
+                                                    <label for="unit_geo_tag" /><br/>
+                                                    <field name="unit_geo_tag"/>
+                                                    <!-- For map -->
+                                                        <div class="col-xs-12 col-md-2 ast_field" invisible="1">
+                                                            <label for="longitude"/><br/>
+                                                            <field name="longitude"/>
+                                                        </div>
+                                                        <div class="col-xs-12 col-md-2 ast_field" invisible="1">
+                                                            <label for="latitude"/><br/>
+                                                            <field name="latitude"/>
+                                                        </div>
+                                                        <div class="col-xs-12 col-md-2 ast_field" invisible="1">
+                                                            <button name="open_map" string="Map" type="object" class="oe_highlight" style="margin-top: 20px;"/>
+                                                        </div>
+                                                </div>
+                                            
+                                            </div>
+                                            <!-- <div>
+                                                <div>
+                                                    <label for="longitude"/><br/>
+                                                    <field name="longitude"/>
+                                                </div>
+                                                <div>
+                                                    <label for="latitude"/><br/>
+                                                    <field name="latitude"/>
+                                                </div>
+                                            </div> -->
+                                            <div class="row asteco-form-div">
+                                                <div class="col-xs-12 col-md-6 ast_field">
+                                                    <label for="listing_detail_type"/><br/>
+                                                    <field name="listing_detail_type" />
+                                                </div>
+                                                <div class="col-xs-12 col-md-6 ast_field">
+                                                    <label for="property_view"/><br/>
+                                                    <field name="property_view"/>
+                                                </div>
+                                                <div class="col-xs-12 col-md-6 ast_field">
+                                                    <label for="furnished_id" /><br/>
+                                                    <field name="furnished_id"/>
+                                                </div>
+                                                <div class="col-xs-12 col-md-6 ast_field" style="padding-left:0px">
+                                                    <div class="col-xs-12 col-md-3 ast_field">
+                                                        <label for="parking"/><br/>
+                                                        <field name="parking"/>
+                                                    </div>
+                                                    <div class="col-xs-12 col-md-3 ast_field">
+                                                        <label for="is_featured"/><br/>
+                                                        <field name="is_featured"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row" style="border-bottom:1px solid #bec4ce;margin-bottom:15px;" />
+                                            <div class="row asteco-form-div" style="margin-top:10px;">
+                                                <div class="col-xs-12 col-md-12 ast_field">
+                                                    <label for="name"/><br/>
+                                                    <field name="name" required="1"/><br/>
+                                                </div>
+                                                <div class="col-xs-12 col-md-12 ast_field" style="background-color:#e4ebf6;">
+                                                    <style>
+                                                        .o_field_text{
+                                                            min-height:200px;
+                                                        }
+                                                    </style>
+                                                    <label for="description"/>
+                                                    <button style="float:right;margin-left:10px;margin-right:5px;border:1px solid #818484;color:#5e5e5e;" string="Full Screen" name="full_screen" type="object"/>
+                                                    <button style="float:right;margin-left:10px;border:1px solid #818484;color:#5e5e5e;" string="Paste Code" name="html_code_paste" type="object" attrs="{'invisible':[('id','=',False)]}"/>
+                                                    <br/><br/>
+                                                    <div attrs="{'invisible':[('id','!=', False)]}" style="margin:5px;">
+                                                        <field name="html_code" placeholder="Paste html code here.."/>
+                                                    </div>
+                                                    <field name="description" widget="html" required="1"/>
+                                                    <div class="col-xs-12">
+                                                        <div class="col-xs-12 col-md-3" style="padding:0px;text-align:center;">
+                                                            <span>
+                                                                <button type="object" name="add_sub_location" style="border:none;background-color:#e4ebf6;"><i class="fa fa-plus"/></button>
+                                                            </span>
+                                                            <span style="font-weight:bold;">Sub-location text</span>
+                                                        </div>
+                                                        <div class="col-xs-12 col-md-3" style="padding:0px;text-align:center;">
+                                                            <span>
+                                                                <button type="object" name="add_location" style="border:none;background-color:#e4ebf6;"><i class="fa fa-plus"/></button>
+                                                            </span>
+                                                            <span style="font-weight:bold;">Location text</span>
+                                                        </div>
+                                                        <div class="col-xs-12 col-md-3" style="padding:0px;text-align:center;">
+                                                            <span>
+                                                                <button type="object" name="add_signature" style="border:none;background-color:#e4ebf6;"><i class="fa fa-plus"/></button>
+                                                            </span>
+                                                            <span style="font-weight:bold;">Agent Signature</span>
+                                                        </div>
+                                                        <div class="col-xs-12 col-md-3" style="padding:0px;text-align:center;">
+                                                            <span>
+                                                                <button type="object" name="add_company_profile" style="border:none;background-color:#e4ebf6;"><i class="fa fa-plus"/></button>
+                                                            </span>
+                                                            <span style="font-weight:bold;">Company Profile</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <field name="is_office" invisible="1"/>
+                                        </div>
+                                        <div class="col-xs-12 col-md-12">
+                                            <div class="row asteco-form-div" attrs="{'invisible':[('listing_type','=', 'Rental')]}" >
+                                                <div class="col-xs-12 col-md-6 ast_field">
+                                                    <label for="completion_status_id"/><br/>
+                                                    <field name="completion_status_id" attrs="{'required':[('listing_type','=', 'Sale')]}" options="{'no_create': True, 'no_open': True}" widget="selection"/>
+                                                </div>
+                                                <div class="col-xs-12 col-md-6 ast_field">
+                                                    <label for="tenure_id"/><br/>
+                                                    <field name="tenure_id" attrs="{'required':[('listing_type','=', 'Sale')]}" options="{'no_create': True, 'no_open': True}" widget="selection"/>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <notebook style="padding-top:50px">
+                                            <page string="Property Pricing Details">
+                                                <h3 class="asteco-grp-title" style="border-bottom:None" >Property Pricing Details</h3>
+                                                <div class="col-xs-12 col-md-12" style="padding:20px">
+                                                    <div class="row asteco-form-div" >
+                                                        <div class="col-xs-12 col-md-6 ast_field" >
+                                                            <label for="price"/><br/>
+                                                            <field nolabel="1" name="price" required="1"/>
+                                                        </div>
+                                                        <div class="col-xs-12 col-md-6 ast_field" >
+                                                            <label for="price_per_sqft"/><br/>
+                                                            <field nolabel="1" name="price_per_sqft" required="1"/>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row asteco-form-div" attrs="{'invisible':[('listing_type','=', 'Sale')]}">
+                                                        <div class="col-xs-12 col-md-6 ast_field" >
+                                                            <label for="price_frequency_id"/><br/>
+                                                            <field name="price_frequency_id" attrs="{'required':[('listing_type','=', 'Rental')]}" options="{'no_create': True, 'no_open': True}" widget="selection"/>
+                                                        </div>
+                                                        <div class="col-xs-12 col-md-6 ast_field" >
+                                                            <label for="no_of_cheques"/><br/>
+                                                            <field name="no_of_cheques" attrs="{'required':[('listing_type','=', 'Rental')]}" options="{'no_create': True, 'no_open': True}" widget="selection"/>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row asteco-form-div">
+                                                        <div class="col-xs-12 col-md-6 ast_field" >
+                                                            <label for="commission_amount"/><br/>
+                                                            <div class="row">
+                                                                <div class="col-md-4">
+                                                                    <div class="row">
+                                                                        <div class="col-md-9">
+                                                                            <field name="commission_perc"/>
+                                                                        </div>
+                                                                        <div class="col-md-3">
+                                                                        %
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-8">
+                                                                    <field name="commission_amount" required="1"/>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-xs-12 col-md-6 ast_field" >
+                                                            <label for="deposit_amount"/><br/>
+                                                            <div class="row">
+                                                                <div class="col-md-4">
+                                                                    <div class="row">
+                                                                        <div class="col-md-9">
+                                                                            <field name="deposit_perc"/>
+                                                                        </div>
+                                                                        <div class="col-md-3">
+                                                                        %
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-8">
+                                                                    <field name="deposit_amount" required="1"/>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </page>
+                                            <page string="Marketing &amp; Photos">
+                                                <h3 class="asteco-grp-title" style="border-bottom:None" >Marketing &amp; Photos</h3>
+                                                <div class="row" style="margin-bottom:50px;">
+                                                    <div class="col-xs-12" style="padding:20px">
+                                                        <div class="row asteco-form-div">
+                                                            <div class="col-xs-12 col-md-6">
+                                                                <label for="other_media" string="Media"/><field name="count_of_other_media"/><br/>
+                                                                <div class="oe_read_only" style="border:1px solid #4494af;border-radius:3px;width:100px;height:30px;background-color:#4494af;color:white;text-align:center;padding:5px;font-size:12px;margin-top:10px;cursor:pointer;margin-bottom:5px;">
+                                                                    <span>Edit to Add</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row asteco-form-div">
+                                                            <div class="col-xs-12 col-md-12 ast_field media-images" style="height:200px;overflow:scroll;">
+                                                                <field name="other_media" mode="kanban" context="{'default_name': ref_name, 'default_listing_id': active_id}">
+                                                                    <kanban string="Images" drop_attachments_field="1">
+                                                                        <field name="name"/>
+                                                                        <field name="image" />
+                                                                        <templates>
+                                                                            <t t-name="kanban-box">
+                                                                                <div class="oe_kanban_global_click" style="position:relative;width:150px !important;border:none !important;">
+                                                                                    <a t-if="! read_only_mode" type="delete" style="position: absolute; right: 0; padding: 4px; display: inline-block">X</a>
+                                                                                    <div class="oe_module_vignette">
+                                                                                        <div class="oe_module_desc">
+                                                                                            <field name="image" widget="image_popup"/>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </t>
+                                                                        </templates>
+                                                                    </kanban>
+                                                                </field>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row asteco-form-div" style="margin-top:20px;">
+                                                            <div class="col-xs-12 col-md-6 ast_field" >
+                                                                <label for="feature_ids"/><br/>
+                                                                <field name="feature_ids"  widget="many2many_tags" options="{'no_create': True, 'no_open': True}"/>
+                                                            </div>
+                                                            <div class="col-xs-12 col-md-6 ast_field" >
+                                                                <label for="portal_ids"/><br/>
+                                                                <field name="portal_ids"  widget="many2many_tags" options="{'no_create': True, 'no_open': True}" domain="[('company_id','=',company_id),('status','=',True)]"/>
+                                                                <field name="company_id" invisible="1"/>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </page>
+                                            <page string="Neighbourhood Info">
+                                                <div class="col-xs-12 col-md-12 ast_field">
+                                                    <field name="neighborhood_ids">
+                                                        <tree editable="bottom">
+                                                            <field name="neighbor_id" options="{'no_create': True, 'no_open': True}" string="Type" widget="selection"/>
+                                                            <field name="location" style="width:200px"/>
+                                                            <field name="name" style="width:200px"/>
+                                                            <!-- <field name="geotag"/> -->
+                                                            <field name="distance" style="width:150px" string="Distance From Property (km)"/>
+                                                        </tree>
+                                                    </field>
+                                                </div>
+                                            </page>
+                                            <page string="Additional Information">
+                                                <h3 class="asteco-grp-title" style="border-bottom:None" >Availability</h3>
+                                                <div class="col-xs-12 col-md-12" style="padding:20px">
+                                                    <div class="row asteco-form-div">
+                                                        <div class="col-xs-12 col-md-6 ast_field" >
+                                                            <label for="microsite_url"/><br/>
+                                                            <field name="microsite_url"/>
+                                                            
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="row asteco-form-div">
+                                                        <div class="col-xs-12 col-md-6 ast_field" >
+                                                            <label for="rented_until_date"/><br/>
+                                                            <field name="rented_until_date"/>
+                                                            
+                                                        </div>
+                                                        <div class="col-xs-12 col-md-6 ast_field" >
+                                                            <label for="remind_date"/><br/>
+                                                            <field name="remind_date"/>
+                                                            
+                                                        </div>
+                                                    </div>
+                                                    <div class="row asteco-form-div">
+                                                        <div class="col-xs-12 col-md-6 ast_field" >
+                                                            <label for="maintenance_fee"/><br/>
+                                                            <field name="maintenance_fee"/>
+                                                            
+                                                        </div>
+                                                        <div class="col-xs-12 col-md-6 ast_field" >
+                                                            <label for="is_property_tenanted"/><br/>
+                                                            <field name="is_property_tenanted" required="1"/>
+                                                            
+                                                        </div>
+                                                    </div>
+                                                    <div class="row asteco-form-div">
+                                                        <div class="col-xs-12 col-md-6 ast_field" >
+                                                            <label for="consumer_number"/><br/>
+                                                            <field name="consumer_number"/>
+                                                        </div>
+                                                        <div class="col-xs-12 col-md-6 ast_field" >
+                                                            <label for="str"/><br/>
+                                                            <field name="str"/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </page>
+                                        </notebook>
+
+                                    </page>
+                                    <page string="Matching Leads">
+                                        <div class="row atk-ico" style="padding:20px 0px 0px 20px;">
+                                            <span>
+                                                <button type="object" name="update_matching_leads" class="oe_asteco_default" string="Update Matching Leads"/>
+                                            </span>
+                                        </div>
+                                        <div class="row atk-ico" style="padding:20px 0px 0px 20px;">
+                                            <span>
+                                                <button type="object" name="send_email" style="color:white;background-color:#d54b3d;border:none;" class="ast-listing-send-mail">
+                                                    <i class="fa fa-envelope"/>  Send Mail
+                                                </button>
+                                            </span>
+                                            <span style="margin:15px;">
+                                                <button style="color:white;background-color:#1ebea5;border:none;font-size:24px" type="object" name="send_whatsapp">
+                                                    <i class="fa fa-whatsapp"/>  Whatsapp
+                                                </button>
+                                            </span>
+                                            <!-- <span style="margin:15px;">
+                                                <button type="object" name="send_sms" style="color:white;background-color:#4494af;border:none;">
+&lt;!&ndash;                                                    <i class="fa fa-mobile"/>  &ndash;&gt;Send SMS
+                                                </button>
+                                            </span> -->
+                                            <!-- <span>
+                                                <button type="object" name="lead_matching" style="color:white;background-color:#4494af;border:none;">
+                                                    <i class="fa fa-mobile"/>  Matching Leads
+                                                </button>
+                                            </span> -->
+                                        </div>
+                                        <!-- <button type="object" name="update_matching_leads" string="Update" style="border:none;background-color:green;color:white;margin-top:10px;"/> -->
+                                        <field name="matching_leads" attrs="{'invisible':[('is_matching_leads','=',False)]}" readonly="1">
+                                            <tree create="false" edit="false" delete="false">
+                                                <field name="name" string="Lead Ref"/>
+                                                <field name="category_id_list"/>
+                                                <field name="emirate_id_list"/>
+                                                <field name="location_id_list"/>
+                                                <field name="sub_location_id_list"/>
+                                                <field name="sub_status_id"/>
+                                                <field name="agent_id" string="Assigned To"/>
+                                                <field name="create_date"/>
+                                                <field name="id" class="ast-match-lead-id" style="display:none;"/>
+                                            </tree>
+                                        </field>
+                                        <div attrs="{'invisible':[('is_matching_leads','!=',False)]}" style="margin:30px 0px;">
+                                            <span style="font-weight:bold;font-size:18px;">Sorry, No matching leads found!</span>
+                                            <field name="is_matching_leads" invisible="1"/>
+                                        </div>
+                                    </page>
+                                    <page string="Marketing">
+                                        <notebook>
+                                            <page string="Send HTML Email">
+                                                <div class="row">
+                                                    <div class="col-xs-12" style="min-height:200px;">
+                                                        <div class="col-xs-12" style="margin-top:30px;">
+                                                            <label for="email_recipients"/>
+                                                            <field id="email_recipients" name="email_recipients" widget="many2many_tags_email" placeholder="Choose Recipients" options="{'no_create':True}" context="{'show_email':True}"/>
+                                                        </div><!-- 
+                                                        <div class="col-xs-12" style="margin-top:20px;">
+                                                            <span class="ast-previe-send-mail" style="padding:5px 10px;border-radius:5px;background-color:#d54b3d;color:white;cursor:pointer;"><i class="fa fa-envelope"/> Send</span>
+                                                        </div> -->
+                                                        <div class="col-xs-12" style="margin-top:20px;">
+                                                            <button type="object" name="send_preview_mail" style="padding:5px 70px;border-radius:5px;background-color:#d54b3d;color:white;cursor:pointer;"><i class="fa fa-envelope"/> Send</button>
+                                                        </div>
+                                                        <field name="id" class="ast-listing-id" invisible="1"/>
+                                                    </div>
+                                                </div>
+                                            </page>
+                                            <!-- <page string="Share PDF Brochure">
+                                            </page> -->
+                                        </notebook>
+                                    </page>
+                                </notebook>
+                            </div>
+                            <div class="col-md-4 col-xs-12" style="padding-top:0px;">
+                                <group>
+                                    <notebook class="ast-note-page">
+                                        <page string="Notes">
+                                            <div style="margin-top:5px;margin-left:10px;">
+                                                <field name="is_notify_agent" />Notify Agent
+                                            </div>
+                                            <div class="oe_read_only" style="border:1px solid #4494af;border-radius:3px;width:100px;height:30px;background-color:#4494af;color:white;text-align:center;padding:5px;font-size:12px;margin-top:10px;cursor:pointer;">
+                                                <span>Edit to Create</span>
+                                            </div>
+                                            <div style="margin-top:10px;">
+                                                <!-- <field name="notes" placeholder="Click Here To Add Notes"/> -->
+                                                <field name="note_ids" context="{'default_is_notify_agent': is_notify_agent}">
+                                                    <kanban default_order="id desc">
+                                                        <field name="name"/>
+                                                        <field name="write_date"/>
+                                                        <field name="write_uid"/>
+                                                        <templates>
+                                                            <t t-name="kanban-box">
+                                                                <div class="row">
+                                                                    <div class="col-xs-12" style="padding:5px;min-height:60px;">
+                                                                        <field name="name"/>
+                                                                    </div>
+                                                                    <div class="col-xs-12" style="color:grey;padding:0px;">
+                                                                        <t t-if="record.write_date.raw_value">
+                                                                            <div class="col-md-6 col-xs-12" style="margin:0px;padding:0px;margin-bottom:0px;">
+                                                                                <span><field name="write_date"/></span>
+                                                                            </div>
+                                                                        </t>
+                                                                        <t t-if="record.write_uid.raw_value">
+                                                                            <div class="col-md-6 col-xs-12 text-right" style="margin:0px;padding:0px;">
+                                                                                <span>Note by : <field name="write_uid"/></span>
+                                                                            </div>
+                                                                        </t>
+                                                                    </div>
+                                                                </div>
+                                                            </t>
+                                                        </templates>
+                                                    </kanban>
+                                                </field>
+                                            </div>
+                                        </page>
+                                        <page string="Contact History">
+                                            <header>
+                                                <button name="action_log_phone_call" type="object" string="Log Phone Call" class="oe_asteco_default" context="{'default_listing_id':active_id}"/>
+                                            </header>
+                                            <field name="mail_msg_ids" widget="mail_thread"/>
+                                        </page>
+                                    </notebook>
+                                </group>
+                                <group>
+                                    <notebook class="ast-note-page">
+                                        <page string="Actions">
+                                            <div class="oe_read_only" style="border:1px solid #4494af;border-radius:3px;width:100px;height:30px;background-color:#4494af;color:white;text-align:center;padding:5px;font-size:12px;margin-top:10px;cursor:pointer;">
+                                                <span>Edit to Create</span>
+                                            </div>
+                                            <field name="create_action" mode="kanban" nolabel="1" context="{'default_listing_id':active_id, 'default_agents_ids':[(6, 0, [agent_id])], 'default_contacts_ids':[(6, 0, [customer_id])]}">
+                                                <!--<kanban>
+                                                    <field name="listing_id" widget="selection" readonly="True"/>
+                                                    <field name="name"/>
+                                                    <field name="action_type"/>
+                                                    <field name="start_date" string="Start Time" />
+                                                    &lt;!&ndash; <field name="end_date"/> &ndash;&gt;
+                                                    <field name="agents_ids" widget="many2many_tags" options="{'no_create' : True}"/>
+                                                    &lt;!&ndash; <field name="item"/> &ndash;&gt;
+                                                    <field name="contacts_ids" widget="many2many_tags" options="{'no_create' : True}"/>
+                                                    <field name="location"/>
+                                                    <field name="message"/>
+                                                    <field name="status"/>
+                                                    <templates>
+                                                        <t t-name="kanban-box">
+                                                            <div t-att-class="oe_kanban_global_click">
+                                                                <a t-if="!read_only_mode" type="delete" class="fa fa-times pull-right"/>
+                                                                <a t-if="!read_only_mode" type="edit" class="fa fa-edit pull-right"/>
+                                                                <div>
+                                                                    <table>
+                                                                        <tbody>
+                                                                            <tr>
+                                                                                <td width="50%"><label for="listing_id" invisible="1">Listing ID:</label></td>
+                                                                                <td width="50%"><field name="listing_id" widget="selection" invisible="1"/></td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td width="50%"><label for="name">Subject:</label></td>
+                                                                                <td width="50%"><field name="name"/></td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td><label for="action_type">Action Type:</label></td>
+                                                                                <td><field name="action_type"/></td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td><label for="start_datetime">Start Time:</label></td>
+                                                                                <td> <field name="start_datetime"/></td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td><label for="stop_datetime">End Time:</label></td>
+                                                                                <td> <field name="stop_datetime"/></td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td><label for="agents_ids">Agents:</label></td>
+                                                                                <td class="ast-m2m-tag"><field name="agents_ids" widget="many2many_tags" options="{'no_create':True}"/></td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td><label for="contacts_ids">Contacts:</label></td>
+                                                                                <td class="ast-m2m-tag"><field name="contacts_ids" widget="many2many_tags" options="{'no_create' : True}"/></td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td><label for="location">Location:</label></td>
+                                                                                <td><field name="location"/></td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td><label for="status">Status:</label></td>
+                                                                                <td><field name="status" widget="selection"/></td>
+                                                                                <td><button name="action_done" type="object">Done</button> </td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                            </div>
+                                                         </t>
+                                                    </templates>
+                                                </kanban>-->
+                                            </field>
+                                        </page>
+	                                    <page string="Documents">
+                                            <div class="oe_read_only" style="border:1px solid #4494af;border-radius:3px;width:100px;height:30px;background-color:#4494af;color:white;text-align:center;padding:5px;font-size:12px;margin-top:10px;cursor:pointer;">
+                                                <span>Edit to Upload</span>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-xs-12" style="padding-top:10px;">
+                                                    <field name="document_ids" widget="many2many_binary" string="Upload" class="ast-doc-attach" attrs="{'readonly':[('listing_status','not in',['Draft'])]}"/>
+                                                </div>
+                                            </div>
+	                                    </page>
+	                                </notebook>
+	                            </group>
+	                        </div>
+	                        <div class="col-xs-12" style="padding:15px;">
+	                            <div class="col-md-4 col-xs-12 text-center">
+	                                <b>Created Date &amp; Time : </b><field class="ast-create-date" name="create_date" readonly="True"/>
+	                            </div>
+	                            <div class="col-md-4 col-xs-12 text-center">
+	                                <b>Last Updated Date &amp; Time : </b><field class="ast-create-date" name="list_write_date" readonly="True"/>
+	                            </div>
+	                            <div class="col-md-4 col-xs-12 text-center">
+	                                <b>Last Updated By : </b><field name="list_write_uid" readonly="True"/>
+	                            </div>
+                            </div>
+                            <div id="wait" style="display:none;width:69px;height:89px;position:absolute;top:10%;left:45%;padding:2px;"><img src='/asteco_crm/static/src/img/sending.gif' width="64" height="64" /><br />Sending...</div>
+                        </div>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+<!-- work in Progress -->
+<!--         <record id="listing_form_view_inherit" model="ir.ui.view" >
+            <field name="name">listing.form.inherit</field>
+            <field name="model">listing.listing</field>
+            <field name="inherit_id" ref="asteco_crm.listing_form_view" />
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='preview']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+            </field> -->
+<!--             <field name="arch" type="xml">
+                <xpath expr="//notebook//page[@name='notebook1']/div" position="inside">
+                    <field name="name" string/>
+                </xpath>
+            </field> -->
+        <!-- </record> -->
+<!--         <record id="listing_form_view_inherit" model="ir.ui.view">
+            <field name="name">listing.form.inherit</field>
+            <field name="model">listing.listing</field>
+            <field name="inherit_id" ref="asteco_crm.listing_form_view" />
+            <field name="groups_id"  eval="[(6, 0, [ref('asteco_crm.group_agent_broker') ])]" />                
+            <field name="arch" type="xml">
+                <field name="property_status_id" position="attributes">
+                   <attribute name="readonly">True</attribute>                   
+                </field>                             
+            </field>
+        </record> -->  
+        <!-- latest  -->
+<!--         <record model="ir.ui.view" id="listing_form_view_inherit">
+            <field name="model">listing.listing</field>
+            <field name="inherit_id" ref="asteco_crm.listing_form_view" />
+            <field name="groups_id" eval="[(6, 0, [ref('asteco_crm.group_agent_broker')])]"/>
+            <field name="arch" type="xml">
+
+                <field name="property_status_id" position="attributes">
+                    <attribute name="readonly">True</attribute>
+                </field>
+
+            </field>
+        </record> -->
+
+
+        <record id="listing_tree_view" model="ir.ui.view">
+            <field name="name">listing.tree</field>
+            <field name="model">listing.listing</field>
+            <field name="arch" type="xml">
+                <tree delete="0" duplicate="0" default_order='create_date desc'>
+                    <field name="ref_name"/>
+                    <field name="listing_type"/>
+                    <field name="customer_id" string="Contact"/>
+                    <field name="listing_status" string="Status"/>
+                    <field name="create_date"/>
+                    <field name="category_id"/>
+                    <field name="emirate_id"/>
+                    <field name="location_id"/>
+                    <field name="sub_location_id"/>
+                    <field name="bed_id"/>
+                    <field name="price"/>
+<!--                    <field name="price"/>-->
+                    <field name="agent_id"/>
+                    <!-- <field name="assigned_date"/> -->
+                </tree>
+            </field>
+        </record>
+
+        <record id="listing_kanban_view" model="ir.ui.view">
+            <field name="name">listing.kanban</field>
+            <field name="model">listing.listing</field>
+            <field name="type">kanban</field>
+            <field name="arch" type="xml">
+                <kanban create="0" class="ast-list-kanban">
+                    <field name="name"/>
+                    <field name="photo" />
+                    <templates>
+                        <field name="name"/>
+                        <t t-name="kanban-box">
+                            <div>
+                                <div class="col-xs-12" style="padding:0;">
+                                    <div class="col-xs-4" style="padding:10px;">
+                                        <a type="open">
+                                            <field name="photo" widget="image" style="width:50px;!i"/>
+                                        </a>
+                                    </div>
+                                    <div class="col-xs-8" style="padding:0 5px;">
+                                        <a type="open">
+                                            <h4 style="margin: 0;"><field name="name"/></h4>
+                                        </a>
+                                        <table style="width:100%;">
+                                            <tr>
+                                                <td>Customer</td>
+                                                <td style="padding: 0 2px;">:</td>
+                                                <td><field name="customer_id" attrs="{'readonly':[('id','!=', False)]}" /></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Mobile</td>
+                                                <td style="padding: 0 2px;">:</td>
+                                                <td><field name="customer_mobile" /></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Type</td>
+                                                <td style="padding: 0 2px;">:</td>
+                                                <td><field name="listing_type" /></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Price</td>
+                                                <td style="padding: 0 2px;">:</td>
+                                                <td><field name="price" /></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Category</td>
+                                                <td style="padding: 0 2px;">:</td>
+                                                <td><field name="category_id" /></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Bed</td>
+                                                <td style="padding: 0 2px;">:</td>
+                                                <td><field name="bed_id" /></td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <record id="listing_search_view_root" model="ir.ui.view">
+            <field name="name">listing.listing.search</field>
+            <field name="model">listing.listing</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                    <field name="ref_name"/>
+                    <field name="company_id"/>
+                    <separator />
+                    <filter name="my_listing" string="My Listing" domain="['|', ('create_uid','=',uid), ('agent_id.user_id','=',uid)]"/>
+                    <separator />
+                    <filter name="network_listing" string="Network Listing" domain="[('visibility_id','=','Network')]"/>
+                    <separator />
+                    <filter name="rental_listing" string="Rental" domain="[('listing_type','=','Rental')]"/>
+                    <separator />
+                    <filter name="sale_listing" string="Sale" domain="[('listing_type','=','Sale')]"/>
+                    <separator />
+                    <filter name="international_listing" string="International Listing" domain="[('listing_region','=','International')]"/>
+                    <group expand="0" string="Group By">
+                        <filter name="company" string="Company" domain="[]" context="{'group_by':'company_id'}"/>
+                        <filter name="status" string="Status" domain="[]" context="{'group_by':'listing_status'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="full_screen_description_wizard">
+            <field name="name">listing popup</field>
+            <field name="model">listing.listing</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form>
+                    <div class="col-xs-12 col-md-12">
+                        <label for="description"/>
+                        <field name="description"/>
+                    </div>
+                    <footer>
+                        <button string="Cancel" special="cancel" class="oe_asteco_default"/>
+                        <button name="action_save" string="Save" type="object" class="oe_asteco_default" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="html_code_paste_wizard">
+            <field name="name">listing code paste popup</field>
+            <field name="model">listing.listing</field>
+            <field name="priority" eval="150"/>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form>
+                    <style>
+                        .ast-html-code{}
+                        .ast-html-code .o_field_text{
+                            min-height : 300px;
+                            background-color : #6a6c6b;
+                            color : white;
+                            border : none;
+                        }
+                    </style>
+                    <div class="col-xs-12 col-md-12 ast-html-code">
+                        <label for="html_code"/>
+                        <field name="html_code"/>
+                    </div>
+                    <footer>
+                        <button name="paste_code" string="Save" type="object" class="oe_asteco_default" />
+                        <button string="Cancel" special="cancel" class="oe_asteco_default"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="listing_quality_wizard">
+            <field name="name">Listing Quality</field>
+            <field name="model">listing.listing</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form>
+                    <style>
+                        table, th, td {
+                        <!-- border: 1px solid #e5e5e5; -->
+                        margin-top: 6px;
+                        padding-top: 1px;
+                        padding-bottom: 1px;
+                        padding-left: 4px;
+                        }
+                    </style>
+                    <script>
+                        $(document).ready(function(){
+                        $(".modal-footer").hide();
+                        });
+                    </script>
+                    <!-- Work in  -->
+                    <div>
+                        <div class="col-xs-12" >
+                            <label for="overall_quality" style="margin-right: 30px;" />
+                            <field name="overall_quality" widget="progressbar"/>
+                        </div>
+                        <div class="col-xs-12" >
+                            <div class="col-xs-6" >
+                                <table style="width: 425px; margin-bottom: 40px; margin-left: -17px; border: 1px solid #e5e5e5;" >
+                                    <tr style="border: 1px solid #e5e5e5;"> 
+                                        <td style="border-right: 1px solid #e5e5e5;"><label for="media_quality"/></td>
+                                        <td><field name="media_quality"  widget="progressbar" /></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="border-right: 1px solid #e5e5e5;"><label for="address_quality" /></td>
+                                        <td><field name="address_quality" widget="progressbar" /></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="border-right: 1px solid #e5e5e5;"><label for="description_quality" /></td>
+                                        <td><field name="description_quality" widget="progressbar"/></td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="col-xs-6" >
+                                <table style="width: 425px; margin-bottom: 40px; border: 1px solid #e5e5e5;">
+                                    <tr style="border: 1px solid #e5e5e5;">
+                                        <td style="border-right: 1px solid #e5e5e5;"><label for="price_quality" /></td>
+                                        <td><field name="price_quality" widget="progressbar"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="border-right: 1px solid #e5e5e5;"><label for="neighborhood_quality" /></td>
+                                        <td><field name="neighborhood_quality" widget="progressbar"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="border-right: 1px solid #e5e5e5;"><label for="facilities_quality" /></td>
+                                        <td><field name="facilities_quality" widget="progressbar"/></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+<!--                     <group>
+                        <label for="overall_quality"/>
+                        <field name="overall_quality" widget="progressbar"/>
+                        <group>
+                            <field name="media_quality" widget="progressbar"/>
+                            <field name="address_quality" widget="progressbar"/>
+                            <field name="description_quality" widget="progressbar"/>
+                        </group>
+                        <group>
+                            <field name="price_quality" widget="progressbar"/>
+                            <field name="neighborhood_quality" widget="progressbar"/>
+                            <field name="facilities_quality" widget="progressbar"/>
+                        </group>
+                    </group> -->
+                </form>
+            </field>
+        </record>
+
+        <record id="listing_search_view" model="ir.ui.view">
+            <field name="name">listing.search</field>
+            <field name="model">listing.listing</field>
+            <field name="type">kanban</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_listing_main" model="ir.actions.act_window">
+            <field name="name">Listing</field>
+            <field name="res_model">listing.listing</field>
+            <field name="view_mode">tree,kanban,form</field>
+            <field name="view_type">form</field>
+        </record>
+
+        <menuitem name="Listing" id="menu_listing" parent="crm_root_menu" action="action_listing_main" sequence="1" groups="asteco_crm.group_agent_broker,base.group_erp_manager"/>
+
+        <record id="listing_preview_form" model="ir.ui.view">
+            <field name="name">listing.preview.form</field>
+            <field name="model">listing.preview</field>
+            <field name="arch" type="xml">
+                <form string="Preview Listing">
+                    <div>
+                        <button name="preview_listing" type="object" class="btn-primary" style="padding:10px 20px;border-radius:5px;border:none;background-color:#008d4a;"><i class="fa fa-folder-open-o"/> View Listings</button>
+                        <button name="send_mail" type="object" class="btn-primary" style="padding:10px 20px;margin-left:20px;border-radius:5px;border:none;background-color:#157DB6;"><i class="fa fa-paper-plane"/> Send Mail</button>
+                    </div>
+                    <footer>
+                        <button string="Cancel" class="btn-default" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <act_window id="action_listing_preview"
+                    multi="True" key2="listing_preview_multi" 
+                    name="Share" res_model="listing.preview" 
+                    src_model="listing.listing" view_mode="form" 
+                    target="new" view_type="form"
+                    />
+
+    </data>
+</odoo>

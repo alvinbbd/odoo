@@ -1,0 +1,51 @@
+<odoo>
+    <data>
+        <menuitem
+        id="calendar.mail_menu_calendar"
+        name="Calendar"
+        sequence="3"
+        action="calendar.action_calendar_event"
+        web_icon="calendar,static/description/icon.png"
+        groups="base.group_user"
+        parent="crm_root_menu"/>
+
+
+	<record id="view_calendar_event_form_popup_inherit" model="ir.ui.view">
+            <field name="name">calendar.event.form</field>
+            <field name="model">calendar.event</field>
+            <field name="priority" eval="3"/>
+            <field name="inherit_id" ref="calendar.view_calendar_event_form_popup"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//form/group" position="replace">
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="start_datetime" string="Starting"/>
+                            <field name="partner_ids" widget="many2many_tags" string="Contacts"/>
+                        </group>
+                        <group>
+                            <field name="action_type"/>
+                            <field name="stop_datetime"/>
+                            <field name="location"/>
+                            <field name="agents_ids" widget="many2many_tags"/>
+                            <field name="action_id"/>
+                        </group>
+                        <field name="description"/>
+                    </group>
+                    <group invisible="1">
+                        <field name="start_date" string="Starting at" attrs="{'invisible': [('allday','=',False)]}"/>
+                        <label for="duration" attrs="{'invisible': [('allday','=',True)]}"/>
+                        <div attrs="{'invisible': [('allday','=',True)]}">
+                            <field name="duration" widget="float_time" class="oe_inline"/>
+                            <span> hours</span>
+                        </div>
+                        <field name="allday" class="oe_inline" attrs="{'invisible': [('allday','=',False)]}"/>
+                        <field name="categ_ids" widget="many2many_tags"/>
+                        <field name="alarm_ids" widget="many2many_tags"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

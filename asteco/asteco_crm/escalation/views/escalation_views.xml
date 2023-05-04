@@ -1,0 +1,212 @@
+<odoo>
+	<record id="auto_action_form" model="ir.ui.view">
+		<field name="name">auto.action.form</field>
+		<field name="model">auto.action</field>
+		<field name="arch" type="xml">
+			<form create="1">
+				<sheet>
+					<script>
+						$(document).ready(function(){
+							$(".o_required_modifier").siblings('label').addClass('so-mandtry-star');
+                        });
+					</script>
+					<style>
+						.btn-add-criteria{
+							padding:0px;
+							border:none;
+							margin-left:10px;
+							background-color:#ffffff;
+							color:#5c97ab;
+						}
+						.btn-not-add-criteria{
+							padding-bottom:0px;
+							border:none;
+							color:#e35d5d;
+							font-size:25px !important;
+							background-color:#ffffff;
+						}
+					</style>
+					<div class="row asteco-form-div" style="min-height:400px;">
+						<div class="col-xs-12 col-md-10">
+
+							<div class="col-xs-12 col-md-6 ast_field" style="margin-left:25px;">
+                                <label for="ref"/><br/>
+                                <field name="ref" readonly="1"/>
+                            </div>
+
+							<div class="col-xs-12" style="margin-left:20px;">
+								<h3 class="asteco-grp-title"><i class="fa fa-file"/>  Rule and Object Details</h3>
+								<div class="col-xs-12" style="border-bottom:1px solid #bec4ce;margin-bottom:15px;" />
+
+								<div class="col-xs-12">
+									<div class="col-xs-12 col-md-6 ast_field" >
+                                        <label for="name"/><br/>
+                                        <field name="name"/>
+                                    </div>
+                                    <div class="col-xs-12 col-md-6 ast_field" >
+                                        <label for="module" string="Object"/><br/>
+                                        <field name="module"/>
+                                    </div>
+                                    <div class="col-xs-12 col-md-6 ast_field" >
+                                        <label for="description"/><br/>
+                                        <field name="description"/>
+                                    </div>
+                                    <div class="col-xs-12 col-md-6 ast_field" >
+                                        <label for="status" string=""/><br/>
+                                        <field name="status" widget="radio" options="{'horizontal':True}"/>
+                                    </div>
+								</div>
+							</div>
+
+							<div class="col-xs-12">
+								<h3 class="asteco-grp-title"><i class="fa fa-balance-scale"/>  Criteria</h3>
+								<div class="col-xs-12" style="border-bottom:1px solid #bec4ce;margin-bottom:15px;" />
+
+								<div class="col-xs-12" style="padding:0px;">
+									<div class="col-xs-12">
+										<div class="col-xs-12 col-md-1 ast_field" >
+	                                        <label for="trigger"/>
+	                                    </div>
+	                                    <div class="col-xs-12 col-md-11 ast_field" >
+	                                        <field name="trigger" attrs="{'required':True}"/>
+	                                    </div>
+	                                </div>
+	                                <!-- <div class="col-xs-12" attrs="{'invisible':[('trigger','not in',['is not Updated'])]}">
+	                                	<div class="col-md-5 col-xs-12"/>
+	                                    <div class="col-xs-12 col-md-1 ast_field">
+	                                        <label for="trigger_type" string="For"/>
+	                                    </div>
+	                                    <div class="col-xs-12 col-md-3 ast_field">
+	                                        <field name="trigger_timing_interval" attrs="{'required':[('trigger','=','is not Updated')]}"/>
+	                                    </div>
+	                                    <div class="col-xs-12 col-md-3 ast_field">
+	                                        <field name="trigger_type" attrs="{'required':[('trigger','=','is not Updated')]}"/>
+	                                    </div> -->
+	                                    <!-- <div class="col-xs-12 col-md-1 ast_field">
+	                                        <label string="After"/>
+	                                    </div>
+	                                    <div class="col-xs-12 col-md-4 ast_field">
+	                                        <field name="after_date" options="{'no_create':True, 'no_open':True}" attrs="{'required':[('trigger','=','is not Updated')]}"/>
+	                                    </div> -->
+	                                <!-- </div> -->
+	                                <div class="col-xs-12">
+	                                	<div class="col-xs-12">
+	                                		<field name="criteria_field_lines">
+	                                    		<tree editable="bottom">
+	                                    			<field name="field" options="{'no_create':True, 'no_open':True}"/>
+	                                    			<field name="operator"/>
+	                                    			<field name="field_value" options="{'no_create':True, 'no_open':True}" attrs="{'invisible':[('is_created_on','=',True)]}"/>
+	                                    			<field name="date_field" attrs="{'invisible':[('is_created_on','=',False)]}"/>
+	                                    			<field name ="is_created_on" invisible='1'/>
+	                                    		</tree>
+	                                    	</field>
+	                                	</div>
+	                                </div>
+	                                
+								</div>
+							</div>
+
+							<div class="col-xs-12">
+								<h3 class="asteco-grp-title"><i class="fa fa-cog"/>  Action</h3>
+								<div class="col-xs-12" style="border-bottom:1px solid #bec4ce;margin-bottom:15px;" />
+
+								<div class="col-xs-12" style="padding-bottom:100px;">
+									<div class="col-xs-12 col-md-12 ast_field" >
+                                        <label for="action_timing"/><br/>
+                                        <field name="action_timing" widget="radio" options="{'horizontal':True}"/>
+                                    </div>
+                                    <div class="col-xs-12 col-md-3 ast_field" attrs="{'invisible':[('action_timing','=','Immediatly')]}">
+                                        <field name="interval" attrs="{'required':[('action_timing','=','Custom')]}"/>
+                                    </div>
+                                    <div class="col-xs-12 col-md-3 ast_field" attrs="{'invisible':[('action_timing','=','Immediatly')]}">
+                                        <field name="interval_type" attrs="{'required':[('action_timing','=','Custom')]}"/>
+                                    </div>
+                                    <!-- <div class="col-xs-12 col-md-3 ast_field" attrs="{'invisible':[('action_timing','=','Immediatly')]}">
+                                        <field name="interval_timing" readonly="0"/>
+                                    </div>
+                                    <div class="col-xs-12 col-md-3 ast_field" attrs="{'invisible':[('action_timing','=','Immediatly')]}">
+                                        <field name="conditional_field" options="{'no_create':True, 'no_open':True}" attrs="{'required':[('action_timing','=','Custom')]}"/>
+                                    </div> -->
+								
+									<div class="col-xs-12" style="padding:0px;">
+										<div class="col-xs-12 col-md-1 ast_field" >
+	                                        <label for="action"/>
+	                                    </div>
+	                                    <div class="col-xs-12 col-md-11 ast_field" >
+	                                        <field name="action" attrs="{'required':True}"/>
+	                                    </div>
+	                                </div>
+
+                                    <div class="col-xs-12 col-md-12 ast_field" attrs="{'invisible':[('action','not in',['Send an Email','Send Email and Update Record'])]}">
+                                        <label for="recipients"/><br/>
+                                        <field name="recipients" widget="many2many_tags" options="{'no_create':True}"/>
+                                    </div>
+
+                                    <!-- <div class="col-xs-12 col-md-12 ast_field" attrs="{'invisible':[('action','not in',['Create a Task'])]}">
+                                        <label for="task_title"/><br/>
+                                        <field name="task_title"/>
+                                    </div>
+                                    <div class="col-xs-12 col-md-12 ast_field" attrs="{'invisible':[('action','not in',['Create a Task'])]}">
+                                        <label for="priority"/><br/>
+                                        <field name="priority"/>
+                                    </div>
+                                    <div class="col-xs-12 col-md-12 ast_field" attrs="{'invisible':[('action','not in',['Create a Task'])]}">
+                                        <label for="due_days"/><br/>
+                                        <field name="due_days"/>
+                                    </div> -->
+
+                                    <div class="col-xs-12 col-md-12 ast_field" attrs="{'invisible':[('action','not in',['Update Record','Send Email and Update Record'])]}">
+                                    	<field name="update_field_lines">
+                                    		<tree editable="bottom">
+                                    			<field name="name" options="{'no_create':True, 'no_open':True}"/>
+                                    			<field name="field_value" options="{'no_create':True, 'no_open':True}"/>
+                                    		</tree>
+                                    	</field>
+                                    </div>
+                                    <div class="col-xs-12" style="padding:10px 25px 0px 25px;margin-top:30px;border-top:1px solid #bec4ce;">
+			                            <div class="col-md-4 col-xs-12 text-center">
+			                                <b>Created Date &amp; Time : </b><field class="ast-create-date" name="create_date" readonly="True"/>
+			                            </div>
+			                            <div class="col-md-4 col-xs-12 text-center">
+			                                <b>Last Updated Date &amp; Time : </b><field class="ast-create-date" name="write_date" readonly="True"/>
+			                            </div>
+			                            <div class="col-md-4 col-xs-12 text-center">
+			                                <b>Last Updated By : </b><field name="write_uid" readonly="True"/>
+			                            </div>
+		                            </div>
+                                </div>
+							</div>
+						</div>
+					</div>
+				</sheet>
+				<div class="oe_chatter">
+					<field name="message_follower_ids" widget="mail_followers"/>
+					<field name="activity_ids" widget="mail_activity"/>
+					<field name="message_ids" widget="mail_thread"/>
+				</div>
+			</form>
+		</field>
+	</record>
+	
+	<record id="auto_action_tree" model="ir.ui.view">
+		<field name="name">auto.action.tree</field>
+		<field name="model">auto.action</field>
+		<field name="arch" type="xml">
+			<tree create="1">
+				<field name="ref"/>
+				<field name="name"/>
+				<field name="module"/>
+				<field name="status"/>
+			</tree>
+		</field>
+	</record>
+	
+	<record id="action_auto_action" model="ir.actions.act_window">
+		<field name="name">Automated Actions</field>
+		<field name="res_model">auto.action</field>
+		<field name="view_type">form</field>
+		<field name="view_mode">tree,form</field>
+	</record>
+
+	<menuitem id="menu_auto_action" parent="admin_crm_root_menu" name="Automated Actions" action="action_auto_action" sequence="5" groups="group_work_manager"/>
+</odoo>

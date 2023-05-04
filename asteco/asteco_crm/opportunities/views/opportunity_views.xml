@@ -1,0 +1,253 @@
+<odoo>
+	<data>
+		<record id="view_opportunity_form" model="ir.ui.view">
+			<field name="name">lead.opportunity.form</field>
+			<field name="model">lead.opportunity</field>
+			<field name="arch" type="xml">
+				<form create="0" delete="0">
+					<style>
+                        .ast-create-date.o_field_date{ width : auto;}
+                    </style>
+                    <script>
+                    	$(document).ready(function(){
+							$('.fa-external-link').addClass("hidden");
+						});
+                    </script>
+					<header>
+						<button name="roll_back" type="object" confirm="Do you want to Roll back?" string="Roll Back" class="oe_asteco_default" attrs="{'invisible':[('state','not in',['Converted to Deal', 'Negotiation'])]}"/>
+						<field name="state" widget="statusbar" invisible="1" clickable='1' groups="base.group_system"/>
+						<field name="stage_id" widget="statusbar"/>
+					</header>
+					<sheet>
+						<div class="row asteco-form-div">
+							<div class="col-md-6 col-xs-12" style="margin-top:15px;border-right:1px solid #bcbcbc;">
+								<!-- <div class="col-md-12">
+									<div class="col-md-12">
+										<field name="is_lead_or_listing" widget="radio" options="{'horizontal':True}" invisible="1"/>
+									</div>
+								</div> -->
+								<div class="col-md-12" style="margin-top:0px;">
+									<div class="row" style="margin-bottom:10px;padding:0px;" attrs="{'invisible':[('state','!=','Converted to Deal')]}">
+										<div class="col-md-6 col-xs-12 ast-field">
+											<label for="deal_id"/><br />
+											<field name="deal_id" options="{'no_create_edit':True, 'no_open': False, 'no_quick_create':True}" readonly="1"/>
+										</div>
+									</div>
+									<div class="row ldo" style="padding:0px;">
+										<div class="col-md-6 col-xs-12 ast-field">
+											<label for="lead_id"/><br />
+											<field name="lead_id" attrs="{'required':True,'readonly':True}" options="{'no_open': False, 'no_create_edit':True,'no_quick_create':True}"/>
+										</div>
+										<div class="col-md-6 col-xs-12 ast-field" >
+											<label for="customer_id"/><br />
+											<field name="customer_id" readonly="1" options="{'no_create_edit':True,'no_quick_create':True, 'no_open':True}" context="{'form_view_ref':'asteco_crm.atk_contacts_view_form'}"/>
+										</div>
+									</div>
+									<div class="row" style="padding:0px;margin-top:10px;">
+										<div class="col-md-12 ast-field" style="margin-top:10px;">
+											<label for="title"/><br />
+											<field name="title"  readonly="1"/>
+										</div>
+										<div class="col-md-12 ast-field">
+											<field name="company_id" invisible="1"/>
+											<field name="company_currency" invisible="1"/>
+										</div>
+									</div>
+									<div class="row" style="padding:0px;margin-top:10px;" >
+										<div class="col-md-6 col-xs-12 ast-field" attrs="{'invisible':[('state','in',['Qualified','Viewings'])]}">
+											<label for="listing_id"/><br />
+											<field name="listing_id" options="{'no_create_edit':True,'no_quick_create':True, 'no_open':False}" readonly="1" attrs="{'required':[('state','=','Viewings')]}"/>
+										</div>
+										<div class="col-md-6 col-xs-12 ast-field" attrs="{'invisible':[('state','in',['Qualified','Viewings'])]}">
+											<label for="listing_contact_id"/><br />
+											<field name="listing_contact_id" readonly="1" options="{'no_create_edit':True, 'no_open': True, 'no_quick_create':True}"/>
+										</div>
+										<div class="col-md-6 col-xs-12 ast-field" attrs="{'invisible':[('state','!=','Viewings')]}">
+											<label for="viewing_count"/><br />
+											<field name="viewing_count" readonly="1"/>
+										</div>
+									</div>
+									<div class="row" style="padding:0px;margin-top:10px;">
+										<div class="col-md-6 col-xs-12 ast-field">
+											<label for="close_date"/><br />
+											<field name="close_date" readonly="1"/>
+										</div>
+										<div class="col-md-6 col-xs-12 ast-field">
+											<label for="commission_value"/><br />
+											<field name="commission_value" readonly="1" required="1" widget="monetary" options="{'currency_field': 'company_currency'}" />
+										</div>
+									</div>
+									<div class="row" style="padding:0px;margin-top:10px;">
+										<div class="col-md-6 col-xs-12 ast-field">
+											<label for="assign_id"/><br />
+											<field name="assign_id" options="{'no_create' : True, 'no_open' : True}"/>
+										</div>
+										<div class="col-md-6 col-xs-12 ast-field">
+											<label for="team_id"/><br />
+											<field name="team_id" options="{'no_create' : True, 'no_open' : True}"/>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6 col-xs-12">
+								<div class="col-md-12" style="margin-top:10px;" invisible="1">
+									<div class="col-md-12" style="padding:0px;">
+										<span attrs="{'invisible':[('state','not in',['Qualified'])]}">
+											<field name="qualified_status" widget="radio" options="{'horizontal':True}" readonly="1" />
+										</span>
+										<span attrs="{'invisible':[('state','not in',['Viewings'])]}">
+											<field name="viewings_status" widget="radio" options="{'horizontal':True}" readonly="1"/>
+										</span>
+										<span attrs="{'invisible':[('state','not in',['Negotiation'])]}">
+											<field name="negotiation_status" widget="radio" options="{'horizontal':True}" readonly="1"/>
+										</span>
+										<span attrs="{'invisible':[('state','not in',['Converted to Deal'])]}">
+											<field name="deal_status" widget="radio" options="{'horizontal':True}" readonly="1"/>
+										</span>
+									</div>
+									<div class="col-md-12 ast-field" style="margin-top:10px;padding:0px;" >
+										<label for="lead_subtatus_id"/><br />
+										<field name="lead_subtatus_id" readonly="1" options="{'no_open':True, 'no_create':True}"/>
+									</div>
+								</div>
+								<div class="col-md-12" style="margin-top:10px;">
+									<label for="comments"/><br />
+									<field name="comments" readonly="1"/>
+								</div>
+								<div class="col-md-12" style="margin-top:10px;" invisible="1">
+									<label for="note"/><br />
+									<field name="note" readonly="1"/>
+								</div>
+								<div class="col-md-12" style="margin-top:10px;" attrs="{'invisible':[('qualified_status','not in',['Lost']), ('viewings_status','not in',['Lost']), ('negotiation_status','not in',['Lost']), ('deal_status','not in',['Lost'])]}">
+									<label for="loss_reason"/><br />
+									<field name="loss_reason" readonly="1" attrs="{'required':['|', ('qualified_status','in',['Lost']), '|',  ('viewings_status','in',['Lost']), '|', ('negotiation_status','in',['Lost']), ('deal_status','in',['Lost'])]}" options="{'no_create_edit':True, 'no_quick_create':True, 'no_open':True}"/>
+								</div>
+							</div>
+							<div class="col-xs-12" style="padding:15px;">
+                                <div class="col-md-4 col-xs-12 text-center">
+                                    <b>Created Date &amp; Time : </b><field class="ast-create-date" name="create_date" readonly="True"/>
+                                </div>
+                                <div class="col-md-4 col-xs-12 text-center">
+                                    <b>Last Updated Date &amp; Time : </b><field class="ast-create-date" name="write_date" readonly="True"/>
+                                </div>
+                                <div class="col-md-4 col-xs-12 text-center">
+                                    <b>Last Updated By : </b><field name="write_uid" readonly="True"/>
+                                </div>
+                            </div>
+						</div>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record id="view_opportunity_kanban" model="ir.ui.view">
+			<field name="name">lead.opportunity.kanban</field>
+			<field name="model">lead.opportunity</field>
+			<field name="arch" type="xml">
+				<kanban default_group_by="stage_id" disable_drag_drop_record="true" disable_sort_column="true" disable_sort_record="true" group_create="false" create="0" group_edit="0" group_delete="0">
+					<field name="state"/>
+					<field name="title"/>
+					<field name="commission_value"/>
+					<field name="close_date"/>
+					<field name="company_id"/>
+					<field name="company_currency"/>
+					<field name="customer_id"/>
+					<field name="deal_confidence_level"/>
+					<progressbar field="state" colors='{"Qualified": "warning", "Viewings": "primary", "Negotiation": "info", "Converted to Deal": "success"}' sum_field="commission_value"/>
+					<templates>
+						<t t-name="kanban-box">
+							<div t-attf-class="oe_kanban_global_click">
+								<div class="oe_kanban_content">
+									<a type="open">
+										<div class="row" style="padding:20px;">
+											<span style="font-weight:bold;"><field name="title"/></span><br />
+											<t t-if="record.customer_id.raw_value"><span><field name="customer_id"/></span><br /></t>
+											<field name="commission_value" widget="monetary" options="{'currency_field': 'company_currency'}"/><br/>
+											<t t-if="record.close_date.raw_value"> Close By : 
+												<field name="close_date"/>
+											</t><br />
+											<span attrs="{'invisible':[('state','!=','Converted to Deal')]}">
+											Deal Confidence Level (%) : <field name="deal_confidence_level" /><br />
+											</span>
+											<t t-if="record.assign_id.raw_value">
+												Assigned To : <field name="assign_id"/>
+											</t><br />
+											<t t-if="record.team_id.raw_value">
+												Team : <field name="team_id"/>
+											</t>
+										</div>
+									</a>
+								</div>
+							</div>
+						</t>
+					</templates>
+				</kanban>
+			</field>
+		</record>
+
+		<record id="view_opportunity_search" model="ir.ui.view">
+			<field name="name">lead.opportunity.search</field>
+			<field name="model">lead.opportunity</field>
+			<field name="arch" type="xml">
+				<search>
+					<field name="qualified_status"/>
+					<field name="viewings_status"/>
+					<field name="negotiation_status"/>
+					<field name="deal_status"/>
+					<separator />
+					<filter string="Own" name="own" domain="[('assign_id.user_id','=',uid)]"/>
+					<!-- <filter string="All" name="all"/> -->
+					<filter string="Open Opportunities" name="open_opportunities" domain="['|', '&amp;', ('state','=','Qualified'), ('qualified_status','=','In Progress'),'|' , '&amp;', ('state','=','Viewings'), ('viewings_status','=','In Progress'), '|', '&amp;', ('state','=','Negotiation'), ('negotiation_status','=','In Progress'), '&amp;', ('state','=','Converted to Deal'), ('deal_status','=','In Progress')]"/>
+				</search>
+			</field>
+		</record>
+
+		<record id="loss_reason_form" model="ir.ui.view">
+			<field name="name">loss.reason.form</field>
+			<field name="model">loss.reason</field>
+			<field name="arch" type="xml">
+				<form>
+					<sheet>
+						<group>
+							<group>
+								<field name="name"/>
+							</group>
+							<group>
+							</group>
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record id="loss_reason_tree" model="ir.ui.view">
+			<field name="name">loss.reason.tree</field>
+			<field name="model">loss.reason</field>
+			<field name="arch" type="xml">
+				<tree>
+					<field name="name"/>
+				</tree>
+			</field>
+		</record>
+
+		<record id="action_opportunities" model="ir.actions.act_window">
+			<field name="name">Opportunities</field>
+			<field name="res_model">lead.opportunity</field>
+			<field name="view_mode">kanban,form</field>
+			<field name="view_type">form</field>
+			<field name="domain">[('state','not in',['Lost'])]</field>
+		</record>
+
+		<record id="action_loss_reason_configuration" model="ir.actions.act_window">
+			<field name="name">Loss Reason</field>
+			<field name="res_model">loss.reason</field>
+			<field name="view_mode">tree,form</field>
+			<field name="view_type">form</field>
+		</record>
+
+		<menuitem id="menu_opportunities" name="Opportunities" parent="interact_root_menu" action="action_opportunities" sequence="3"/>
+		
+		<!-- <menuitem id="config_opportunities" name="Opportunities" parent="menu_configuration"/> -->
+		<!-- <menuitem id="config_loss_reason_opportunities" name="Loss Reasons" parent="config_opportunities" action="action_loss_reason_configuration"/> -->
+	</data>
+</odoo>

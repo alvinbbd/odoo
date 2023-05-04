@@ -1,0 +1,57 @@
+<odoo>
+	<data>
+
+		<record id="mvp_reports_form_view" model="ir.ui.view">
+            <field name="name">Report</field>
+            <field name="model">analytics.reports</field>
+            <field name="arch" type="xml">
+                <form create="0" >
+                	<group>
+                		<group>
+							<field name="report_type" required="1"/>
+							<field name="date_filter" required="1"/>
+						</group>
+					</group>
+					<group>
+						<group>
+
+							<!-- <field name="report_type"/> -->
+							<field name="date_start" attrs="{'invisible':[('date_filter','!=',False),('date_filter','!=','Custom Range')], 'required':[('date_filter','=','Custom Range')]}"/>
+							<field name="stock_type" attrs="{'invisible':[('report_type', '!=', 'asteco_and_non_asteco_report')]}"/>
+							<field name="listing_type" attrs="{'invisible':[('report_type', '!=', 'asteco_and_non_asteco_report')]}"/>
+							<field name="deal_type" attrs="{'invisible':[('report_type', '!=', 'deal_report')]}"/>
+							
+							<field name="list_type" attrs="{'invisible': [('report_type','!=','listing_report')]}"/>
+							<field name="company" attrs="{'invisible':[('report_type','!=','agent_performance_report'),('report_type','!=','leads_and_deals_report'), ('report_type', '!=', 'asteco_and_non_asteco_report')]}" options="{'no_create' : True, 'no_open' : True}" />
+							
+							<field name="team" attrs="{'invisible':[('report_type', '!=', 'deal_report'), ('report_type','!=','leads_and_deals_report')]}" options="{'no_create' : True, 'no_open' : True}"/>
+						</group>
+						
+						<group>	
+							<field name="date_end" attrs="{'invisible':[('date_filter','!=',False),('date_filter','!=','Custom Range')], 'required':[('date_filter','=','Custom Range')]}"/>
+							<field name="agent" attrs="{'invisible':[('report_type', '!=', 'deal_report'),('report_type', '!=', 'asteco_and_non_asteco_report'),('report_type','!=','leads_and_deals_report')]}" options="{'no_create' : True, 'no_open' : True}"/>
+
+							<field name="property_type" attrs="{'invisible':[('report_type', '!=', 'deal_report')]}" options="{'no_create' : True, 'no_open' : True}"/>						
+						</group>
+					</group>
+					<footer>
+						<button name="print_report" type="object" string="Print" class="oe_asteco_default" style="margin-right:20px"/>
+						<button name="cancel" string="Cancel" special="cancel" class="oe_asteco_default"/>
+					</footer>
+					</form>
+			</field>
+		</record>
+
+
+
+		<record id="action_reports" model="ir.actions.act_window">
+			<field name="name">Reports</field>
+			<field name="res_model">analytics.reports</field>
+			<field name="view_mode">form</field>
+			<field name="view_type">form</field>
+			<field name="view_id" ref="mvp_reports_form_view"/>
+			<field name="target">inline</field>
+		</record>
+		<menuitem id="report_root_menu" name="Reports" sequence="3" parent="analytics_crm_root_menu" action="action_reports"/>
+	</data>
+</odoo>

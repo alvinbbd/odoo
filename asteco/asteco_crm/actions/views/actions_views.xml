@@ -1,0 +1,131 @@
+<odoo>
+    <data>
+        <record id="atk_actions_view_form" model="ir.ui.view">
+            <field name="name">Actions Form View</field>
+            <field name="model">action.action</field>
+            <field name="arch" type="xml">
+                <!-- <div class="col-xs-12 col-md-6 ast_field" > -->
+                    <form>
+                        <footer>
+                            <button name="action_save" string="Save" type="object" class="oe_highlight"/>
+                            <span type="button" class="btn" data-dismiss="modal" aria-hidden="true" style="border: 1px solid #ccc;">
+                            Discard</span>
+                        </footer>
+                        <script>
+                            $(document).ready(function(){
+                               $('.modal-content').css("width","700px").css("margin","0 auto");
+                               $("button[class='btn btn-sm btn-primary']:eq(1)").hide();
+                            });
+                            $(document).ready(function(){
+                                $('.fa-external-link').addClass("hidden");
+                            });
+                        </script>
+                        <style>
+                            .ast-create-date.o_field_date{ width : auto;}
+                            .ast-m2m-tag .o_tag{
+                                font-size:14px !important;
+                            }
+                        </style>
+                        <group>
+                            <field name="state" invisible="1"/>
+                            <field name="listing_id" options="{'no_create' : True, 'no_open': True}" attrs="{'invisible':[('listing_id','=',False)]}" readonly="1"/>
+                            <field name="lead_id" options="{'no_create' : True, 'no_open': True}" attrs="{'invisible':[('lead_id','=',False)]}" readonly="1"/>
+                            <field name="name"/>
+                            <field name="action_type"/>
+                            <field name="offered_unit_id" options="{'no_create':True, 'no_edit':True}" attrs="{'invisible':[('action_type','not in',['viewings'])], 'required':[('action_type','in',['viewings'])]}"/>
+                            <field name="start_datetime" string="Start Time" required="True"/>
+                            <field name="stop_datetime" string="End Time" required="True"/>
+                            <!-- <field name="duration"/> -->
+                            <field name="start" invisible="1"/>
+                            <field name="stop" invisible="1"/>
+                            <field name="agents_ids" widget="many2many_tags" options="{'no_create' : True}"/>
+                            <field name="contacts_ids" widget="many2many_tags" options="{'no_create' : True}"/>
+                            <field name="location"/>
+                            <field name="message"/>
+                            <field name="status" readonly="1" invisible="1"/>
+                        </group>
+                    </form>
+                <!-- </div> -->
+            </field>
+        </record>
+
+        <record id="atk_actions_view_kanban" model="ir.ui.view">
+            <field name="name">Actions Kanban View</field>
+            <field name="model">action.action</field>
+            <field name="arch" type="xml">
+                <kanban>
+                    <field name="name"/>
+                        <field name="action_type" />
+                        <field name="start_datetime"/>
+                        <field name="stop_datetime"/>
+                        <field name="agents_ids" widget="many2many_tags" options="{'no_create' : True}" />
+                        <!-- <field name="item"/> -->
+                        <field name="contacts_ids" widget="many2many_tags" options="{'no_create' : True}" />
+                        <field name="location"/>
+                        <field name="message"/>
+                        <field name="status"/>
+                        <field name="listing_id"/>
+                        <field name="lead_id"/>
+                        <templates>
+                            <t t-name="kanban-box">
+                                <div t-att-class="oe_kanban_global_click">
+                                    <a t-if="!read_only_mode" type="delete" class="fa fa-times pull-right"/>
+                                    <a t-if="!read_only_mode" type="edit" class="fa fa-edit pull-right"/>
+                                    <div>
+                                        <div>
+                                            <table>
+                                                <tbody>
+                                                    <!--<tr attrs="{'invisible':[('listing_id','=',False)]}">
+                                                        <td width="50%"><label for="listing_id" invisible="1">Listing ID:</label></td>
+                                                        <td width="50%"><field name="listing_id" widget="selection" invisible="1"/></td>
+                                                    </tr>
+                                                    <tr attrs="{'invisible':[('lead_id','=',False)]}">
+                                                        <td width="50%"><label for="lead_id" invisible="1">Lead ID:</label></td>
+                                                        <td width="50%"><field name="lead_id" widget="selection" invisible="1"/></td>
+                                                    </tr>-->
+                                                    <tr>
+                                                        <td width="50%"><label for="name">Subject:</label></td>
+                                                        <td width="50%"><field name="name"/></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><label for="action_type">Action Type:</label></td>
+                                                        <td><field name="action_type"/></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><label for="start_datetime">Start Time:</label></td>
+                                                        <td> <field name="start_datetime"/></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><label for="stop_datetime">End Time:</label></td>
+                                                        <td><field name="stop_datetime"/></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td> <label for="agents_ids">Agents:</label></td>
+                                                        <td class="ast-m2m-tag"><field name="agents_ids" widget="many2many_tags" options="{'no_create' : True}"/></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><label for="contacts_ids">Contacts:</label></td>
+                                                        <td class="ast-m2m-tag"><field name="contacts_ids" widget="many2many_tags" options="{'no_create' : True}"/></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><label for="location">Location:</label></td>
+                                                        <td><field name="location"/></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><label for="status">Status:</label></td>
+                                                        <td><field name="status" widget="selection"/></td>
+                                                        <td><button name="action_done" type="object" attrs="{'invisible':[('status','=','done')]}"> Done </button> </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </t>
+                        </templates>
+                </kanban>
+            </field>
+        </record>
+
+    </data>
+</odoo>

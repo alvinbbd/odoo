@@ -1,0 +1,831 @@
+<odoo>
+
+    <template id="layout_footer_copyright_inherit" inherit_id="website.layout_footer_copyright" name="Footer Copyright">
+        <xpath expr="//div[@class='container mt16 mb8']" position="replace">
+        </xpath>
+    </template>
+
+    <template id="user_navbar" inherit_id="website.user_navbar">
+        <xpath expr="//nav[@id='oe_main_menu_navbar']" position="attributes">
+            <attribute name="style">display:none;</attribute>
+        </xpath>
+    </template>
+
+    <template id="web_preview_layout" name="Main layout" inherit_id="portal.frontend_layout">
+        <xpath expr="//div[@id='wrapwrap']//header" position="replace">
+            <header>
+                <div class="navbar navbar-default navbar-static-top">
+                    <div class="container">
+                        <div class="navbar-header">
+                            <a href="/" class="navbar-brand logo">
+                                <span t-field="res_company.logo" t-options="{'widget': 'image'}" t-att-alt="'Logo of %s' % res_company.name" t-att-title="res_company.name"/>
+                            </a>
+                        </div>
+                        <div style="float:right;padding:10px;">
+                            <t t-if="website.user_id == user_id">
+                                <a href="/web" style="font-size:20px;color:#158faa;cursor:pointer;text-decoration:none;"><i class="fa fa-sign-in"/> Sign in</a>
+                            </t>
+                        </div>
+                    </div>
+                </div>
+            </header>
+        </xpath>
+    </template>
+
+    <template id="footer_default" inherit_id="website.footer_custom" customize_show="True" name="Automatic Footer">
+        <xpath expr="//div[@id='footer']" position="replace" >
+            <div id="footer" class="container hidden-print" t-if='not no_footer'>
+                <div class="row" style="padding-left:25px;padding-right:25px;color:#747474;padding-bottom:40px;">
+                    <t t-if="listing">
+                        <div class="col-xs-12 col-md-6" style="text-align:center;">
+                            <span t-field="listing.company_id.name" style="font-size:21px;"/><br />
+                            <!-- <span t-field="res_company.name" style="font-size:21px;"/><br /> -->
+                            <!-- <span t-field="res_company.address" style="font-size:14px;margin-top:10px;"/> -->
+                            <span t-field="listing.company_id.address" style="font-size:14px;margin-top:10px;"/><br />
+                        </div>
+                        <div class="col-xs-12 col-md-6" style="border-left:1px solid #D2D2D2;text-align:right;font-size:14px;">
+                            <div><i class="fa fa-mouse-pointer"/> <span t-field="listing.company_id.name"/></div>
+                            <div style="margin-top:10px;"><i class="fa fa-envelope"/><a href="mailto:asteco@asteco.com" style="color:#747474 !important;"> <span t-field="listing.company_id.email"/></a></div>
+                            <div style="margin-top:10px;"><i class="fa fa-phone"/> <span t-field="listing.company_id.phone"/></div>
+                        </div>
+                    </t>
+                </div>
+            </div>
+        </xpath>
+    </template>
+
+    <template id="template_listing_preview" name="listing_preview">
+        <script type="text/javascript" src="/asteco_crm/static/src/js/sweetalert.min.js"></script>
+        <script src="/asteco_crm/static/src/js/jssor.slider-27.5.0.min.js" type="text/javascript"></script>
+        <script type="text/javascript">
+            jssor_1_slider_init = function() {
+                
+                var jssor_1_SlideshowTransitions = [
+                  {$Duration:800,x:0.3,$During:{$Left:[0.3,0.7]},$Easing:{$Left:$Jease$.$InCubic,$Opacity:$Jease$.$Linear},$Opacity:2},
+                  {$Duration:800,x:-0.3,$SlideOut:true,$Easing:{$Left:$Jease$.$InCubic,$Opacity:$Jease$.$Linear},$Opacity:2},
+                  {$Duration:800,x:-0.3,$During:{$Left:[0.3,0.7]},$Easing:{$Left:$Jease$.$InCubic,$Opacity:$Jease$.$Linear},$Opacity:2},
+                  {$Duration:800,x:0.3,$SlideOut:true,$Easing:{$Left:$Jease$.$InCubic,$Opacity:$Jease$.$Linear},$Opacity:2},
+                  {$Duration:800,y:0.3,$During:{$Top:[0.3,0.7]},$Easing:{$Top:$Jease$.$InCubic,$Opacity:$Jease$.$Linear},$Opacity:2},
+                  {$Duration:800,y:-0.3,$SlideOut:true,$Easing:{$Top:$Jease$.$InCubic,$Opacity:$Jease$.$Linear},$Opacity:2},
+                  {$Duration:800,y:-0.3,$During:{$Top:[0.3,0.7]},$Easing:{$Top:$Jease$.$InCubic,$Opacity:$Jease$.$Linear},$Opacity:2},
+                  {$Duration:800,y:0.3,$SlideOut:true,$Easing:{$Top:$Jease$.$InCubic,$Opacity:$Jease$.$Linear},$Opacity:2},
+                  {$Duration:800,x:0.3,$Cols:2,$During:{$Left:[0.3,0.7]},$ChessMode:{$Column:3},$Easing:{$Left:$Jease$.$InCubic,$Opacity:$Jease$.$Linear},$Opacity:2},
+                  {$Duration:800,x:0.3,$Cols:2,$SlideOut:true,$ChessMode:{$Column:3},$Easing:{$Left:$Jease$.$InCubic,$Opacity:$Jease$.$Linear},$Opacity:2},
+                  {$Duration:800,y:0.3,$Rows:2,$During:{$Top:[0.3,0.7]},$ChessMode:{$Row:12},$Easing:{$Top:$Jease$.$InCubic,$Opacity:$Jease$.$Linear},$Opacity:2},
+                  {$Duration:800,y:0.3,$Rows:2,$SlideOut:true,$ChessMode:{$Row:12},$Easing:{$Top:$Jease$.$InCubic,$Opacity:$Jease$.$Linear},$Opacity:2},
+                  {$Duration:800,y:0.3,$Cols:2,$During:{$Top:[0.3,0.7]},$ChessMode:{$Column:12},$Easing:{$Top:$Jease$.$InCubic,$Opacity:$Jease$.$Linear},$Opacity:2},
+                  {$Duration:800,y:-0.3,$Cols:2,$SlideOut:true,$ChessMode:{$Column:12},$Easing:{$Top:$Jease$.$InCubic,$Opacity:$Jease$.$Linear},$Opacity:2},
+                  {$Duration:800,x:0.3,$Rows:2,$During:{$Left:[0.3,0.7]},$ChessMode:{$Row:3},$Easing:{$Left:$Jease$.$InCubic,$Opacity:$Jease$.$Linear},$Opacity:2},
+                  {$Duration:800,x:-0.3,$Rows:2,$SlideOut:true,$ChessMode:{$Row:3},$Easing:{$Left:$Jease$.$InCubic,$Opacity:$Jease$.$Linear},$Opacity:2},
+                  {$Duration:800,x:0.3,y:0.3,$Cols:2,$Rows:2,$During:{$Left:[0.3,0.7],$Top:[0.3,0.7]},$ChessMode:{$Column:3,$Row:12},$Easing:{$Left:$Jease$.$InCubic,$Top:$Jease$.$InCubic,$Opacity:$Jease$.$Linear},$Opacity:2},
+                  {$Duration:800,x:0.3,y:0.3,$Cols:2,$Rows:2,$During:{$Left:[0.3,0.7],$Top:[0.3,0.7]},$SlideOut:true,$ChessMode:{$Column:3,$Row:12},$Easing:{$Left:$Jease$.$InCubic,$Top:$Jease$.$InCubic,$Opacity:$Jease$.$Linear},$Opacity:2},
+                  {$Duration:800,$Delay:20,$Clip:3,$Assembly:260,$Easing:{$Clip:$Jease$.$InCubic,$Opacity:$Jease$.$Linear},$Opacity:2},
+                  {$Duration:800,$Delay:20,$Clip:3,$SlideOut:true,$Assembly:260,$Easing:{$Clip:$Jease$.$OutCubic,$Opacity:$Jease$.$Linear},$Opacity:2},
+                  {$Duration:800,$Delay:20,$Clip:12,$Assembly:260,$Easing:{$Clip:$Jease$.$InCubic,$Opacity:$Jease$.$Linear},$Opacity:2},
+                  {$Duration:800,$Delay:20,$Clip:12,$SlideOut:true,$Assembly:260,$Easing:{$Clip:$Jease$.$OutCubic,$Opacity:$Jease$.$Linear},$Opacity:2}
+                ];
+
+                var jssor_1_options = {
+                  $AutoPlay: 1,
+                  $SlideshowOptions: {
+                    $Class: $JssorSlideshowRunner$,
+                    $Transitions: jssor_1_SlideshowTransitions,
+                    $TransitionsOrder: 1
+                  },
+                  $ArrowNavigatorOptions: {
+                    $Class: $JssorArrowNavigator$
+                  },
+                  $ThumbnailNavigatorOptions: {
+                    $Class: $JssorThumbnailNavigator$,
+                    $SpacingX: 5,
+                    $SpacingY: 5
+                  }
+                };
+
+                var jssor_1_slider = new $JssorSlider$("jssor_1", jssor_1_options);
+
+                /*#region responsive code begin*/
+
+                var MAX_WIDTH = 980;
+
+                function ScaleSlider() {
+                    var containerElement = jssor_1_slider.$Elmt.parentNode;
+                    var containerWidth = containerElement.clientWidth;
+
+                    if (containerWidth) {
+
+                        var expectedWidth = Math.min(MAX_WIDTH || containerWidth, containerWidth);
+
+                        jssor_1_slider.$ScaleWidth(expectedWidth);
+                    }
+                    else {
+                        window.setTimeout(ScaleSlider, 30);
+                    }
+                }
+
+                ScaleSlider();
+
+                $Jssor$.$AddEvent(window, "load", ScaleSlider);
+                $Jssor$.$AddEvent(window, "resize", ScaleSlider);
+                $Jssor$.$AddEvent(window, "orientationchange", ScaleSlider);
+                /*#endregion responsive code end*/
+            };
+        </script>
+        <style>
+            /*jssor slider loading skin spin css*/
+            .jssorl-009-spin img {
+                animation-name: jssorl-009-spin;
+                animation-duration: 1.6s;
+                animation-iteration-count: infinite;
+                animation-timing-function: linear;
+            }
+
+            @keyframes jssorl-009-spin {
+                from { transform: rotate(0deg); }
+                to { transform: rotate(360deg); }
+            }
+
+            /*jssor slider arrow skin 106 css*/
+            .jssora106 {display:block;position:absolute;cursor:pointer;}
+            .jssora106 .c {fill:#fff;opacity:.3;}
+            .jssora106 .a {fill:none;stroke:#000;stroke-width:350;stroke-miterlimit:10;}
+            .jssora106:hover .c {opacity:.5;}
+            .jssora106:hover .a {opacity:.8;}
+            .jssora106.jssora106dn .c {opacity:.2;}
+            .jssora106.jssora106dn .a {opacity:1;}
+            .jssora106.jssora106ds {opacity:.3;pointer-events:none;}
+
+            /*jssor slider thumbnail skin 101 css*/
+            .jssort101 .p {position: absolute;top:0;left:0;box-sizing:border-box;background:#000;}
+            .jssort101 .p .cv {position:relative;top:0;left:0;width:100%;height:100%;border:2px solid #000;box-sizing:border-box;z-index:1;}
+            .jssort101 .a {fill:none;stroke:#fff;stroke-width:400;stroke-miterlimit:10;visibility:hidden;}
+            .jssort101 .p:hover .cv, .jssort101 .p.pdn .cv {border:none;border-color:transparent;}
+            .jssort101 .p:hover{padding:2px;}
+            .jssort101 .p:hover .cv {background-color:rgba(0,0,0,6);opacity:.35;}
+            .jssort101 .p:hover.pdn{padding:0;}
+            .jssort101 .p:hover.pdn .cv {border:2px solid #fff;background:none;opacity:.35;}
+            .jssort101 .pav .cv {border-color:#fff;opacity:.35;}
+            .jssort101 .pav .a, .jssort101 .p:hover .a {visibility:visible;}
+            .jssort101 .t {position:absolute;top:0;left:0;width:100%;height:100%;border:none;opacity:.6;}
+            .jssort101 .pav .t, .jssort101 .p:hover .t{opacity:1;}
+            
+            @media only screen and (min-width: 900px){
+                .preview-pad{
+                   padding:50px 200px 50px 200px;
+                }
+            }
+        </style>
+        <t t-call="asteco_crm.web_preview_layout">
+        <div class="page preview-pad" style="font-family:sans-serif;">
+            <div class="row" style="color:#747474;font-size:14px;">
+                <div class="col-xs-12">
+                    <t t-if="listing.listing_type == 'Rental'">
+                        <span>For Rent - </span>
+                    </t>
+                    <t t-else="">
+                        <span>For Sale - </span>
+                    </t>
+                    (Reference Number - <span t-field="listing.ref_name"/>)
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-8">
+                    <div style="font-size:28px;">
+                        <span t-field="listing.name"/>
+                    </div>
+                    <div style="font-weight:300;font-size:22px;color:#7E7E7E;">
+                        <span t-field="listing.sub_location_id.name"/>, 
+                        <span t-field="listing.location_id.name"/>, 
+                        <span t-field="listing.emirate_id.name"/>
+                    </div>
+                </div>
+                <div class="col-xs-4">
+                    <t t-if="listing.company_id.name == 'Asteco Jordan'">
+                    <div style="font-weight:300;font-size:26px;text-align:right;">
+                        JOD <span t-esc="listing.price_format()"/>
+                    </div>
+                    </t>
+                    <t t-else=" ">
+                    <div style="font-weight:300;font-size:26px;text-align:right;">
+                        AED <span t-esc="listing.price_format()"/>
+                    </div>
+                    </t>
+                    <t t-if="listing.listing_type == 'Rental'">
+                        <div style="font-weight:300;font-size:22px;color:#7E7E7E;text-align:right;">
+                            <span t-field="listing.price_frequency_id.name"/>
+                        </div>
+                    </t>
+                </div>
+            </div>
+
+            <div class="row" style="page-break-inside:avoid;">
+                <div class="col-xs-12 col-md-8" style="padding-right:0px;">
+                    <div class="col-xs-12" style="background:#F7F7F7;height:500px;text-align:center;">
+                        <!-- <img t-if="listing.photo" t-att-src="'data:image/png;base64,%s' % to_text(listing.photo)" style="max-width:500px;max-height:500px;padding-top:100px;padding-bottom:100px;"/> -->
+                        <style>
+                          #jssor_1  img {
+                                width:800px !important;
+                                height:auto !important;
+                                margin:auto !important;
+                            }
+                        </style>
+                        <t t-if="listing.photo">
+                            <t t-set="flag" t-value="1"/>
+                        </t>
+                        <t t-else="">
+                            <t t-set="flag" t-value="0"/>
+                        </t>
+                        <t t-foreach="listing.other_media" t-as="media">
+                            <t t-set="flag" t-value="1"/>
+                        </t>
+                        <t t-foreach="listing.floor_plan_ids" t-as="media">
+                            <t t-set="flag" t-value="1"/>
+                        </t>
+
+                        <div id="jssor_1" style="width:980px;height:700px;overflow:hidden;visibility:hidden;">
+                            
+                            <div data-u="loading" class="jssorl-009-spin" style="position:absolute;top:0px;left:0px;width:100%;height:100%;text-align:center;background-color:rgba(0,0,0,0.7);">
+                                <img style="margin-top:-19px;position:relative;top:50%;width:38px;height:38px;" src="/asteco_crm/static/src/img/test/spin.svg" />
+                            </div>
+
+                            <t t-if="flag == 1">
+                                <div data-u="slides" style="cursor:default;top:50px;left:90px;width:800px;height:600px;overflow:hidden;">
+                                    <t t-if="listing.photo">
+                                        <div>
+                                            <img data-u="image" t-att-src="website.image_url(listing, 'photo')" />
+                                            <img data-u="thumb" t-att-src="website.image_url(listing, 'photo')"  />
+                                        </div>
+                                    </t>
+                                    <t t-foreach="listing.other_media" t-as="media">
+                                        <div>
+                                            <img data-u="image" t-att-src="website.image_url(media, 'image')" />
+                                            <img data-u="thumb" t-att-src="website.image_url(media, 'image')"  />
+                                        </div>
+                                    </t>
+                                    <t t-foreach="listing.floor_plan_ids" t-as="media">
+                                        <div>
+                                            <img data-u="image" t-att-src="website.image_url(media, 'name')" />
+                                            <img data-u="thumb" t-att-src="website.image_url(media, 'name')" />
+                                        </div>
+                                    </t>
+                                </div>
+                            
+                                <div data-u="thumbnavigator" class="jssort101" style="position:absolute;left:0px;bottom:40px;width:980px;height:100px;background-color:#F7F7F7;" data-autocenter="1" data-scale-bottom="0.75">
+                                    <div data-u="slides">
+                                        <div data-u="prototype" class="p" style="width:190px;height:90px;">
+                                            <div data-u="thumbnailtemplate" class="t"></div>
+                                            <svg viewbox="0 0 16000 16000" class="cv">
+                                                <circle class="a" cx="8000" cy="8000" r="3238.1"></circle>
+                                                <line class="a" x1="6190.5" y1="8000" x2="9809.5" y2="8000"></line>
+                                                <line class="a" x1="8000" y1="9809.5" x2="8000" y2="6190.5"></line>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div data-u="arrowleft" class="jssora106" style="width:55px;height:55px;top:300px;left:90px;" data-scale="0.75">
+                                    <svg viewbox="0 0 16000 16000" style="position:absolute;top:0;left:0;width:100%;height:100%;">
+                                        <circle class="c" cx="8000" cy="8000" r="6260.9"></circle>
+                                        <polyline class="a" points="7930.4,5495.7 5426.1,8000 7930.4,10504.3 "></polyline>
+                                        <line class="a" x1="10573.9" y1="8000" x2="5426.1" y2="8000"></line>
+                                    </svg>
+                                </div>
+
+                                <div data-u="arrowright" class="jssora106" style="width:55px;height:55px;top:300px;right:90px;" data-scale="0.75">
+                                    <svg viewbox="0 0 16000 16000" style="position:absolute;top:0;left:0;width:100%;height:100%;">
+                                        <circle class="c" cx="8000" cy="8000" r="6260.9"></circle>
+                                        <polyline class="a" points="8069.6,5495.7 10573.9,8000 8069.6,10504.3 "></polyline>
+                                        <line class="a" x1="5426.1" y1="8000" x2="10573.9" y2="8000"></line>
+                                    </svg>
+                                </div>
+                            </t>
+                            <t t-else="">
+                                <div data-u="slides" style="cursor:default;top:180px;left:40px;width:900px;max-height:900px;min-height:450px;overflow:hidden;">
+                                    <t t-if="res_company.company_default_image">
+                                        <img t-if="res_company.company_default_image" t-att-src="'data:image/png;base64,%s' % to_text(res_company.company_default_image)" style="max-width:450px;max-height:450px;"/>
+                                    </t>
+                                    <t t-else="">
+                                        <div>
+                                            <img data-u="image" src="/asteco_crm/static/src/img/test/default.png"/>
+                                            <img data-u="thumb" src="/asteco_crm/static/src/img/test/default.png" />
+                                        </div>
+                                    </t>
+                                </div>
+                            </t>
+
+                        </div>
+                        <script type="text/javascript">jssor_1_slider_init();</script>
+                    </div>
+
+                </div>
+                <div class="col-xs-12 col-md-4">
+                    <div class="col-xs-12" style="border-top:4px solid black;background:#F7F7F7;padding:10px;height:500px;">
+                        <div class="col-xs-12" style="padding:5px;">
+                            <div style="font-size:14px;">
+                                <span>Company Name</span>
+                            </div>
+                            <div style="color:#747474;font-size:14px;">
+                                <span t-field="listing.company_id.name"/>
+                            </div>
+                        </div>
+                        <div class="col-xs-12" style="padding:5px;border-bottom:1px solid #E4E3E9;margin-top:5px;">
+                            <div style="font-size:14px;">
+                                <span>Agent Name</span>
+                            </div>
+                            <div style="color:#747474;font-size:14px;">
+                                <span t-field="listing.agent_id.name"/>
+                            </div>
+                        </div>
+                        <div class="col-xs-12" style="padding:5px;border-bottom:1px solid #E4E3E9;margin-top:5px;">
+                            <div style="font-size:14px;">
+                                <span>Mobile Number</span>
+                            </div>
+                            <div style="color:#747474;font-size:14px;">
+                                <span t-field="listing.agent_id.work_phone"/>
+                            </div>
+                        </div>
+                        <div class="col-xs-12" style="padding:5px;border-bottom:1px solid #E4E3E9;margin-top:5px;">
+                            <div style="font-size:14px;">
+                                <span>Licence Number</span>
+                            </div>
+                            <div style="color:#747474;font-size:14px;">
+                                <t t-if="listing.regulatory_permit">
+                                <span t-field="listing.regulatory_permit"/>
+                                </t>
+                                <t t-if="not listing.regulatory_permit">
+                                <span>...</span>
+                                </t>
+                            </div>
+                        </div>
+                        <div class="col-xs-12" style="padding:5px;text-align:center;margin-top:15px;">
+                            <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#sendEnquiry" style="background-color:black;border:none;font-size:14px;padding:7px 80px;">Send Enquiry</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="sendEnquiry" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Send Enquiry</h4>
+                        </div>
+                        <form id="send_enquiry_form">
+                            <style>
+                                .ast-enq-label{
+                                    font-size:14px;
+                                    color:#333;
+                                    padding-top:10px;
+                                }
+                            </style>
+                            <script type="text/javascript">
+                                $(function () {
+                                    $('#datetimepicker1').datetimepicker();
+                                });
+                                $(document).ready(function(){
+                                    $(".send-enq-as-lead").on('click', function(){
+                                        var flag = 0;
+                                        if($('#firstname').val()){
+                                            $('#name-warn').addClass('hidden')
+                                        }
+                                        else{
+                                            $('#name-warn').removeClass('hidden')   
+                                            flag = 1;
+                                        }
+                                        if($('#email').val()){
+                                            $('#email-warn').addClass('hidden')
+                                        }
+                                        else{
+                                            $('#email-warn').removeClass('hidden')   
+                                            flag = 1;
+                                        }
+                                        if($('#phone').val()){
+                                            $('#phone-warn').addClass('hidden')
+                                        }
+                                        else{
+                                            $('#phone-warn').removeClass('hidden')   
+                                            flag = 1;
+                                        }
+                                        if($('#datetimeast').val()){
+                                            $('#date-warn').addClass('hidden')
+                                        }
+                                        else{
+                                            $('#date-warn').removeClass('hidden')   
+                                            flag = 1;
+                                        }
+                                        if(flag == 0){
+                                            $("#wait").css("display", "block");
+                                            $.ajax({
+                                                url: "/send/enquiry",
+                                                type: "post",
+                                                data: {'firstname':$('#firstname').val(),
+                                                       'phone':$('#phone').val(),
+                                                       'email':$('#email').val(),
+                                                       'datetimeast':$('#datetimeast').val(),
+                                                       'comments':$('#comments').val(),
+                                                       'listing':$('#listing').val()},
+                                                cache: false,
+                                                dataType:"json",
+                                                success: function(response){
+                                                    console.log(response);
+                                                    $("#wait").css("display", "none");
+                                                    if(response['success'] == 'invalid-mail'){
+                                                        $('#email-warn').removeClass('hidden')               
+                                                    }
+                                                    if(response['success'] == 'invalid-phone'){
+                                                        $('#phone-warn').removeClass('hidden')               
+                                                    }
+                                                    if(response['success'] == 'lead'){
+                                                        $("#close-enq-modal").trigger('click');
+                                                        swal("Thank you for choosing Asteco.", "Enquiry created successfully with reference "+response['lead'], "success");
+                                                    }
+                                                    else if(response['success'] == 'lead exist'){
+                                                        $("#close-enq-modal").trigger('click');
+                                                        swal("Enquiry already created for this listing.\nReference : "+response['lead']);
+                                                    }
+                                                },
+                                                error:function(a,b,c){
+                                                    console.log(a);
+                                                    console.log(b);
+                                                    console.log(c);
+                                                },  
+                                            });
+                                        }
+                                    });
+                                    $('#datetimeast').datepicker({
+                                        format: "dd/mm/yyyy",
+                                        autoclose: true
+                                    });
+
+                                    var listing_id = $("#listing-id").text();
+                                    var live_loc = getLocationURL();
+                                    function getLocationURL() {
+                                        $.ajax({
+                                            url: "/get/live/location",
+                                            type: "post",
+                                            data: {'listing_id':listing_id},
+                                            cache: false,
+                                            dataType:"json",
+                                            success: function(response){
+                                                document.getElementById('frame-geo-tag').src = response['success'];
+                                            },
+                                            error:function(a,b,c){
+                                                console.log(a);
+                                                console.log(b);
+                                                console.log(c);
+                                            },
+                                        });
+                                    };
+                                });
+                            </script>
+                            <style>
+                                .ast-cust-text {
+                                  width: 100%;
+                                  padding: 6px 12px;
+                                  margin: 8px 0;
+                                  display: inline-block;
+                                  border: 1px solid #ccc;
+                                  border-radius: 4px;
+                                  box-sizing: border-box;
+                                }
+                            </style>
+                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                            <input type="hidden" name="listing" id="listing" t-att-value="listing.id"/>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                        <div class="col-xs-12" style="padding:0px;">
+                                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                                <label for="firstname" class="ast-enq-label">Your Name*:</label><br />
+                                                <input class="ast-cust-text" type="text" name="firstname" id="firstname" required="True"/>
+                                                <div class="col-xs-12 hidden" id="name-warn" style="padding-left:5px;font-size:12px;">
+                                                    <span style="color:#dd0606;"><i class="fa fa-warning"/> Enter a name</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                                <label for="email" class="ast-enq-label">Your Email Address*:</label><br />
+                                                <input class="ast-cust-text" type="email" name="email" id="email" required="True"/>
+                                                <div class="col-xs-12 hidden" id="email-warn" style="padding-left:5px;font-size:12px;">
+                                                    <span style="color:#dd0606;"><i class="fa fa-warning"/> Enter a valid email address</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12" style="padding:0px;">
+                                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                                <label for="phone" class="ast-enq-label">Your Phone*:</label><br />
+                                                <input class="ast-cust-text" type="text" name="phone" id="phone" required="True"/>
+                                                <div class="col-xs-12 hidden" id="phone-warn" style="padding-left:5px;font-size:12px;">
+                                                    <span style="color:#dd0606;"><i class="fa fa-warning"/> Enter a valid phone number</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                                <label for="datetimeast" class="ast-enq-label">Preferred Date*:</label><br />
+                                                <div class="form-group">
+                                                    <div class="hero-unit">
+                                                        <input class="ast-cust-text" type="text" id="datetimeast" name="datetimeast"/>
+                                                    </div>
+                                                    <div class="col-xs-12 hidden" id="date-warn" style="padding-left:5px;font-size:12px;">
+                                                        <span style="color:#dd0606;"><i class="fa fa-warning"/> Choose preffered date</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                            <label for="comments" class="ast-enq-label">Comments:</label><br />
+                                            <textarea class="ast-cust-text" name="comments" id="comments" style="width:100%;height:200px;"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="wait" style="display:none;width:69px;height:89px;position:absolute;top:150px;left:43%;padding:2px;"><img src='/asteco_crm/static/src/img/loading.gif' width="64" height="64" /><br />Loading...</div>
+                            </div>
+                            <div class="modal-footer">
+                                <div class="col-xs-12">
+                                    <span class="send-enq-as-lead" style="color:white;background-color:#449d44;padding:10px 20px;border-radius:5px;text-align:center;cursor:pointer;">Send Enquiry</span>
+                                    <span data-dismiss="modal" id="close-enq-modal" style="color:#625f5f;background-color:#eaeaea;padding:10px 20px;border-radius:5px;text-align:center;cursor:pointer;">Close</span>
+                                </div>
+                            </div>
+                         </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" style="margin-top:5px;padding-left:15px;padding-right:5px;page-break-inside:avoid;">
+                <div class="col-xs-12 col-md-8" style="border:1px solid #D2D2D2;background-color:#F7F7F7;">
+                    <div class="col-xs-12">
+                        <div class="col-xs-12 col-md-3" style="margin:10px 0;border-right:1px solid #D2D2D2;text-align:center;font-size:14px;padding:5px 0px;">
+                            <span style="color:black;">Category</span><br />
+                            <span style="color:#747474;" t-field="listing.category_id.name"/>
+                        </div>
+                        <t t-if="listing.is_office">
+                            <div class="col-xs-12 col-md-3" style="margin:10px 0;border-right:1px solid #D2D2D2;text-align:center;font-size:14px;padding:5px 0px;">
+                                <span style="color:black;">Fitted</span><br />
+                                <span style="color:#747474;" t-field="listing.fitted_id.name"/>
+                            </div>
+                        </t>
+                        <t t-else="">
+                            <div class="col-xs-12 col-md-3" style="margin:10px 0;border-right:1px solid #D2D2D2;text-align:center;font-size:14px;padding:5px 0px;">
+                                <span style="color:black;">No. of Beds</span><br />
+                                <span style="color:#747474;" t-field="listing.bed_id.name"/>
+                            </div>
+                        </t>
+                        <div class="col-xs-12 col-md-3" style="margin:10px 0;border-right:1px solid #D2D2D2;text-align:center;font-size:14px;padding:5px 0px;">
+                            <span style="color:black;">Price</span><br />
+                            <t t-if="listing.company_id.name == 'Asteco Jordan'">
+                            <div style="color:#747474;">
+                                JOD <span t-esc="listing.price_format()"/>
+                            </div>
+                            </t>
+                            <t t-else=" ">
+                            <div style="color:#747474;">
+                                AED <span t-esc="listing.price_format()"/>
+                            </div>
+                            </t>
+                        </div>
+                        <div class="col-xs-12 col-md-3" style="margin:10px 0;text-align:center;font-size:14px;padding:5px 0px;">
+                            <span style="color:black;">Area</span><br />
+                            <t t-if="listing.company_id.name == 'Asteco Jordan'">
+                            <span style="color:#747474;" t-field="listing.build_up_area_sqm"/><span style="color:#747474;"> (Sqm)</span>
+                            </t>
+                            <t t-else="">
+                            <span style="color:#747474;" t-field="listing.build_up_area_sqf"/><span style="color:#747474;"> (Sqft)</span>
+                            </t>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-md-4" style="text-align:center;">
+                    <div class="col-xs-12" style="padding-left:10px;padding-top:20px;background-color:#F7F7F7;text-align:center;min-height:70px;">
+                        <div class="col-xs-2" style="text-align:center;">
+                            <a href="https://www.facebook.com/login" target="_blank"><img src="/asteco_crm/static/src/img/fb.png" style="max-width:30px;"/></a>
+                        </div>
+                        <div class="col-xs-2" style="text-align:center;margin-left:3px;">
+                            <a href="https://twitter.com/login" target="_blank"><img src="/asteco_crm/static/src/img/twitter.png" style="max-width:30px;"/></a>
+                        </div>
+                        <div class="col-xs-2" style="text-align:center;margin-left:3px;">
+                            <a href="https://www.linkedin.com/login" target="_blank"><img src="/asteco_crm/static/src/img/linkedin.png" style="max-width:30px;"/></a>
+                        </div>
+                        <div class="col-xs-2" style="text-align:center;margin-left:3px;">
+                            <a href="https://accounts.google.com/ServiceLogin" target="_blank"><img src="/asteco_crm/static/src/img/gmail.png" style="max-width:30px;"/></a>
+                        </div>
+                        <div class="col-xs-2" style="text-align:center;margin-left:3px;">
+                            <a href="https://web.whatsapp.com" target="_blank"><img src="/asteco_crm/static/src/img/whatsapp.png" style="max-width:30px;"/></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="margin-top:50px;page-break-inside:avoid;">
+                <div class="col-xs-12" style="font-size:18px;color:black;">
+                    <div class="col-xs-12" style="border-bottom:1px solid black;padding-left:0px;">
+                        <span>Description</span>
+                    </div>
+                </div>
+                <div class="col-xs-12" style="color:#747474;font-size:14px;margin-top:10px;">
+                    <span t-field="listing.description"/>
+                </div>
+            </div>
+            <div class="row" style="margin-top:50px;page-break-inside:avoid;">
+                <div class="col-xs-12" style="font-size:18px;color:black;">
+                    <div class="col-xs-12" style="border-bottom:1px solid black;padding-left:0px;">
+                        <span>Property Features</span>
+                    </div>
+                </div>
+                <div class="col-xs-12" style="color:#747474;font-size:14px;margin-top:10px;padding:0px;">
+                    <t t-foreach="listing.feature_ids" t-as="feature">
+                        <div class="col-xs-4" style="padding-top:15px;">
+                            <i class="fa fa-chevron-circle-right"/>
+                            <span t-esc="feature.name"/>
+                        </div>
+                    </t>
+                </div>
+            </div>
+
+            <t t-if="listing.company_id.name != 'Asteco Jordan'">
+                <div class="row" style="margin-top:50px;page-break-inside:avoid;"  
+                    attrs="{'invisible':[('company_id.name', 'in','Asteco Jordan')]}">
+
+                    <div class="col-xs-12" style="font-size:18px;color:black;">
+                        <div class="col-xs-12" style="border-bottom:1px solid black;padding-left:0px;">
+                            <span>View on Map</span>
+
+                        </div>
+                    </div>
+                    <div class="col-xs-12" style="color:#747474;font-size:14px;margin-top:10px;">
+                        <div style="min-height:400px;background-color:#F7F7F7;text-align:center;">
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d924107.6834490718!2d55.275064308777814!3d25.210113411147816!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e5f428d9fe8c1d1%3A0x5b40a0d5f349ad75!2sAsteco+Property+Management+-+Head+Office!5e0!3m2!1sen!2sin!4v1564225384781!5m2!1sen!2sin" width="100%" height="400px" frameborder="0" style="border:0" id="frame-geo-tag">allowfullscreen</iframe>
+                            <span t-esc="listing.id" id="listing-id" style="display:none;"/>
+                        </div>
+                    </div>
+                </div>
+            </t>
+
+            <div class="row" style="margin-top:50px;page-break-inside:avoid;">
+                <div class="col-xs-12" style="font-size:18px;color:black;">
+                    <div class="col-xs-12" style="border-bottom:1px solid black;padding-left:0px;">
+                        <span>Disclaimer</span>
+                    </div>
+                </div>
+                <div class="col-xs-12" style="color:#747474;font-size:14px;margin-top:10px;text-align:justify;">
+                    <span>These particulars are intended to give a fair description of the property but their accuracy cannot be guaranteed, and they do not constitute an offer of contract. Intending purchasers must rely on their own inspection of the property. None of the above appliances/services have been tested by ourselves. We recommend purchasers arrange for a qualified person to check all appliances/services before legal commitment.</span>
+                </div>
+            </div>
+            <div class="row" style="margin-top:50px;page-break-inside:avoid;">
+                <div class="col-xs-12" style="text-align:right;">
+                    <a t-att-href="'/print/listing/preview/'+slug(listing)">
+                        <span style="color:black !important;"><i class="fa fa-print"/> Print as PDF Document</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        </t>
+    </template>
+
+    <template id="template_listing_preview_multi" name="listing_preview_multi">
+        <style>
+            @media only screen and (min-width: 900px){
+                .multi-preview-pad{
+                    margin:0px 300px;
+                    padding:20px 30px;
+                }
+            }
+        </style>
+        <t t-call="asteco_crm.web_preview_layout">
+            <div class="page multi-preview-pad" style="background-color:#F2F2F2;font-family:sans-serif;">
+                <div class="row" style="background-color:white;text-align:right;margin:0px 0px;padding:20px;box-shadow:2px 2px #a8a8a8;color:black;">
+                    <span t-field="res_company.name" style="font-size:16px;"/><br />
+                    <span t-field="res_company.phone"/>
+                </div>
+                <div class="row" style="background-color:white;text-align:left;margin:30px 0px;padding:20px;box-shadow:2px 2px #a8a8a8;color:#656565;">
+                    Thank you for choosing <span t-field="res_company.name"/>. Below are the listings for which information was requested.
+                </div>
+                <t t-foreach="listing_ids" t-as="item">
+                    <t t-set="listing" t-value="listing_ids[item]"/>
+                    <div class="row" style="background-color:white;text-align:right;margin:30px 0px;padding:0px;box-shadow:2px 2px #a8a8a8;">
+                        <div class="col-xs-12" style="margin-top:0px;margin-right:0px;margin-left:0px;background-color:#D9EFFF;min-height:40px;text-align:center;padding-top:8px;padding-bottom:7px;">
+                            <img src="/asteco_crm/static/src/img/test/comma1.png" style="max-width:15px;float:left;padding-top:5px;"/>
+                            <t t-if="listing.name">
+                                <span t-esc="listing.name"/>
+                            </t>
+                            <t t-else="">
+                                <span t-esc="listing.category_id.name"/>
+                            </t>
+                            <img src="/asteco_crm/static/src/img/test/comma2.png" style="max-width:15px;float:right;padding-top:10px;"/>
+                        </div>
+                        <div class="col-xs-12" style="padding:0px;">
+                            <div class="col-xs-12 col-md-4" style="padding:15px;">
+                                <img t-if="listing.photo" t-att-src="'data:image/png;base64,%s' % to_text(listing.photo)" style="max-width:200px;max-height:200px;"/>
+                                <t t-if="not listing.photo">
+                                    <img t-if="res_company.company_default_image" t-att-src="'data:image/png;base64,%s' % to_text(res_company.company_default_image)" style="max-width:200px;max-height:200px;"/>
+                                </t>
+                            </div>
+                            <div class="col-xs-12 col-md-8" style="padding:10px;">
+                                <div class="col-xs-12" style="text-align:left;margin-top:15px;">
+                                    <t t-if="listing.is_office">
+                                        <span t-esc="listing.fitted_id.name"/> 
+                                    </t>
+                                    <t t-else="">
+                                        <span t-esc="listing.bed_id.name"/>
+                                    </t>
+                                    <span t-esc="listing.category_id.name"/> in 
+                                    <span t-esc="listing.sub_location_id.name"/>,
+                                    <span t-esc="listing.location_id.name"/>,
+                                    <span t-esc="listing.emirate_id.name"/>
+                                </div>
+                                <div class="col-xs-12" style="margin-top:15px;padding-left:0px;">
+                                    <t t-if="listing.bed_id">
+                                        <div class="col-xs-12 col-md-3" style="padding-left:0px;">
+                                            <i class="fa fa-bed"/> <span t-esc="listing.bed_id.name"/> 
+                                        </div>
+                                        <div class="col-xs-12 col-md-2" style="padding-left:0px;">
+                                            <i class="fa fa-bath"/> <span t-esc="listing.bath_id.name"/>
+                                        </div>
+                                    </t>
+                                    <t t-if="listing.build_up_area_sqf">
+                                        <div class="col-xs-12 col-md-3" style="padding-left:0px;">
+                                            <i class="fa fa-building"/> <span t-esc="listing.round_figure(listing.build_up_area_sqf)"/>
+                                        </div>
+                                    </t>
+                                    <t t-if="listing.price_per_sqft">
+                                        <div class="col-xs-12 col-md-4" style="padding-left:0px;">
+                                            <i class="fa fa-tag"/> <span t-esc="listing.round_figure(listing.price_per_sqft)"/> per
+                                        </div>
+                                    </t>
+                                </div>
+                                <div class="col-xs-12" style="margin-top:15px;font-size:18px;text-align:left;">
+                                    <t t-if="listing.company_id.name == 'Asteco Jordan'">
+                                    <div style="color:#747474;">
+                                        JOD <span t-esc="listing.price_format()"/>
+                                    </div>
+                                    </t>
+                                    <t t-else=" ">
+                                    <div style="color:#747474;">
+                                        AED <span t-esc="listing.price_format()"/>
+                                    </div>
+                                    </t>
+                                    <t t-if="listing.listing_type == 'Rental'">
+                                        <span t-esc="listing.price_frequency_id.name"/>
+                                    </t>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12" style="text-align:right;margin-top:15px;margin-bottom:10px;">
+                            <a target="_blank" t-att-href="'/listing/preview/'+str(listing.id)" style="color:grey;">Listing Preview <i class="fa fa-arrow-circle-right"/></a>
+                        </div>
+                    </div>
+                </t>
+                <div class="row" style="background-color:white;text-align:right;margin:30px 0px;padding:20px;box-shadow:2px 2px #a8a8a8;">
+                    <div class="col-xs-12" style="padding:0px;">
+                        <div class="col-xs-12 col-md-8" style="padding:0px;color:#656565;">
+                            <div class="col-xs-4" style="text-align:left;">
+                                <span>Name</span>
+                            </div>
+                            <div class="col-xs-8" style="text-align:left;">
+                                <span t-esc="user_id.name"/>
+                            </div>
+                            <div class="col-xs-4" style="text-align:left;">
+                                <span>Designation</span>
+                            </div>
+                            <div class="col-xs-8" style="text-align:left;">
+                                <t t-if="user_id.user_type"><span t-esc="user_id.user_type.name"/></t>
+                                <t t-else="">---</t>
+                            </div>
+                            <div class="col-xs-4" style="text-align:left;">
+                                <span>Mobile</span>
+                            </div>
+                            <div class="col-xs-8" style="text-align:left;">
+                                <t t-if="user_id.phone_office"><span t-esc="user_id.phone_office"/></t>
+                                <t t-else="">---</t>
+                            </div>
+                            <div class="col-xs-4" style="text-align:left;">
+                                <span>E-mail</span>
+                            </div>
+                            <div class="col-xs-8" style="text-align:left;">
+                                <span t-esc="user_id.email"/>
+                            </div>
+                            <div class="col-xs-4" style="text-align:left;">
+                                <span>RERA</span>
+                            </div>
+                            <div class="col-xs-8" style="text-align:left;">
+                                <t t-if="user_id.phone_office"><span t-esc="user_id.rera_brn"/></t>
+                                <t t-else="">---</t>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-4">
+                            <img t-if="user_id.image" t-att-src="'data:image/png;base64,%s' % to_text(user_id.image)" style="max-width:100px;max-height:100px;"/>
+                            <t t-if="not user_id.image">
+                                <img src="/asteco_crm/static/src/img/test/person.png" style="max-width:100px;max-height:100px;"/>
+                            </t>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12" style="margin-top:30px;border-top:2px solid #bdbcbc;text-align:center;color:#747474;font-size:12px;padding-top:20px;">
+                        <span t-esc="res_company.name"/><t t-if="res_company.rera_orn">, RERA : <span t-esc="res_company.rera_orn"/></t><br />
+                        <span t-esc="res_company.address"/><br />
+                        <span t-esc="res_company.phone"/>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+</odoo>

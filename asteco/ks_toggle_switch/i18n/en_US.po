@@ -1,0 +1,97 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* ks_toggle_switch
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 11.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-04-19 07:51+0000\n"
+"PO-Revision-Date: 2019-04-19 07:51+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: ks_toggle_switch
+#: model:ir.ui.view,arch_db:ks_toggle_switch.res_config_settings_view_form
+msgid "<br/>\n"
+"                             <br/>\n"
+"                             <span>Active Color</span>"
+msgstr "<br/>\n"
+"                             <br/>\n"
+"                             <span>Active Color</span>"
+
+#. module: ks_toggle_switch
+#: model:ir.ui.view,arch_db:ks_toggle_switch.res_config_settings_view_form
+msgid "<span>Enable</span>"
+msgstr "<span>Enable</span>"
+
+#. module: ks_toggle_switch
+#: model:ir.ui.view,arch_db:ks_toggle_switch.res_config_settings_view_form
+msgid "<span>Toggle Type</span>"
+msgstr "<span>Toggle Type</span>"
+
+#. module: ks_toggle_switch
+#. openerp-web
+#: code:addons/internal-odoo-toggle-switch/ks_toggle_switch/static/src/js/field_utils.js:18
+#: code:addons/ks_toggle_switch/static/src/js/field_utils.js:18
+#, python-format
+msgid "False"
+msgstr "False"
+
+#. module: ks_toggle_switch
+#: model:ir.model,name:ks_toggle_switch.model_ir_http
+msgid "HTTP routing"
+msgstr "HTTP routing"
+
+#. module: ks_toggle_switch
+#: model:ir.model,name:ks_toggle_switch.model_res_config_settings
+msgid "Inherited res.config.settings to display the toggle switch on the general setting"
+msgstr "Inherited res.config.settings to display the toggle switch on the general setting"
+
+#. module: ks_toggle_switch
+#: model:ir.model.fields,field_description:ks_toggle_switch.field_res_users_ks_togg_color
+msgid "Ks Togg Color"
+msgstr "Ks Togg Color"
+
+#. module: ks_toggle_switch
+#: model:ir.model.fields,field_description:ks_toggle_switch.field_res_config_settings_ks_togg_ctrl
+msgid "Ks Togg Ctrl"
+msgstr "Ks Togg Ctrl"
+
+#. module: ks_toggle_switch
+#: model:ir.model.fields,field_description:ks_toggle_switch.field_res_config_settings_ks_togg_type
+msgid "Ks Togg Type"
+msgstr "Ks Togg Type"
+
+#. module: ks_toggle_switch
+#: selection:res.config.settings,ks_togg_type:0
+msgid "Rectangular"
+msgstr "Rectangular"
+
+#. module: ks_toggle_switch
+#: selection:res.config.settings,ks_togg_type:0
+msgid "Rounded"
+msgstr "Rounded"
+
+#. module: ks_toggle_switch
+#: model:ir.ui.view,arch_db:ks_toggle_switch.res_config_settings_view_form
+msgid "Toggle Switch"
+msgstr "Toggle Switch"
+
+#. module: ks_toggle_switch
+#. openerp-web
+#: code:addons/internal-odoo-toggle-switch/ks_toggle_switch/static/src/js/field_utils.js:18
+#: code:addons/ks_toggle_switch/static/src/js/field_utils.js:18
+#, python-format
+msgid "True"
+msgstr "True"
+
+#. module: ks_toggle_switch
+#: model:ir.model,name:ks_toggle_switch.model_res_users
+msgid "Users"
+msgstr "Users"
+

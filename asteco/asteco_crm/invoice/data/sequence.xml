@@ -1,0 +1,10 @@
+<odoo>
+    <data noupdate="1">
+        <record id="atk_invoice_seq" model="ir.sequence">
+			<field name="name">Invoice Sequence</field>
+            <field name="code">crm.proforma.invoice</field>
+            <field name="padding">4</field>
+            <field name="prefix">Proforma/</field>
+		</record>
+    </data>
+</odoo>

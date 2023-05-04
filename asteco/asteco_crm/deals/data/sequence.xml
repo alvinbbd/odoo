@@ -1,0 +1,10 @@
+<odoo>
+    <data noupdate="1">
+        <record id="atk_deal_seq" model="ir.sequence">
+			<field name="name">Deal Sequence</field>
+            <field name="code">deal.deal</field>
+            <field name="padding">4</field>
+            <field name="prefix">-D-</field>
+		</record>
+    </data>
+</odoo>

@@ -1,0 +1,617 @@
+<odoo>
+    <data>
+
+        <record id="log_phone_call_wizard_form_view" model="ir.ui.view">
+            <field name="name">Log Phone Call</field>
+            <field name="model">log.phone.call.wizard</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <group>
+                            <field name="date_and_time"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="notes"/>
+                    </group>
+                    <group invisible="1">
+                        <field name="contact_id" invisible="1"/>
+                        <field name="listing_id" invisible="1"/>
+                        <field name="lead_id" invisible="1"/>
+                        <field name="deal_id" invisible="1"/>
+                    </group>
+                    <footer>
+                        <button name="save" string="Save" type="object" class="oe_asteco_default"/>
+                        <button string="Cancel" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="atk_social_media_view_form" model="ir.ui.view">
+            <field name="name">Social Media Form View</field>
+            <field name="model">contacts.social.media</field>
+            <field name="arch" type="xml">
+                <form create="0" all_invoices="0">
+                    <header>
+                        <button name="sms.send_sms_action" type="action" string="Send SMS"/>
+                    </header>
+                    <script>
+                        $(document).ready(function(){
+                            $('span:eq(0)').html("Add New");
+                            $( "input.o_required_modifier:text" ).each(function() {
+                            $(this).siblings().attr("class", "so-mandtry-star");
+                            });
+                            $( "select.o_required_modifier" ).each(function() {
+                            $(this).siblings().attr("class", "so-mandtry-star");
+                            });
+                            var contact_type_id = document.getElementsByName("contact_type");
+                            $(contact_type_id).siblings().attr("class", "so-mandtry-star");
+                            $("button[class='btn btn-sm btn-primary']:eq(1)").hide();
+                        });
+                    </script>
+                    <group>
+                        <group>
+                            <field name="image" invisible="1"/>
+                            <field name="type" />
+                            <field name="partner_id" invisible="1"/>
+                        </group>
+                        <group>
+                            <field name="url" />
+                        </group>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="atk_contacts_view_form" model="ir.ui.view">
+            <field name="name">Contacts Form View</field>
+            <field name="model">res.partner</field>
+            <field name="arch" type="xml">
+                <form duplicate="0" delete="0">
+                    <header>
+                        <button type="object" name="create_lead_for_contact" string="Convert to Lead" class="oe_asteco_default"/>
+<!--                        <button type="object" name="doc_pdf" string="Pdf" class="oe_asteco_default"/>-->
+                    </header>
+                    <h3 attrs="{'invisible':[('warning_msg','=',False)]}"><field name="warning_msg"/></h3>
+                    <sheet>
+                        <style>
+                            div[name="social_media_ids"] .o_kanban_record{
+                                height: 40px;
+                            }
+                            div[name="social_media_ids"] .o_kanban_record img{
+                                height: 25px;
+                            }
+                            .ast-create-date.o_field_date{ width : auto;}
+                            .ast-doc-attach .btn-default{
+                                background-color:#4494af !important;
+                                border:none;
+                                color:white;
+                            }
+                        </style>
+                        <script>
+                            $(document).ready(function(){
+                                $('.fa-external-link').addClass("hidden");
+                                $(".o_required_modifier").siblings('label').addClass('so-mandtry-star');
+                            });
+                        </script>
+                        <div class="row" >
+                            <div class="col-xs-12 col-md-8 col-lg-8 col-sm-8" style="border-right:1px solid #bec4ce; ">
+                                <div class="col-xs-12 col-md-12">
+                                    <div class="row asteco-form-div">
+                                        <div class="col-xs-12 col-md-12" style="padding-top:0px;">
+                                            <field name="head" widget="radio"/>
+                                            <!-- <button name="something" type="object" string="Check"/> -->
+                                            <div class="col-md-4 col-xs-12 ast-contact-img" style="text-align:center;">
+                                                <field name="image" class="oe_avatar" widget="image"/>
+                                                <label for="is_vip"/><br/>
+                                                <field name="is_vip"/>
+                                                <field name="is_contact" invisible="1"/>
+                                            </div>
+                                            <div class="col-md-8 col-xs-12">
+                                                <div class="row asteco-form-div">
+                                                    <div class="col-md-12 col-xs-12 ast_field">
+                                                        <label for="ref_name" /><br />
+                                                        <field name="ref_name"/>
+                                                    </div>
+                                                    <div class="col-md-12 col-xs-12 ast_field" attrs="{'invisible':[('head','=','company')]}">
+                                                        <div class="col-md-2" style="padding:0">
+                                                            <label for="title"/><br />
+                                                            <field name="title"/>
+                                                            <!-- <field name="title" attrs="{'required':[('head','=','individual')]}"/> -->
+                                                        </div>
+                                                        <div class="col-md-10" style="padding:0 0 0 5px" >
+                                                            <label for="name" string="Full Name"/><br />
+                                                            <field name="name" attrs="{'required':[('head','=','individual')]}"/>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12 col-xs-12 ast_field" attrs="{'invisible':[('head','=','individual')]}">
+                                                        <label for="name" string="Company Name"/><br />
+                                                        <field name="name" attrs="{'required':[('head','=','company')]}"/>
+                                                    </div>
+                                                    <div class="col-md-6 col-xs-12 ast_field ast-mb-input-div" attrs="{'invisible':[('head','=','individual')], 'required':[('head', '=', 'company')]}">
+                                                        <label for="ofc_phn" /><br />
+                                                        <field name="ofc_phn"/>
+                                                    </div>
+                                                    <div class="col-md-6 col-xs-12 ast_field ast-mb-input-div" attrs="{'invisible':[('head','=','individual')]}">
+                                                        <label for="company_email" /><br />
+                                                        <field name="company_email"/>
+                                                    </div>
+                                                    <div class="col-md-6 col-xs-12 ast_field" attrs="{'invisible':[('head','=','individual')]}">
+                                                        <label for="primary_contact" /><br />
+                                                        <field name="primary_contact" context="{'form_view_ref':'asteco_crm.atk_contacts_view_form','default_is_contact':True}"/>
+                                                    </div>
+                                                    <div class="col-md-2 col-xs-12 ast_field" >
+                                                        <label for="isd_code_id" /><br />
+                                                        <field name="isd_code_id" required="1" options="{'no_create':True, 'no_open':True}"/>
+                                                    </div>
+                                                    <div class="col-md-4 col-xs-12 ast_field" >
+                                                        <label for="mobile" /><br />
+                                                        <field name="mobile" required="1" widget="mobile"/>
+                                                    </div>
+
+                                                    <div class="col-md-6 col-xs-12 ast_field ast-mb-input-div" >
+                                                        <label for="email" /><br />
+                                                        <field name="email" />
+                                                    </div>
+                                                    <div class="col-md-6 col-xs-12 ast_field" attrs="{'invisible':[('head','=','company')]}" >
+                                                        <label for="nationality_id" string="Nationality"/><br />
+                                                        <field name="nationality_id" options="{'no_create':True,'no_open':False}"/>
+                                                    </div>
+                                                    <div class="col-md-6 col-xs-12 ast_field">
+                                                        <label for="source" /><br />
+                                                        <field name="source" options="{'no_create' : True, 'no_open': True}"/>
+                                                    </div>
+                                                    <div class="col-md-6 col-xs-12 ast_field" attrs="{'invisible':[('head','=','company')]}">
+                                                        <label for="language_id" string="Preferred Language"/><br />
+                                                        <field name="language_id" widget="selection" options="{'no_create' : True,'no_open' : True}" domain="[('active','=',True)]"/>
+                                                    </div>
+                                                    <div class="col-md-6 col-xs-12 ast_field" style="min-height: 77px;">
+                                                        <label for="country_id" /><br />
+                                                        <field name="country_id"  options="{'no_create' : True,'no_open' : False}"/>
+                                                    </div>
+                                                    <div class="col-md-6 col-xs-12 ast_field" >
+                                                        <label for="city_id" /><br />
+                                                        <field name="city_id" domain="[('country_id','=',country_id)]" widget="selection"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-md-12" style="margin-top:20px;">
+                                    <h2 class="asteco-grp-title">Basic Details</h2>
+                                    <div class="row" style="border-bottom:1px solid #bec4ce;margin-bottom:5px;" />
+                                    <div class="row  asteco-form-div">
+                                        <div class="col-md-6 col-xs-12 ast_field">
+                                            <label for="contact_type" /><br />
+                                            <div style="margin-top:10px;">
+                                                <field name="contact_type" widget="radio"/>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6 col-xs-12 ast_field">
+                                            <label for="is_link_to_contact" /><br/>
+                                            <field name="is_link_to_contact"/>
+                                        </div>
+                                    </div>
+                                    <div class="row  asteco-form-div">
+                                        <div class="col-md-6 col-xs-12 ast_field" attrs="{'invisible':[('is_link_to_contact','=',False)]}">
+                                            <label for="atk_company_id" /><br />
+                                            <field name="atk_company_id" widget="selection"/>
+                                        </div>
+                                    </div>
+                                    <div class="row  asteco-form-div">
+                                        <div class="col-md-6 col-xs-12 ast_field">
+                                            <label for="contact_classif_ids"/><br />
+                                            <field name="contact_classif_ids" widget="many2many_tags" options="{'no_create' : True}"/>
+                                        </div>
+                                        <div class="col-md-6 col-xs-12 ast_field">
+                                            <label for="assigned_to_id" /><br />
+                                            <field name="assigned_to_id" widget="selection" options="{'no_create' : True}" domain="[('company_id','=',company_id)]"/>
+                                            <field name="company_id" invisible="1"/>
+                                        </div>
+                                    </div>
+
+                                    <div class="row  asteco-form-div">
+                                        <div class="col-md-6 col-xs-12 ast_field">
+                                            <label for="shared_with_id" /><br />
+                                            <field name="shared_with_id" widget="selection" options="{'no_create' : True}"/>
+                                        </div>
+                                        <div class="col-md-6 col-xs-12 ast_field">
+                                            <label for="contact_owner" /><br />
+                                            <field name="contact_owner" widget="selection" options="{'no_create' : True,'no_open' : True}"/>
+                                        </div>
+                                    </div>
+
+                                    <div class="row  asteco-form-div">
+                                        <div class="col-md-6 col-xs-12 ast_field">
+                                            <label for="contact_rate" />
+                                            <field name="contact_rate" widget='priority'/>
+                                        </div>
+                                        <div class="col-md-6 col-xs-12 ast_field" attrs="{'invisible':[('contact_rate','&gt;','2')]}">
+                                            <label for="reason" /><br />
+                                            <field name="reason"/>
+                                        </div>
+                                    </div>
+
+                                    <div class="row  asteco-form-div">
+                                        <div class="col-md-6 col-xs-12 ast_field" attrs="{'invisible':[('contact_rate','&gt;','2')]}">
+                                            <label for="write_uid" /><br />
+                                            <field name="write_uid" widget="selection" options="{'no open':True'}" readonly="True"/>
+                                        </div>
+                                        <div class="col-md-6 col-xs-12 ast_field" attrs="{'invisible':[('contact_rate','&gt;','2')]}">
+                                            <label for="write_date" /><br />
+                                            <field name="write_date" widget="selection" readonly="True"/>
+                                        </div>
+                                    </div>
+                                    <div class="row  asteco-form-div">
+                                        <div class="col-md-6 col-xs-12 ast_field">
+                                            <label for="create_uid" /><br />
+                                            <field name="create_uid" widget="selection" options="{'no open':True, 'no_create' : True}" readonly="True" />
+                                        </div>
+                                        <div class="col-md-6 col-xs-12 ast_field">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-md-12" attrs="{'invisible':[('head','=','company')]}">
+                                    <h2 class="asteco-grp-title">Personal Information</h2>
+                                    <div class="row" style="border-bottom:1px solid #bec4ce;margin-bottom:5px;" />
+                                    
+                                    <div class="row asteco-form-div">
+                                                    <div class="col-md-6 col-xs-12 ast_field" attrs="{'invisible':[('head','=','company')]}">
+                                                        <label for="designation" /><br />
+                                                        <field name="designation" options="{'no_open': True}"/>
+                                                    </div>
+                                                    <div class="col-md-6 col-xs-12 ast_field" attrs="{'invisible':[('is_link_to_contact','=',True)],'invisible':[('head','=','company')]}">
+                                                        <label for="atk_company_id" /><br />
+                                                        <field name="atk_company_id" />
+                                                    </div>
+                                                </div>
+                                                <div class="row asteco-form-div">
+                                                    <div class="col-md-6 col-xs-12 ast_field">
+                                                        <label for="website" /><br />
+                                                        <field name="website"/>
+                                                    </div>
+                                                    <div class="col-md-6 col-xs-12 ast_field" >
+                                                        <label for="customer_trn" /><br />
+                                                        <field name="customer_trn" />
+                                                    </div>
+                                                </div>
+                                        
+
+                                    <!-- <div class="row  asteco-form-div">
+                                        <div class="col-md-6 col-xs-12 ast_field" attrs="{'invisible':[('head','=','company')]}">
+                                            <label for="gender" /><br />
+                                            <field name="gender"/>
+                                        </div>
+                                        <div class="col-md-6 col-xs-12 ast_field" attrs="{'invisible':[('head','=','company')]}">
+                                            <label for="dob" /><br />
+                                            <field name="dob"/>
+                                        </div>
+                                    </div>
+
+                                    <div class="row asteco-form-div">
+                                        <div class="col-md-6 col-xs-12 ast_field" attrs="{'invisible':[('head','=','company')]}">
+                                            <label for="religion_id" /><br />
+                                            <field name="religion_id" widget="selection" options="{'no_create' : True}"/>
+                                        </div>
+                                        <div class="col-md-6 col-xs-12 ast_field" attrs="{'invisible':[('head','=','company')]}">
+                                            <label for="hobbies" /><br />
+                                            <field name="hobbies"  widget="many2many_tags"/>
+                                        </div>
+                                    </div> -->
+
+
+
+                                </div>
+                                <group>
+                                    <notebook>
+                                        <page string="Contact Details" >
+                                            <h2 class="asteco-grp-title" style="border:none;">Contact Details</h2>
+                                            <div  class="col-xs-12 col-md-12">
+<!--                                                <div class="row asteco-form-div" >-->
+<!--                                                    <div class="col-md-6 col-xs-12 ast_field" >-->
+<!--                                                        <label for="country_id" /><br />-->
+<!--                                                        <field name="country_id"  options="{'no_create' : True,'no_open' : False}"/>-->
+<!--                                                    </div>-->
+<!--                                                    <div class="col-md-6 col-xs-12 ast_field">-->
+<!--                                                        <label for="city_id" /><br />-->
+<!--                                                        <field name="city_id" domain="[('country_id','=',country_id)]" widget="selection"/>-->
+<!--                                                    </div>-->
+<!--                                                </div>-->
+                                                <div class="row asteco-form-div">
+                                                    <div class="col-md-6 col-xs-12 ast_field" attrs="{'invisible':[('head','=','company')]}">
+                                                        <label for="home_phn" /><br />
+                                                        <field name="home_phn" />
+                                                    </div>
+                                                    <div class="col-md-6 col-xs-12 ast_field" >
+                                                        <label for="ofc_phn" /><br />
+                                                        <field name="ofc_phn" />
+                                                    </div>
+                                                </div>
+                                                <div class="row asteco-form-div" attrs="{'invisible':[('head','=','company')]}">
+                                                    <div class="col-md-6 col-xs-12 ast_field" >
+                                                        <label for="fax" /><br />
+                                                        <field name="fax"/>
+                                                    </div>
+                                                    <div class="col-md-6 col-xs-12 ast_field">
+                                                        <label for="address" /><br />
+                                                        <field name="address"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </page>
+                                        <page string="Additional Information">
+                                            <h2 class="asteco-grp-title" style="border:none;">Additional Information</h2>
+                                            <div class="col-xs-12 col-md-12" style="margin-top:20px; padding-bottom:0 auto;">
+                                                <div class="row  asteco-form-div">
+                                        <div class="col-md-6 col-xs-12 ast_field" attrs="{'invisible':[('head','=','company')]}">
+                                            <label for="gender" /><br />
+                                            <field name="gender"/>
+                                        </div>
+                                        <div class="col-md-6 col-xs-12 ast_field" attrs="{'invisible':[('head','=','company')]}">
+                                            <label for="dob" /><br />
+                                            <field name="dob"/>
+                                        </div>
+                                    </div>
+
+                                    <div class="row asteco-form-div">
+                                        <div class="col-md-6 col-xs-12 ast_field" attrs="{'invisible':[('head','=','company')]}">
+                                            <label for="religion_id" /><br />
+                                            <field name="religion_id" widget="selection" options="{'no_create' : True}"/>
+                                        </div>
+                                        <div class="col-md-6 col-xs-12 ast_field" attrs="{'invisible':[('head','=','company')]}">
+                                            <label for="hobbies" /><br />
+                                            <field name="hobbies"  widget="many2many_tags"/>
+                                        </div>
+                                    </div>
+
+
+                                                <!-- <div class="row asteco-form-div">
+                                                    <div class="col-md-6 col-xs-12 ast_field" attrs="{'invisible':[('head','=','company')]}">
+                                                        <label for="designation" /><br />
+                                                        <field name="designation" options="{'no_open': True}"/>
+                                                    </div>
+                                                    <div class="col-md-6 col-xs-12 ast_field" attrs="{'invisible':[('is_link_to_contact','=',True)],'invisible':[('head','=','company')]}">
+                                                        <label for="atk_company_id" /><br />
+                                                        <field name="atk_company_id" />
+                                                    </div>
+                                                </div>
+                                                <div class="row asteco-form-div">
+                                                    <div class="col-md-6 col-xs-12 ast_field">
+                                                        <label for="website" /><br />
+                                                        <field name="website"/>
+                                                    </div>
+                                                    <div class="col-md-6 col-xs-12 ast_field" >
+                                                        <label for="customer_trn" /><br />
+                                                        <field name="customer_trn" />
+                                                    </div>
+                                                </div> -->
+
+
+<!--                                                <div class="row asteco-div" attrs="{'invisible':[('head','=','individual')]}">-->
+<!--                                                    <div class="col-md-6 col-xs-12 ast_field">-->
+<!--                                                        <label for="source" /><br />-->
+<!--                                                        <field name="source" options="{'no_create' : True, 'no_open': True}"/>-->
+<!--                                                    </div>-->
+<!--                                                </div>-->
+                                            </div>
+                                        </page>
+                                    </notebook>
+                                </group>
+                                <div class="col-xs-12 col-md-12" >
+                                    <h2 class="asteco-grp-title" style="border:none;">Social Media</h2>
+                                    <div class="row asteco-form-div">
+                                        <div class="col-md-12 col-xs-12 ast_field">
+                                            <field name="social_media_ids" nolabel="1">
+                                                <kanban>
+                                                    <field name="id"/>
+                                                    <field name="type" options="{'no_create' : True}"/>
+                                                    <field name="url" />
+                                                    <templates>
+                                                        <t t-name="kanban-box">
+                                                            <div t-attf-class="oe_kanban_global_click">
+                                                                <div class="o_kanban_image">
+                                                                    <img t-att-src="kanban_image('contacts.social.media', 'image', record.id.raw_value)"/>
+                                                                </div>
+                                                                <div class="oe_kanban_details">
+                                                                    <field name="url"/>
+                                                                </div>
+                                                            </div>
+                                                        </t>
+                                                    </templates>
+                                                </kanban>
+                                            </field>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-xs-12" style="padding-top:0px;">
+                                <group>
+                                        <notebook  class="ast-notebook-page">
+                                            <page string="Notes">
+                                                <div class="oe_read_only" style="border:1px solid #4494af;border-radius:3px;width:100px;height:30px;background-color:#4494af;color:white;text-align:center;padding:5px;font-size:12px;margin-top:10px;cursor:pointer;">
+                                                    <span>Edit to Create</span>
+                                                </div>
+                                                <div style="margin-top:5px;margin-left:10px;">
+                                                    <field name="is_notify_agent" />Notify Agent
+                                                </div>
+                                                <div style="margin-top:10px;">
+                                                    <field name="notes_ids">
+                                                        <kanban>
+                                                            <field name="name"/>
+                                                            <field name="write_date"/>
+                                                            <field name="write_uid"/>
+                                                            <templates>
+                                                                <t t-name="kanban-box">
+                                                                    <div class="row">
+                                                                        <div class="col-xs-12" style="padding:5px;min-height:60px;">
+                                                                            <field name="name"/>
+                                                                        </div>
+                                                                        <div class="col-xs-12" style="color:grey;padding:0px;">
+                                                                            <t t-if="record.write_date.raw_value">
+                                                                                <div class="col-md-6 col-xs-12" style="margin:0px;padding:0px;margin-bottom:0px;">
+                                                                                    <span><field name="write_date"/></span>
+                                                                                </div>
+                                                                            </t>
+                                                                            <t t-if="record.write_uid.raw_value">
+                                                                                <div class="col-md-6 col-xs-12 text-right" style="margin:0px;padding:0px;">
+                                                                                    <span>Note by : <field name="write_uid"/></span>
+                                                                                </div>
+                                                                            </t>
+                                                                        </div>
+                                                                    </div>
+                                                                </t>
+                                                            </templates>
+                                                        </kanban>
+
+                                                    </field>
+                                                </div>
+                                            </page>
+                                            <page string="Contact History">
+                                           <!--  <div class="col-xs-12" style="border:1px solid;"> -->
+                                                    <header>
+                                                        <button name="action_log_phone_call" type="object" string="Log Phone Call" class="oe_asteco_default" context="{'default_contact_id':active_id}"/>
+                                                    </header>
+                                                <!-- <div class="oe_chatter"> -->
+                                                    <!-- <field name="message_follower_ids" widget="mail_followers"/>
+                                                    <field name="activity_ids" widget="mail_activity"/> -->
+                                                    <!-- <field name="message_ids" widget="mail_thread"/> -->
+                                                    <field name="change_items" widget="mail_thread"/>
+                                                <!-- </div> -->
+                                            <!-- </div> -->
+                                            </page>
+
+                                        </notebook>
+                                    </group>
+                                <group>
+                                    <notebook class="ast-notebook-page">
+                                        <page string="Actions">
+                                            <div class="oe_read_only" mode="kanban" style="border:1px solid #4494af;border-radius:3px;width:100px;height:30px;background-color:#4494af;color:white;text-align:center;padding:5px;font-size:12px;margin-top:10px;cursor:pointer;">
+                                                <span>Edit to Create</span>
+                                            </div>
+                                            <field name="create_action" mode="kanban" nolabel="1" context=
+                                            "{
+                                                'default_contact_id':active_id,
+                                                'default_contacts_ids':[(6, 0, [active_id])],
+                                                'default_agents_ids':[(6, 0, [assigned_to_id])]
+                                            }"/>
+                                        </page>
+                                        <page string="Documents">
+                                                <div class="oe_read_only" style="border:1px solid #4494af;border-radius:3px;width:100px;height:30px;background-color:#4494af;color:white;text-align:center;padding:5px;font-size:12px;margin-top:10px;cursor:pointer;">
+                                                <span>Edit to Upload</span>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-xs-12" style="padding-top:10px;">
+                                                    <field name="document_ids" widget="many2many_binary" string="Upload" class="ast-doc-attach"/>
+                                                </div>
+                                            </div>
+                                            </page>
+
+                                    </notebook>
+                                </group>
+                            </div>
+                            <div class="col-xs-12" style="padding:15px;">
+	                            <div class="col-md-4 col-xs-12 text-center">
+	                                <b>Created Date &amp; Time : </b><field class="ast-create-date" name="create_date" readonly="True"/>
+	                            </div>
+	                            <div class="col-md-4 col-xs-12 text-center">
+	                                <b>Last Updated Date &amp; Time : </b><field class="ast-create-date" name="write_date" readonly="True"/>
+	                            </div>
+	                            <div class="col-md-4 col-xs-12 text-center">
+	                                <b>Last Updated By : </b><field name="write_uid" readonly="True"/>
+	                            </div>
+                            </div>
+                        </div>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="atk_contacts_contacts_view_tree" model="ir.ui.view">
+                <field name="name">Contacts Tree View</field>
+                <field name="model">res.partner</field>
+                <field name="arch" type="xml">
+                    <tree duplicate="0" delete="0" default_order='create_date desc' >
+                        <field name="is_contact" invisible="1"/>
+                        <field name="ref_name"/>
+                        <field name="name"/>
+                        <field name="mobile"/>
+                        <field name="email"/>
+                        <field name="head" string="Contact Type"/>
+                        <field name="source"/>
+                        <field name="create_uid"/>
+                        <field name="create_date"/>
+                    </tree>
+                </field>
+        </record>
+
+
+        <record id="contacts_kanban_view" model="ir.ui.view">
+            <field name="name">Contacts Kanban View</field>
+            <field name="model">res.partner</field>
+<!--            <field name="type">kanban</field>-->
+            <field name="arch" type="xml">
+                <kanban>
+                    <field name="name"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div>
+                                <div>
+                                    <field name="name"/>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <record id="contact_filter" model="ir.ui.view">
+            <field name="name">Contact Filter</field>
+            <field name="model">res.partner</field>
+            <field name="arch" type="xml">
+                <search string="Search Contacts">
+                    <field name="name" string="My Contacts" filter_domain="['|',('email','ilike',self),'|',('mobile','ilike',self),'|',('ref_name','ilike',self),('name','ilike',self)]"/>
+                    <!-- <field name="name" string="My Contacts" /> -->
+                    <separator/>
+                    <filter string="My Contacts" name="my_contact" domain="['|',('create_uid','=',uid), ('assigned_to_id.user_id','=',uid)]"/>
+                    <filter string="Linked Contacts" name="linked_ones" domain="[('is_link_to_contact','=',True)]" help="..."/>
+                    <filter string="All Contacts" name="contact_all" domain="[('create_uid','=',uid)]"/>
+                    <separator/>
+                </search>
+            </field>
+        </record>
+
+
+        <record id="atk_contacts_contacts_Action" model="ir.actions.act_window">
+            <field name="name">Contacts</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_mode">tree,form,kanban</field>
+            <field name="view_ids" eval="[(5, 0, 0),
+                (0, 0, {'view_mode': 'tree', 'view_id': ref('atk_contacts_contacts_view_tree')}),
+                (0, 0, {'view_mode': 'form', 'view_id': ref('atk_contacts_view_form')})]"/>
+            <field name="domain">[('is_contact','=',True)]</field>
+            <field name="context">{'default_is_contact': True, 'search_default_my_contact':uid}</field>
+            <field name="help">You don't have any contacts.</field>
+
+        </record>
+
+        <menuitem id="contacts_root_menu" name="Contacts" sequence="1" parent="interact_root_menu" action="atk_contacts_contacts_Action"/>
+
+        <act_window
+            id="account.action_all_partner_invoices"
+            groups="account.group_account_manager"
+            name="All Invoices"
+            res_model="account.invoice"
+            domain="[('partner_id', 'child_of', active_id)]"
+            src_model="res.partner"/>
+    </data>
+</odoo>

@@ -1,0 +1,224 @@
+/*LdO*/
+.center{
+    text-align: center;
+}
+
+.ast-dash-container{
+    padding-top:20px;
+    padding-bottom:20px;
+    height:100%;
+}
+
+.ast-dash-upcoming-action{
+    height:100%;
+}
+
+.ast-dash-upcoming-action-sub{
+    height:30%;
+    border:2px solid #4494af;
+    margin-top:5px;
+    margin-bottom:5px;
+    padding-left:5px;
+}
+
+.ast-lead-deal-main{
+    height:100%;
+    padding: 0;
+}
+
+.ast-lead-status{
+    height:100%;
+    padding: 0;
+    background-color: #4494af;
+    color: white;
+}
+
+.ast-lead-sub-status{
+    height:30%;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    font-size:60px;
+    padding-top:20px;
+    text-align: center;
+}
+
+.ast-lead-deal-status{
+    height:100%;
+    background-color: #4494af;
+    color: white;
+}
+
+.ast-lead-deal-sub{
+    height:60%;
+    margin-top: 15px;
+    background-color: #71bad2;
+    border:2px solid white;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.ast-lead-deal-sub-row{
+    height:35%;
+    font-size:40px;
+    padding: 0;
+    margin: 0;
+}
+
+.ast-lead-deal-closed{
+    height:30%;
+    margin-top: 15px;
+    background-color: #71bad2;
+    border:2px solid white;
+    border-radius: 5px;
+    text-align: center;
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+
+.ast-dash-performance{
+    height:100%;
+}
+
+.ast-dash-team-performance{
+    height:60%;
+    border:2px solid #4494af;
+    padding:0;
+}
+
+.ast-dash-hold-time{
+    height: 40%;
+    border:2px solid #4494af;
+    padding:0;
+}
+
+.total-amount{
+    padding: 30px 20px;
+    font-size: 22px;
+    font-weight: bold;
+    color: grey;
+    height: 25%;
+    margin-bottom: 20px;
+}
+
+.total-figure{
+    padding: 10px 0 0 0;
+    font-size: 20px;
+    font-weight: bold;
+    color: grey;
+    text-align: left;
+    color:#4494af;
+}
+
+.pr-row{
+    height: 10%;
+}
+
+.ht-head{
+    padding: 10px 0 0 10px;
+    font-size: 15px;
+    font-weight: bold;
+    color: grey;
+    height: 20%;
+}
+
+.t-head{
+    font-size: 15px;
+    color: black;
+    font-weight: bold;
+    padding: 10px 0;
+}
+
+.t-body{
+    font-size: 15px;
+    color: grey;
+    font-weight: bold;
+    padding: 0;   
+}
+
+.sub-title{
+    padding: 5px 0;
+    text-align: left;
+    margin: 0;
+    color: #4494af;
+}
+
+.sub-title-inv{
+    padding: 5px 0;
+    text-align: center;
+    margin: 0;
+    color: white;
+}
+
+/*LdO*/
+
+.no-padding{
+    padding:0;
+}
+
+.sane_o_dashboard_main{
+    margin-top: 30px;
+}
+
+.mb-10{
+    margin-bottom: 15px;
+}
+
+.sane_dash_right{
+    background-color: #000FFF;
+}
+
+.title{
+    padding: 5px 0;
+    text-align: center;
+    margin: 0;
+    color: #FFFFFFE6;
+    background-color: #4494af;
+}
+
+.sane_dash_content{
+    border: 1px solid #4494af;
+    padding: 10px;
+}
+
+.sane_dash_content_single{
+    background-color: #4494afab;
+    margin: auto 13px;
+}
+
+.sane_dash_ico_div{
+    text-align: center;
+    font-size: 40px;
+}
+
+.sane_dash_ico_div i{
+    font-size: 50px;
+    padding: 5px;
+    color: #4494af;
+}
+
+.sane_dash_con_div{
+    text-align: center;
+    padding-top: 7px;
+    color: #FFFFFFE6;
+}
+
+.sane_dash_subtitle{
+    width: 100%;
+    font-weight: bold;
+    line-height: 1;
+}
+
+.sane_dash_count{
+    font-weight: bold;
+    font-size: 25px;
+    width: 100%;
+    line-height: 1;
+}
+
+
+
+@media only screen and (max-width:768px){
+    .sane_dash_content_single{
+        margin: 5px 0;
+    }
+}

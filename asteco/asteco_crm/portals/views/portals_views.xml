@@ -1,0 +1,135 @@
+<odoo>
+    <data>
+
+		<record model="ir.ui.view" id="portal_form_view">
+			<field name="name">Portal Form View</field>
+			<field name="model">crm.portal</field>
+			<field name="arch" type="xml">
+				<form>
+					<header>
+						<button type="object" name="run_staging_pull_config" string="Staging Table Pull Config" class="oe_asteco_default" groups="base.group_system"/>
+						<button type="object" name="run_staging_pull" string="Staging Table Pull" class="oe_asteco_default"/>
+					</header>
+					<sheet>
+						<div class="row">
+							<div class="col-xs-12 col-md-12" style="padding-top:15px;">
+								<div class="row asteco-form-div" style="padding-left:15px;">
+									<div class="col-xs-12 col-md-4 ast_field" >
+										<label for="name"/><br/>
+										<field name="name"/>
+									</div>
+									<div class="col-xs-12 col-md-4 ast_field" >
+										<label for="description"/><br/>
+										<field name="description"/>
+									</div>
+									<div class="col-xs-12 col-md-4 ast_field" >
+										<label for="xml_link"/><br/>
+										<field name="xml_link"/>
+									</div>
+								</div>
+								<div class="row asteco-form-div" style="padding-left:15px;">
+									<div class="col-xs-12 col-md-4 ast_field" >
+										<label for="portal_id"/><br/>
+										<field name="portal_id"/>
+									</div>
+									<div class="col-xs-12 col-md-4 ast_field" >
+										<label for="company_id"/><br/>
+										<field name="company_id" options="{'no_create':True, 'no_open':True}"/>
+									</div>
+									<div class="col-xs-12 col-md-4 ast_field" >
+										<label for="xml_feedback_link"/><br/>
+										<field name="xml_feedback_link"/>
+									</div>
+								</div>
+								<div class="row asteco-form-div" style="padding-left:15px;">
+									<div class="col-xs-12 col-md-4 ast_field" >
+										<label for="listing_type"/><br/>
+										<field name="listing_type"/>
+									</div>
+									<div class="col-xs-12 col-md-4 ast_field" >
+										<label for="pull_type"/><br/>
+										<field name="pull_type"/>
+									</div>
+									<div class="col-xs-12 col-md-4 ast_field" >
+										<label for="pull_interval"/><br/>
+										<field name="pull_interval" readonly="1"/>
+									</div>
+								</div>
+								<div class="row asteco-form-div" style="padding-left:15px;">
+									<div class="col-xs-12 col-md-4 ast_field" >
+										<label for="xml_root_tags"/><br/>
+										<field name="xml_root_tags" required="1"/>
+									</div>
+									<div class="col-xs-12 col-md-4 ast_field" >
+										<label for="xml_definition"/><br/>
+										<field name="xml_definition"/>
+									</div>
+									<div class="col-xs-12 col-md-4 ast_field" >
+										<label for="xml_definition_vals"/><br/>
+										<field name="xml_definition_vals"/>
+									</div>
+								</div>
+								<div class="row asteco-form-div" style="padding-left:15px;">
+									<div class="col-xs-12 col-md-4 ast_field" >
+										<label for="status"/><br/>
+										<field name="status"/>
+									</div>
+									<div class="col-xs-12 col-md-4 ast_field" >
+										<label for="ip_restriction"/><br/>
+										<field name="ip_restriction"/>
+									</div>
+									<div class="col-xs-12 col-md-4 ast_field" >
+										<label for="last_xml_pull_at"/><br/>
+										<field name="last_xml_pull_at"/>
+									</div>
+								</div>
+							</div>
+						</div>
+					</sheet>
+					<div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+				</form>
+			</field>
+		</record>
+
+        <!--<record id="portal_form_view_readonly" model="ir.ui.view">
+            <field name="name">Portal readonly Form View</field>
+			<field name="model">crm.portal</field>
+            <field name="inherit_id" ref="portal_form_view" />
+            <field name="groups_id" eval="[(6, 0, [ref('asteco_crm.group_sales_manager'),ref('asteco_crm.group_coordinator')])]"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="attributes">
+                    <attribute name="readonly">False</attribute>
+                </xpath>
+            </field>
+        </record>-->
+
+		<record model="ir.ui.view" id="portal_tree_view">
+			<field name="name">Portal Tree View</field>
+			<field name="model">crm.portal</field>
+			<field name="arch" type="xml">
+				<tree>
+					<field name="name"/>
+					<field name="description"/>
+					<field name="listing_type"/>
+					<field name="xml_link"/>
+					<field name="status"/>
+					<field name="last_xml_pull_at"/>
+<!--					<button name="email" type="object" string="Send Email" class="oe_asteco_default"/>-->
+				</tree>
+			</field>
+		</record>
+
+		<record id="action_crm_portals" model="ir.actions.act_window">
+            <field name="name">Portals</field>
+            <field name="res_model">crm.portal</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+		<menuitem parent="admin_crm_root_menu" sequence="0" name="Portals" id="crm_portal_menu" action="action_crm_portals" groups="group_super_user"/>
+	</data>
+</odoo>

@@ -1,0 +1,165 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="call_centre_agent_form">
+            <field name="name">Contacts Form</field>
+            <field name="model">call.centre.agent.wizard</field>
+            <field name="arch" type="xml">
+                <form>
+                    <div>
+                        <style>
+                            .ast-search-contact{
+                                background-color:#0097D2;
+                                border-color:#0097D2;
+                                color:white;
+                            }
+                            .ast-search-contact:hover{
+                                color: white;
+                                background-color: #49b4d8;
+                                border-color: #49b4d8;
+                            }
+                            <!-- .ast-search-contact{
+                                margin-left:10px;
+                            } -->
+                        </style>
+                        <button name="search_contacts" type="object" string="" class="ast-search-contact" style="margin:auto 1px">
+                            <i class="fa fa-search"/> Search Contacts
+                        </button>
+                        <button name="add_new_contact" type="object" string="" class="oe_asteco_default" invisible='1' style="margin:auto 5px">
+                            <i class="fa fa-plus"/> Add New Contact
+                        </button>
+                        <button name="add_new_lead" type="object" string="" class="oe_asteco_default" style="margin:auto 5px">
+                            <i class="fa fa-plus"/> Add New Lead
+                        </button>
+                        <button name="clear_search_data" type="object" string="" class="">
+                            <i class="fa fa-trash"/> Clear
+                        </button>
+                    </div>
+                    <div class="row" style="padding-bottom:20px;margin:20px;">
+                        <div class="col-xs-12">
+                             <div class="col-md-4 col-xs-12">
+                                 <label for="isd_code_id" style="width:90%;float:left;"/>
+                                 <field name="isd_code_id" style="width:90%;float:left;" options="{'no_create':True, 'no_open':True}"/>
+                             </div>
+                             <div class="col-md-4 col-xs-12">
+                                <label for="phone" style="width:90%;float:left;"/>
+                                <field name="phone" style="width:90%;float:left;" placeholder="Enter to search"/>
+                                 <button name="clear_phone" type="object" string="" style="width:10%;float:left;padding: 0;font-size:16px !important;">
+                                    <i class="fa fa-trash"/>
+                                </button>
+                             </div>
+                            <div class="col-md-4 col-xs-12">
+                                <label for="email" style="width:90%;float:left;"/>
+                                <field name="email" style="width:90%;float:left;" placeholder="Enter to search"/>
+                                <button name="clear_email" type="object" string="" style="width:10%;float:left;padding: 0;font-size:16px !important;">
+                                    <i class="fa fa-trash"/>
+                                </button>
+                             </div>
+                        </div>
+                        
+                        <div class="col-xs-12 col-md-6" style="margin:15px 0px;" attrs="{'invisible':[('contact_id','=',False)]}">
+                            <div class="col-xs-12" invisible="1">
+                                <label for="contact_id"/>:
+                                <field name="contact_id" options="{'no_create':True, 'no_open':True}" readonly="1"/>
+                            </div>
+                            <div class="col-xs-12 col-md-6" invisible="1">
+                                <label for="country_id"/>:
+                                <field name="country_id" options="{'no_create':True, 'no_open':True}"/>
+                            </div>
+                        </div>
+                        
+                        <div class="col-xs-12">
+                            <div class="col-xs-12" attrs="{'invisible':[('contact_id','=',False)]}">
+                                <h3 class="asteco-grp-title">Associated Contacts</h3>
+                                <div class="col-xs-12" style="border-bottom:1px solid #bec4ce;margin-bottom:15px;"/>
+                                <field name="contact_ids" readonly="1" attrs="{'invisible':[('is_contacts','!=',True)]}">
+                                    <kanban create="0" delete="0" edit="0" default_order="id desc">
+                                        <templates>
+                                            <t t-name="kanban-box">
+                                                <div class="col-xs-12">
+                                                    <div class="col-xs-3">
+                                                        <field name="image" class="oe_avatar" widget="image" height="80px" width="80px"/>
+                                                    </div>
+                                                    <div class="col-xs-9">
+                                                        <label for="ref_name"/><b>Ref#:</b>
+                                                        <field name="ref_name"/><br/>
+                                                        <label for="title"/><b>Name:</b>
+                                                        <field name="title"/>. <field name="name"/><br/>
+                                                        <label for="mobile"/><b>Mobile:</b>
+                                                        <field name="mobile"/><br/>
+                                                        <label for="email"/><b>Email:</b>
+                                                        <field name="email"/><br/>
+                                                        <label for="head"/><b>Contact Type:</b>
+                                                        <field name="head" string="Contact Type"/> 
+                                                    </div>
+                                                </div>
+                                            </t>
+                                        </templates>
+                                    </kanban>
+                                </field>
+                                <div class="col-xs-12" style="padding-left:0px;" attrs="{'invisible':[('is_contacts','=',True)]}">
+                                    <span style="font-size:14px;font-weight:bold;">Sorry, No associated contacts found!</span>
+                                </div>
+                            </div>
+                            <div class="col-xs-12" attrs="{'invisible':[('contact_id','=',False)]}">
+                                <h3 class="asteco-grp-title">Associated Leads</h3>
+                                <div class="col-xs-12" style="border-bottom:1px solid #bec4ce;margin-bottom:15px;"/>
+                                <field name="lead_ids" attrs="{'invisible':[('is_leads','=',False)]}">
+                                    <tree create="0" delete="0" edit="0" default_order="id desc">
+                                        <button type="object" name="open_lead" icon="fa fa-pencil-square-o text-info"/>
+                                        <field name="name"/>
+                                        <field name="category_id_list" readonly="1"/>
+                                        <field name="emirate_id_list"/>
+                                        <field name="location_id_list"/>
+                                        <field name="sub_location_id_list"/>
+                                        <field name="sub_status_id" invisible="1"/>
+                                        <field name="agent_id"/>
+                                        <field name="enq_date" invisible="1"/>
+                                    </tree>
+                                </field>
+                                <div class="col-xs-12" style="padding-left:0px;" attrs="{'invisible':[('is_leads','=',True)]}">
+                                    <span style="font-size:14px;font-weight:bold;">Sorry, No associated leads found!</span>
+                                </div>
+                            </div>
+                            <div class="col-xs-12" attrs="{'invisible':[('contact_id','=',False)]}">
+                                <h3 class="asteco-grp-title">Associated Listings</h3>
+                                <div class="col-xs-12" style="border-bottom:1px solid #bec4ce;margin-bottom:15px;"/>
+                                <field name="listing_ids" attrs="{'invisible':[('is_listing','=',False)]}" open="False">
+                                    <tree create="0" delete="0" edit="0" default_order="id desc">
+                                        <button type="object" name="open_listing" icon="fa fa-pencil-square-o text-info"/>
+                                        <field name="ref_name"/>
+                                        <field name="category_id"/>
+                                        <field name="emirate_id"/>
+                                        <field name="location_id" string="Location"/>
+                                        <field name="sub_location_id" string="Sub-Location"/>
+                                        <field name="agent_id"/>
+                                    </tree>
+                                </field>
+                                <div class="col-xs-12" style="padding-left:0px;" attrs="{'invisible':[('is_listing','=',True)]}">
+                                    <span style="font-size:14px;font-weight:bold;">Sorry, No associated listings found!</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12" invisible="1">
+                        <field name="is_contacts"/>
+                        <field name="is_leads"/>
+                        <field name="is_listing"/>
+                    </div>
+                    
+                </form>
+            </field>
+        </record>
+
+        <record id="call_centre_agent_action" model="ir.actions.act_window">
+            <field name="name">Contacts</field>
+            <field name="res_model">call.centre.agent.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="view_type">form</field>
+            <field name="target">inline</field>
+        </record>
+
+        <menuitem id="call_centre_agent_menu" name="Call Centre Agents" action="call_centre_agent_action"
+                  parent="crm_root_menu" sequence="10" 
+                  groups="asteco_crm.group_call_center_agent,base.group_system,group_coordinator"/>
+    </data>
+</odoo>

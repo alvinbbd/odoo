@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<template id="agent_performance_summery">
+		<t t-call="web.html_container">
+			<t t-call="asteco_crm.asteco_report_analysis_layout">	
+				<div class="page" style="font-family:sans-serif;">
+					<div class="col-xs-12" style="padding:0;">
+                        <div class="col-xs-6" style="padding:0;">
+                            <div class="col-xs-12" style="padding:0;">
+                                <div class="col-xs-3" style="padding:0;">
+                                    <span style="font-weight:bold;">Start Date</span>
+                                </div>
+                                <div class="col-xs-1">:</div>
+                                <div class="col-xs-8" style="padding:0;">
+                                    <span t-esc="data['date_start']"/>
+                                </div>
+                            </div>
+							<t t-if="data['company']">
+                                <div class="col-xs-12" style="padding:0;">
+                                    <div class="col-xs-3" style="padding:0;">
+                                        <span style="font-weight:bold;">Company</span>
+                                    </div>
+                                    <div class="col-xs-1">:</div>
+                                    <div class="col-xs-8" style="padding:0;">
+                                        <span t-esc="data['company_name']"/>
+                                    </div>
+                                </div>
+                            </t>
+						</div>
+						<div class="col-xs-6" style="padding:0;">
+                            <div class="col-xs-12" style="padding:0;">
+                                <div class="col-xs-4" style="padding-left:20px;">
+                                    <span style="font-weight:bold;">End Date</span>
+                                </div>
+                                <div class="col-xs-1">:</div>
+                                <div class="col-xs-7" style="padding:0;">
+                                    <span t-esc="data['date_end']"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12" style="margin:30px 0;background-color:grey;color:white;">
+                        <center><b><span style="font-size:16px;">Agent Performance Report</span></b></center>
+                    </div>
+		            <div class="row" style="padding-bottom:50px;page-break-inside:avoid;">
+		                <!-- <div class="row" style="margin-top:5px;padding-left:15px;padding-right:5px;page-break-inside:avoid;"> -->
+<!--		                	<h4 align="center" > Agent Performance Report </h4>-->
+		                	<!-- <h>Name of Agent : </h> <span t-esc="data['agent_name']"/><br/>
+		                	<h>Start Date    : </h> <span t-esc="data['date_start']"/><br/>
+		                	<h>Ending Date   : </h> <span t-esc="data['date_start']"/><br/><br/><br/> -->
+
+		                	<table class="table">
+								<thead>
+									<tr>
+										<th>Agent</th>
+										<th>Manager</th>
+										<th>Leads Assigned</th>
+										<th>Qualified</th>
+										<th>Viewings </th>
+										<th>Negotiation </th>
+										<th>Converted Deals</th>
+										<th>Deals closed </th>
+										<th>Total Commission Earned</th>
+									</tr>
+								</thead>
+								<tbody>
+									<t t-foreach="get_statement_details" t-as="data">
+										<tr>
+											<td><span t-esc="data['agent_name']"/></td>
+											<td><span t-esc="data['manager']"/></td>
+											<td><span t-esc="data['number_of_leads']"/></td>
+											<td><span t-esc="data['qualified_leads']"/></td>
+											<td><span t-esc="data['viewings_leads']"/></td>
+											<td><span t-esc="data['negotiation_leads']"/></td>
+											<td><span t-esc="data['number_of_deals_converted']"/></td>
+											<td><span t-esc="data['number_of_deals_closed']"/></td>
+											<td><span t-esc="data['commision_earned']"/></td>
+											<!-- <td><span t-esc="data['location_id']"/></td>
+											<td><span t-esc="data['sub_location_id']"/></td>
+											<td><span t-esc="data['agent_id']"/></td>   -->             					
+										</tr>
+									</t>
+								</tbody>
+							</table>
+
+
+<!-- 		                	<div  style="text-align:left;">
+		                   		Number Of Leads <span t-esc="get_statement_details['number_of_leads']"/>
+		                	</div><br/>
+
+							<div  style="text-align:left;">
+		                   		Number of Qualified Leads <span t-esc="get_statement_details['qualified_leads']"/>
+		                	</div><br/>
+
+		                	<div style="text-align:left;">
+		                   		Number of Viewing Leads <span t-esc="get_statement_details['viewings_leads']"/>
+		                	</div><br/>
+
+		                	<div style="text-align:left;">
+		                   		Number of Deals Converted <span t-esc="get_statement_details['number_of_deals_converted']"/>
+		                	</div><br/>
+
+		                	<div style="text-align:left;">
+		                   		Number of Deals closed <span t-esc="get_statement_details['number_of_deals_closed']"/>
+		                	</div><br/>
+
+		                	<div style="text-align:left;">
+		                   		Total Commision Earned <span t-esc="get_statement_details['commision_earned']"/>
+		                	</div>		                	
+			                <div class="col-xs-4" style="padding-right:10px;">
+			                </div> -->
+			            <!-- </style> -->
+		            	<!-- </div> -->
+		        </div>
+		        </div>
+			</t>
+		</t>
+	</template>
+	<report
+		id = "agent_performance_preview"
+		model="analytics.reports"
+        string="Agent Performance Preview"
+        report_type="qweb-html"
+        name="asteco_crm.agent_performance_summery"
+        file="asteco_crm.agent_performance_summery"
+        menu="False"
+        print_report_name="object.ref"
+	/>
+</odoo>

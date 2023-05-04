@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="deal_number_report_pdf">
+        <t t-call="web.html_container">
+            <t t-call="asteco_crm.asteco_report_analysis_layout">
+                <div class="page" style="font-family:sans-serif;">
+                    <div class="col-xs-12" style="padding:0;">
+                        <div class="col-xs-6" style="padding:0;">
+                            <div class="col-xs-12" style="padding:0;">
+                                <div class="col-xs-3" style="padding:0;">
+                                    <span style="font-weight:bold;">Start Date</span>
+                                </div>
+                                <div class="col-xs-1">:</div>
+                                <div class="col-xs-8" style="padding:0;">
+                                    <span t-esc="data['start_date']"/>
+                                </div>
+                            </div>
+                            <t t-if="data['stock_type']">
+                                <div class="col-xs-12" style="padding:0;">
+                                    <div class="col-xs-3" style="padding:0;">
+                                        <span style="font-weight:bold;">Property Type</span>
+                                    </div>
+                                    <div class="col-xs-1">:</div>
+                                    <div class="col-xs-8" style="padding:0;">
+                                        <span t-esc="data['stock']"/>
+                                    </div>
+                                </div>
+                            </t>
+                            <t t-if="data['listing_type']">
+                                <div class="col-xs-12" style="padding:0;">
+                                    <div class="col-xs-3" style="padding:0;">
+                                        <span style="font-weight:bold;">Listing Type</span>
+                                    </div>
+                                    <div class="col-xs-1">:</div>
+                                    <div class="col-xs-8" style="padding:0;">
+                                        <span t-esc="data['listing_type']"/>
+                                    </div>
+                                </div>
+                            </t>
+                        </div>
+                        <div class="col-xs-6" style="padding:0;">
+                            <div class="col-xs-12" style="padding:0;">
+                                <div class="col-xs-4" style="padding-left:20px;">
+                                    <span style="font-weight:bold;">End Date</span>
+                                </div>
+                                <div class="col-xs-1">:</div>
+                                <div class="col-xs-7" style="padding:0;">
+                                    <span t-esc="data['end_date']"/>
+                                </div>
+                            </div>
+                            <t t-if="data['agent']">
+                                <div class="col-xs-12" style="padding:0;">
+                                    <div class="col-xs-4" style="padding-left:20px;">
+                                        <span style="font-weight:bold;">Agent</span>
+                                    </div>
+                                    <div class="col-xs-1">:</div>
+                                    <div class="col-xs-7" style="padding:0;">
+                                        <span t-esc="data['agent_name']"/>
+                                    </div>
+                                </div>
+                            </t>
+                            <t t-if="data['company']">
+                                <div class="col-xs-12" style="padding:0;">
+                                    <div class="col-xs-4" style="padding-left:20px;">
+                                        <span style="font-weight:bold;">Company</span>
+                                    </div>
+                                    <div class="col-xs-1">:</div>
+                                    <div class="col-xs-7" style="padding:0;">
+                                        <span t-esc="data['company_name']"/>
+                                    </div>
+                                </div>
+                            </t>
+                        </div>
+                    </div>
+                    <div class="col-xs-12" style="margin:30px 0;background-color:grey;color:white;">
+                        <center><b><span style="font-size:16px;">Asteco and Non-Asteco Stock</span></b></center>
+                    </div>
+                    <div class="col-xs-12" style="font-weight:bold;">
+                        <t t-foreach="deal_summary" t-as="record">
+                            <div class="row" style="margin-top:5px;padding:0;page-break-inside:avoid;border:1px solid #d5d2d2;border-radius:5px;">
+                                <div class="col-xs-12" style="padding:5px 15px;background-color:#d5d2d2;">
+                                    Company : <span t-esc="deal_summary[record]['name']"/>
+                                </div>
+                                <div class="col-xs-12" style="padding:0;">
+                                    <t t-foreach="deal_summary[record]['data']" t-as="stock">
+                                        <div class="col-xs-6" style="padding:0;">
+                                            <div class="col-xs-12" style="padding:15px 20px 5px 20px;">
+                                                <center style="border-bottom:1px solid #d5d2d2;"><span t-esc="stock"/></center>
+                                            </div>
+                                            <div class="col-xs-12" style="padding:20px 10px;">
+                                                <t t-foreach="deal_summary[record]['data'][stock]" t-as="listing_type">
+                                                    <div class="col-xs-12">
+                                                        <div class="col-xs-4">
+                                                            <span t-esc="listing_type"/>
+                                                        </div>
+                                                        <div class="col-xs-1">:</div>
+                                                        <div class="col-xs-4">
+                                                            <span t-esc="deal_summary[record]['data'][stock][listing_type]"/>
+                                                        </div>
+                                                        <div class="col-xs-3"/>
+                                                    </div>
+                                                </t>
+                                            </div>
+                                        </div>
+                                    </t>
+                                </div>
+                            </div>
+                        </t>
+                    </div>
+                </div>
+            </t>
+        </t>
+    </template>
+
+    <report
+        id = "report_deal_number_pdf"
+        model="analytics.reports"
+        string="Deal Number Report"
+        report_type="qweb-html"
+        name="asteco_crm.deal_number_report_pdf"
+        file="asteco_crm.deal_number_report_pdf"
+        menu="False"
+	/>
+</odoo>
+
+

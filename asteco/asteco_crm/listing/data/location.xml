@@ -1,0 +1,884 @@
+<odoo>
+	<data noupdate="1">
+	    <record id="loc_Barsha_Heights" model="res.location">
+			<field name="name">Barsha Heights</field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_Hessyan" model="res.location">
+			<field name="name">Hessyan</field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_Jebel_Ali_Hills" model="res.location">
+			<field name="name">Jebel Ali Hills</field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_Zabeel" model="res.location">
+			<field name="name">Zabeel</field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_Jebel_Ali" model="res.location">
+			<field name="name">Jebel Ali</field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_Marsa_Meydan" model="res.location">
+			<field name="name">Marsa Meydan</field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_Dubai_Design_District_" model="res.location">
+			<field name="name">Dubai Design District </field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_Bur_Dubai" model="res.location">
+			<field name="name">Bur Dubai</field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_Dubai_Investment_Park" model="res.location">
+			<field name="name">Dubai Investment Park</field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_Arabian_Ranches_" model="res.location">
+			<field name="name">Arabian Ranches </field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_Dubai_Waterfront" model="res.location">
+			<field name="name">Dubai Waterfront</field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_Dubai_Golf_City" model="res.location">
+			<field name="name">Dubai Golf City</field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_Discovery_Gardens" model="res.location">
+			<field name="name">Discovery Gardens</field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_Al_Oshoosh_" model="res.location">
+			<field name="name">Al Oshoosh </field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_Dubai_Outlet_City" model="res.location">
+			<field name="name">Dubai Outlet City</field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_Muhaisnah_" model="res.location">
+			<field name="name">Muhaisnah </field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_Remah" model="res.location">
+			<field name="name">Remah</field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_Jumeirah" model="res.location">
+			<field name="name">Jumeirah</field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_Jumeirah_Golf_Estates" model="res.location">
+			<field name="name">Jumeirah Golf Estates</field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_Al_Jadaf_" model="res.location">
+			<field name="name">Al Jadaf </field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_The_World_Islands" model="res.location">
+			<field name="name">The World Islands</field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_Downtown_Dubai" model="res.location">
+			<field name="name">Downtown Dubai</field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_Al_Tai" model="res.location">
+			<field name="name">Al Tai</field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_Dubai_South" model="res.location">
+			<field name="name">Dubai South</field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_Oud_Al_Muteena" model="res.location">
+			<field name="name">Oud Al Muteena</field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_Wasl_Gate" model="res.location">
+			<field name="name">Wasl Gate</field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_Al_Majan" model="res.location">
+			<field name="name">Al Majan</field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_Motor_City" model="res.location">
+			<field name="name">Motor City</field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_Umm_Eselay_" model="res.location">
+			<field name="name">Umm Eselay </field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_Jumeirah_Village" model="res.location">
+			<field name="name">Jumeirah Village</field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_Umm_Al_Daman_" model="res.location">
+			<field name="name">Umm Al Daman </field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_NSHAMA_Town_Square_" model="res.location">
+			<field name="name">NSHAMA Town Square </field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_Al_Habtoor_City_" model="res.location">
+			<field name="name">Al Habtoor City </field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_Al_Waha" model="res.location">
+			<field name="name">Al Waha</field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_Cherrywoods" model="res.location">
+			<field name="name">Cherrywoods</field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_La_Mer" model="res.location">
+			<field name="name">La Mer</field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_Lehab" model="res.location">
+			<field name="name">Lehab</field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_Dubai_Studio_City_" model="res.location">
+			<field name="name">Dubai Studio City </field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_Grayteesah_" model="res.location">
+			<field name="name">Grayteesah </field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_Al_Barsha" model="res.location">
+			<field name="name">Al Barsha</field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_Damac_Hills/_Akoya" model="res.location">
+			<field name="name">Damac Hills/ Akoya</field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_International_City" model="res.location">
+			<field name="name">International City</field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_Dubai_Healthcare_City" model="res.location">
+			<field name="name">Dubai Healthcare City</field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_Al_Qusais" model="res.location">
+			<field name="name">Al Qusais</field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_Dubai_Sustainable_City" model="res.location">
+			<field name="name">Dubai Sustainable City</field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_Remraam" model="res.location">
+			<field name="name">Remraam</field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_Al_Selal" model="res.location">
+			<field name="name">Al Selal</field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_Me'aisem" model="res.location">
+			<field name="name">Me'aisem</field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_Tilal_Al_Ghaf" model="res.location">
+			<field name="name">Tilal Al Ghaf</field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_Falcon_City_of_Wonders" model="res.location">
+			<field name="name">Falcon City of Wonders</field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_Marsa_Al_Khor" model="res.location">
+			<field name="name">Marsa Al Khor</field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_Al_Satwa" model="res.location">
+			<field name="name">Al Satwa</field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_Seih_Al_Dahal" model="res.location">
+			<field name="name">Seih Al Dahal</field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_Downtown_Jebel_Ali" model="res.location">
+			<field name="name">Downtown Jebel Ali</field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_Al_Warsan" model="res.location">
+			<field name="name">Al Warsan</field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_Bluewaters_Island" model="res.location">
+			<field name="name">Bluewaters Island</field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_Al_Maha" model="res.location">
+			<field name="name">Al Maha</field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_Dubai_Maritime_City" model="res.location">
+			<field name="name">Dubai Maritime City</field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_Akoya_Oxygen" model="res.location">
+			<field name="name">Akoya Oxygen</field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_The_Villa" model="res.location">
+			<field name="name">The Villa</field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_Ghadeer_Barashy" model="res.location">
+			<field name="name">Ghadeer Barashy</field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_Jumeirah_Lakes_Towers" model="res.location">
+			<field name="name">Jumeirah Lakes Towers</field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_Al_Qusais_Industrial" model="res.location">
+			<field name="name">Al Qusais Industrial</field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_Al_Quoz" model="res.location">
+			<field name="name">Al Quoz</field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_Emirates_Living" model="res.location">
+			<field name="name">Emirates Living</field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_Dubai_Silicon_Oasis" model="res.location">
+			<field name="name">Dubai Silicon Oasis</field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_Arabian_Ranches" model="res.location">
+			<field name="name">Arabian Ranches</field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_Dubai_Marina" model="res.location">
+			<field name="name">Dubai Marina</field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_Al_Aweer" model="res.location">
+			<field name="name">Al Aweer</field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_JAFZA" model="res.location">
+			<field name="name">JAFZA</field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_Nazwah" model="res.location">
+			<field name="name">Nazwah</field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_Dubai_Sports_City" model="res.location">
+			<field name="name">Dubai Sports City</field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_Mereiyeel" model="res.location">
+			<field name="name">Mereiyeel</field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_Deira" model="res.location">
+			<field name="name">Deira</field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_Nad_Al_Sheba" model="res.location">
+			<field name="name">Nad Al Sheba</field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_Al_Fagga" model="res.location">
+			<field name="name">Al Fagga</field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_Academic_City_" model="res.location">
+			<field name="name">Academic City </field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_MBR_City" model="res.location">
+			<field name="name">MBR City</field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_Al_Meryal_" model="res.location">
+			<field name="name">Al Meryal </field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_Jumeirah_Bay_Island" model="res.location">
+			<field name="name">Jumeirah Bay Island</field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_Al_Layan_" model="res.location">
+			<field name="name">Al Layan </field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_Umm_Al_Momeneen_" model="res.location">
+			<field name="name">Umm Al Momeneen </field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_Al_Layan" model="res.location">
+			<field name="name">Al Layan</field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_Dubai_Creek_Harbour" model="res.location">
+			<field name="name">Dubai Creek Harbour</field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_Enkhali" model="res.location">
+			<field name="name">Enkhali</field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_Al_Barari" model="res.location">
+			<field name="name">Al Barari</field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_Wadi_Al_Amardi" model="res.location">
+			<field name="name">Wadi Al Amardi</field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_National_Industries_Complex_(Dubai_Techno_Park)" model="res.location">
+			<field name="name">National Industries Complex (Dubai Techno Park)</field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_Al_Quoz_Industrial" model="res.location">
+			<field name="name">Al Quoz Industrial</field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_Al_Warqaa" model="res.location">
+			<field name="name">Al Warqaa</field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_Port_Rashid" model="res.location">
+			<field name="name">Port Rashid</field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_Al_Eyas" model="res.location">
+			<field name="name">Al Eyas</field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_Al_Khawaneej" model="res.location">
+			<field name="name">Al Khawaneej</field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_Al_Furjan" model="res.location">
+			<field name="name">Al Furjan</field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_Wadi_Al_Shabak_" model="res.location">
+			<field name="name">Wadi Al Shabak </field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_Deira_Islands" model="res.location">
+			<field name="name">Deira Islands</field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_Jebel_Ali_Industrial_" model="res.location">
+			<field name="name">Jebel Ali Industrial </field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_Al_Lesaily_" model="res.location">
+			<field name="name">Al Lesaily </field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_City_Walk" model="res.location">
+			<field name="name">City Walk</field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_Al_Ruwayyah" model="res.location">
+			<field name="name">Al Ruwayyah</field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_Al_Hathma" model="res.location">
+			<field name="name">Al Hathma</field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_City_of_Arabia" model="res.location">
+			<field name="name">City of Arabia</field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_Saih_Al_Salam_" model="res.location">
+			<field name="name">Saih Al Salam </field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_Margham" model="res.location">
+			<field name="name">Margham</field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_Liwan" model="res.location">
+			<field name="name">Liwan</field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_Tijara_Town_" model="res.location">
+			<field name="name">Tijara Town </field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_Sheikh_Zayed_Road" model="res.location">
+			<field name="name">Sheikh Zayed Road</field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_Palm_Jumeirah" model="res.location">
+			<field name="name">Palm Jumeirah</field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_Hefair" model="res.location">
+			<field name="name">Hefair</field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_Meydan_Horizon" model="res.location">
+			<field name="name">Meydan Horizon</field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_Al_Safa" model="res.location">
+			<field name="name">Al Safa</field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_The_Gardens" model="res.location">
+			<field name="name">The Gardens</field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_Mudon_" model="res.location">
+			<field name="name">Mudon </field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_The_Greens" model="res.location">
+			<field name="name">The Greens</field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_Margab" model="res.location">
+			<field name="name">Margab</field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_Dubai_Wholesale_City_" model="res.location">
+			<field name="name">Dubai Wholesale City </field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_Dubai_Industrial_Park" model="res.location">
+			<field name="name">Dubai Industrial Park</field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_Dubai_Science_Park_" model="res.location">
+			<field name="name">Dubai Science Park </field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_Saih_Shuaelah" model="res.location">
+			<field name="name">Saih Shuaelah</field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_Dubai_Producation_City_(IMPZ)" model="res.location">
+			<field name="name">Dubai Producation City (IMPZ)</field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_Palmarosa" model="res.location">
+			<field name="name">Palmarosa</field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_Al_Kifaf" model="res.location">
+			<field name="name">Al Kifaf</field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_Yaraah" model="res.location">
+			<field name="name">Yaraah</field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_Le_Hemaira" model="res.location">
+			<field name="name">Le Hemaira</field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_Arjan" model="res.location">
+			<field name="name">Arjan</field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_Al_Manara" model="res.location">
+			<field name="name">Al Manara</field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_Jumeirah_Park" model="res.location">
+			<field name="name">Jumeirah Park</field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_JBR" model="res.location">
+			<field name="name">JBR</field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_Al_Badaa" model="res.location">
+			<field name="name">Al Badaa</field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_Dubailand_Residence_Complex" model="res.location">
+			<field name="name">Dubailand Residence Complex</field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_Business_Bay" model="res.location">
+			<field name="name">Business Bay</field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_Al_Barsha_South" model="res.location">
+			<field name="name">Al Barsha South</field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_Dubai_Festival_City" model="res.location">
+			<field name="name">Dubai Festival City</field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_Ras_Al_Khor_Industrial_" model="res.location">
+			<field name="name">Ras Al Khor Industrial </field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_Al_Wasl" model="res.location">
+			<field name="name">Al Wasl</field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_Al_Sufouh" model="res.location">
+			<field name="name">Al Sufouh</field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_Al_Marmoom_" model="res.location">
+			<field name="name">Al Marmoom </field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_Dubai_Hills_Estate" model="res.location">
+			<field name="name">Dubai Hills Estate</field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_Living_Legends" model="res.location">
+			<field name="name">Living Legends</field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_Dubai_Outsource_Zone" model="res.location">
+			<field name="name">Dubai Outsource Zone</field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_Al_Mizhar" model="res.location">
+			<field name="name">Al Mizhar</field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_Emaar_Reem" model="res.location">
+			<field name="name">Emaar Reem</field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_Pearl_Jumeirah" model="res.location">
+			<field name="name">Pearl Jumeirah</field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_Mirdif" model="res.location">
+			<field name="name">Mirdif</field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_World_Trade_Centre" model="res.location">
+			<field name="name">World Trade Centre</field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_Layan_Community_" model="res.location">
+			<field name="name">Layan Community </field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+
+
+		<record id="loc_Dubai_Lifestyle_City_" model="res.location">
+			<field name="name">Dubai Lifestyle City </field>
+			<field name="emirate_id" ref="base.state_ae_du" />
+		</record>
+	</data>
+</odoo>

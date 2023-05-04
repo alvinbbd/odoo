@@ -1,0 +1,45 @@
+<odoo>
+	<data>
+		<template id="asteco_report_analysis_layout">
+				<style type="text/css"> 
+					@font-face {
+					    font-family: Verdana;
+						src: url(/asteco_crm/static/src/fonts/Verdana.ttf);
+					}
+				</style>
+				<div class="header" style="padding-left:0px;">
+					<div class="col-xs-12" style="padding-left:0px;padding-top:10px;">
+						<div class="col-xs-6" style="padding-left:0px;">
+							<img src="/asteco_crm/static/src/img/ast_logo.png"/>
+						</div>
+						<div class="col-xs-6" style="font-weight:bold;color:#234079;padding-left:150px;padding-right:0px;font-family:Verdana;float:right;">
+							<t t-if="res_company.company_profile">
+								<span style="font-size:13px;"><h t-field="res_company.company_profile"/></span><br/>
+							</t>
+							<span style="font-size:11px;margin-top:20px;"><h t-field="res_company.address"/></span><br/>
+							<span style="font-size:11px;">Tel :<h t-field="res_company.phone"/></span><br/>
+							<span style="font-size:11px;"><h t-field="res_company.email"/></span><br/>
+							<span style="font-size:11px;">TRN :<h t-field="res_company.vat"/></span>
+						</div>
+					</div>
+				</div>
+				<div class="article">
+					<t t-raw="0"/>
+				</div>
+				<div class="footer">
+					<div class="col-xs-12" style="padding-bottom:0px;margin-bottom:0px;font-family:Verdana;font-size:10px;">
+		                <div class="col-xs-4" style="text-align:left;padding-left:0px;">
+		                    Printed By <span t-esc="user.name"></span>
+		                </div>
+		                <div class="col-xs-4" style="text-align:center;">
+		                    Page <span class="page"/> of <span class="topage"/>
+		                </div>
+		                <div class="col-xs-4" style="text-align:right;padding-right:0px;">
+		                	Date &amp; Time of Print : <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%d/%m/%Y %H:%M %p')"/>
+		                	<!-- datetime.now(pytz.timezone(user_tz)).strftime("%d-%m-%Y %I:%M %p") -->
+		                </div>
+		            </div>
+				</div>
+		</template>
+	</data>
+</odoo>

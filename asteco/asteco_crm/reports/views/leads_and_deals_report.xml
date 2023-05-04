@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<template id="leads_and_deals_summery">
+		<t t-call="web.html_container">
+			<t t-call="asteco_crm.asteco_report_analysis_layout">	
+				<div class="page" style="font-family:sans-serif;">
+					<div class="col-xs-12" style="padding:0;">
+                        <div class="col-xs-6" style="padding:0;">
+                            <div class="col-xs-12" style="padding:0;">
+                                <div class="col-xs-3" style="padding:0;">
+                                    <span style="font-weight:bold;">Start Date</span>
+                                </div>
+                                <div class="col-xs-1">:</div>
+                                <div class="col-xs-8" style="padding:0;">
+                                    <span t-esc="data['date_start']"/>
+                                </div>
+                            </div>
+							<t t-if="data['company']">
+                                <div class="col-xs-12" style="padding:0;">
+                                    <div class="col-xs-3" style="padding:0;">
+                                        <span style="font-weight:bold;">Company</span>
+                                    </div>
+                                    <div class="col-xs-1">:</div>
+                                    <div class="col-xs-8" style="padding:0;">
+                                        <span t-esc="data['company_name']"/>
+                                    </div>
+                                </div>
+                            </t>
+                        </div>
+						<div class="col-xs-6" style="padding:0;">
+                            <div class="col-xs-12" style="padding:0;">
+                                <div class="col-xs-4" style="padding-left:20px;">
+                                    <span style="font-weight:bold;">End Date</span>
+                                </div>
+                                <div class="col-xs-1">:</div>
+                                <div class="col-xs-7" style="padding:0;">
+                                    <span t-esc="data['date_end']"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+					<div class="col-xs-12" style="margin:30px 0;background-color:grey;color:white;">
+                        <center><b><span style="font-size:16px;">Leads and Deals Report</span></b></center>
+                    </div>
+		            <div class="row" style="padding-bottom:50px;page-break-inside:avoid;">            	
+		                	<!-- <h4 align="center" > Leads and Deals Report </h4> -->
+		                	<table class="table">
+								<thead>
+									<tr>
+										<th>Leads in </th>
+										<th>Qualified</th>
+										<th>Viewings</th>
+										<th>Negotiation </th>
+										<th>Converted to Deal</th>
+										<th>Commission Earned</th>
+<!-- 										<th>Deals closed </th>
+										<th>Total Commision Earned</th>
+ -->									</tr>
+								</thead>
+								<tbody >
+									<tr>
+										<td><span t-esc="get_statement_details['number_of_leads']"/></td>
+										<td><span t-esc="get_statement_details['qualified_leads']"/></td>
+										<td><span t-esc="get_statement_details['viewings_leads']"/></td>
+										<td><span t-esc="get_statement_details['number_of_negotiation']"/></td>
+										<td><span t-esc="get_statement_details['number_of_deals_converted']"/></td>
+										<td><span t-esc="get_statement_details['number_of_deals_closed']"/></td> 
+									</tr>
+
+									<tr>
+										<td></td>
+										<td>Won : <span t-esc="get_statement_details['qwon']"/></td>
+										<td>Won : <span t-esc="get_statement_details['vwon']"/></td>
+										<td>Won : <span t-esc="get_statement_details['nwon']"/></td>
+										<td>Won : <span t-esc="get_statement_details['cdwon']"/></td>
+										<td><span t-esc="get_statement_details['cewon']"/></td>
+									</tr>
+
+									<tr>
+										<td></td>
+										<td>Lost : <span t-esc="get_statement_details['qlost']"/></td>
+										<td>Lost : <span t-esc="get_statement_details['vlost']"/></td>
+										<td>Lost : <span t-esc="get_statement_details['nlost']"/></td>
+										<td>Lost : <span t-esc="get_statement_details['cdlost']"/></td>
+										<td><span t-esc="get_statement_details['celost']"/></td>
+
+									</tr>
+								</tbody>
+
+							</table>
+		        </div>
+		        </div>
+			</t>
+		</t>
+	</template>
+	<report
+		id = "leads_and_deals_preview"
+		model="analytics.reports"
+        string="Leads and Deals Report"
+        report_type="qweb-html"
+        name="asteco_crm.leads_and_deals_summery"
+        file="asteco_crm.leads_and_deals_summery"
+        menu="False"
+        print_report_name="object.ref"
+	/>
+</odoo>

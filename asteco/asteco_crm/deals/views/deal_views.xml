@@ -1,0 +1,620 @@
+<odoo>
+    <data>
+
+        <record id="deal_deal_form_view" model="ir.ui.view">
+            <field name="name">Deal form view</field>
+            <field name="model">deal.deal</field>
+            <field name="arch" type="xml">
+                <form create="0" duplicate="0" delete="0">
+                    <header>
+                        <button type="object" name="create_proforma_invoice" string="Pro Forma Invoice" class="oe_asteco_default" attrs="{'invisible':[('deal_status','not in',['In Progress'])]}"/>
+                        <button type="object" name="view_proforma_invoice" string="View Proforma Invoice" class="oe_asteco_default" attrs="{'invisible':[('deal_status','not in',['Invoice Issued','Deposit Received'])]}" style="background-color:#0097D2;border:none;"/>
+                        <button type="object" name="create_temp_receipt" string="Temporary Receipt" class="oe_asteco_default" attrs="{'invisible':[('deal_status','not in',['Invoice Issued'])]}"/>
+                        <button type="object" name="view_temp_receipt" string="View Temporary Receipt" class="oe_asteco_default" attrs="{'invisible':[('deal_status','not in',['Deposit Received'])]}" style="background-color:#0097D2;border:none;"/>
+                        <field name="deal_status" widget="statusbar" statusbar_visible="In Progress,Invoice Issued,Deposit Received,Lost"/>
+                    </header>
+                    <sheet>
+                        <style>
+                            .ast-6-div .ast_field {
+                                padding: 0;
+                            }
+                            .ast-doc-attach .btn-default{
+                                background-color:#4494af !important;
+                                border:none;
+                                color:white;
+                            }
+                        </style>
+                        <script>
+                            $(document).ready(function(){
+                                $('.fa-external-link').addClass("hidden");
+                                $(".o_required_modifier").siblings('label').addClass('so-mandtry-star');
+                            });
+                        </script>
+                        <div>
+                            <div class="row asteco-form-div">
+                            	<h3 class="asteco-grp-title" style="margin-left: 20px;">Deal Details</h3>
+                                <div class="col-md-8 col-xs-12 so-bo_rt-1px" style="padding-top:0px;">
+                                    <div class="col-md-12 col-xs-12 so-pa-0px">
+                                        <div class="col-md-12 col-xs-12">
+                                        	<div class="row asteco-form-div ast_field">
+                                        		<label for="name"/><br /><field name="name"/> 
+                                        		<label for="company_id"  invisible="1"/><br />
+                                                <field name="company_id" invisible="1"/>
+                                                <field name="date_deal" invisible="1"/>
+                                                <field name="is_invoice" invisible="1"/>
+                                        	</div>
+                                            <div class="row asteco-form-div so-section-end" >
+
+                                                <div class="col-xs-12 col-md-12 ast_field" style="padding: 0px;" >
+                                                    <div class="col-xs-12 col-md-6 so-pa-0px zoom" style="padding-right:0px;">
+                                                    	<div class="col-xs-12 col-md-11 so-pa-0px" style="border: 1px solid #0000003d; ">
+
+	                                                        <div class="col-xs-12 col-md-12 ast_field">
+	                                                            <label for="listing_id" /><br />
+	                                                            <field name="listing_id" options="{'no_create': True}" attrs="{'readonly':[('id','!=',False)]}"/>
+	                                                        </div>
+
+	                                                        <div class="col-xs-12 col-md-6 ast_field hide-external-link">
+                                                                <label for="listing_customer" /><br />
+                                                                <field name="listing_customer" required="1" options="{'no_create' : True, 'no_open' : False}" context="{'form_view_ref':'asteco_crm.atk_contacts_view_form'}" attrs="{'readonly':[('id','!=',False)]}"/>
+	                                                        </div>
+
+                                                            <!-- <div class="col-xs-12 col-md-6 ast_field"> -->
+	                                                            <!-- <label for="listing_agent" /><br /> -->
+	                                                            <!-- <field name="listing_agent" options="{'no_create': True, 'no_open':True}"/> -->
+	                                                        <!-- </div> -->
+
+	                                                        <div class="col-xs-12 col-md-6 ast_field">
+	                                                            <label for="listing_mobile" /><br />
+	                                                            <field name="listing_mobile" readonly="True"/>
+	                                                        </div>
+
+	                                                        <div class="col-xs-12 col-md-6 ast_field">
+	                                                            <label for="listing_email" /><br />
+	                                                            <field name="listing_email" readonly="True"/>
+	                                                        </div>
+
+	                                                        <div class="col-xs-12 col-md-6 ast_field">
+	                                                            <label for="listing_type" /><br />
+	                                                            <field name="listing_type" readonly="True"/>
+	                                                        </div>
+	                                                        <div class="col-xs-12 col-md-6 ast_field">
+	                                                            <label for="listing_price" /><br />
+	                                                            <field name="listing_price" readonly="True"/>
+	                                                        </div>
+	                                                        <div class="col-xs-12 col-md-6 ast_field">
+                                                                <label for="listing_category" /><br />
+                                                                <field name="listing_category" options="{'no_create': True, 'no_open':True}" readonly="True"/>
+                                                                </div>
+	                                                        <div class="col-xs-12 col-md-6 ast_field">
+	                                                            <label for="listing_available" /><br />
+	                                                            <field name="listing_available" readonly="True"/>
+	                                                        </div>
+                                                            <div class="col-xs-12 col-md-6 ast_field">
+                                                                <label for="listing_unit"/><br/>
+                                                                <field name="listing_unit" readonly="True"/>
+                                                            </div>
+	                                                    </div>
+	                                                </div>
+
+                                                    <div class="col-xs-12 col-md-6 so-pa-0px zoom" >
+                                                    	<div class="col-xs-12 col-md-11 so-pa-0px" style="border: 1px solid #0000003d; ">
+	                                                        <div class="col-xs-12 col-md-12 ast_field">
+	                                                            <label for="lead_id" /><br />
+	                                                            <field name="lead_id" options="{'no_create': True}" attrs="{'readonly':[('id','!=',False)]}"/>
+	                                                        </div>
+
+	                                                         <div class="col-xs-12 col-md-6 ast_field">
+	                                                            <label for="lead_contact" /><br />
+<!--	                                                            <field name="lead_contact" options="{'no_create': True, 'no_open':True}" context="{'form_view_ref':'asteco_crm.atk_contacts_view_form'}"/>-->
+	                                                            <field name="lead_contact" options="{'no_create': True}" readonly="True"/>
+	                                                        </div>
+	                                                        <div class="col-xs-12 col-md-6 ast_field">
+	                                                            <label for="lead_type" /><br />
+	                                                            <field name="lead_type" readonly="True"/>
+	                                                        </div>
+	                                                        <div class="col-xs-12 col-md-6 ast_field">
+	                                                            <label for="lead_agent" /><br />
+	                                                            <field name="lead_agent" options="{'no_create': True, 'no_open':True}" readonly="True"/>
+	                                                        </div>
+
+	                                                        <div class="col-xs-6 col-md-6 ast_field">
+				                                                <label for="lead_source_id" />
+				                                                <br />
+				                                                <field name="lead_source_id" widget="selection" options="{'no_create' : True,'no_open' : True}" readonly="True"/>
+			                                           		</div>
+	                                                    </div>
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+
+                                            <div class="row asteco-form-div so-section-end" style="border-bottom:0px;">
+                                                <div class="col-xs-12 col-md-12 so-pa-0px">
+	                                                <div class="col-xs-6 col-md-6 ast_field">
+	                                                    <label for="shared_with_id" />
+	                                                    <br />
+	                                                    <field name="shared_with_id"  widget="selection" options="{'no_create' : True,'no_open' : True}" attrs="{'readonly':[('deal_status','in',['Invoice Issued','Deposit Received','Lost'])]}"/>
+	                                                </div>
+
+	                                                <div class="col-xs-6 col-md-6 ast_field">
+	                                                    <label for="create_uid" />
+	                                                    <br />
+	                                                    <field name="create_uid" />
+	                                                </div>
+	                                            </div>
+	                                            <div class="col-xs-12 col-md-12 so-pa-0px">
+
+
+	                                                <div class="col-xs-6 col-md-6 ast_field">
+	                                                    <label for="type" string="Transaction Type" />
+	                                                    <br />
+	                                                    <field name="type" readonly="True"/>
+	                                                </div>
+
+	                                                <div class="col-md-6 col-xs-6 ast_field">
+                                                        <label for="deal_confidence_level" string="Deal Confidence Level (%)"/>
+                                                        <br />
+                                                        <field name="deal_confidence_level" attrs="{'readonly':[('deal_status','in',['Invoice Issued','Deposit Received','Lost'])]}"/>
+                                                    </div>
+
+                                                    
+
+	                                            </div>
+	                                            
+	                                            <div class="col-xs-12 col-md-12 so-pa-0px">
+
+<!--	                                            	<div class="col-xs-6 col-md-6 ast_field">-->
+<!--		                                                <label for="state" />-->
+<!--		                                                <br />-->
+<!--		                                                <field name="state" />-->
+<!--		                                            </div>-->
+
+	                                            	<div class="col-xs-6 col-md-6 ast_field">
+	                                                    <label for="sub_status_id" />
+	                                                    <br />
+	                                                    <field name="sub_status_id" attrs="{'readonly':[('deal_status','in',['Invoice Issued','Deposit Received','Lost'])]}"/>
+	                                                </div>
+                                                    <div class="col-xs-12 col-md-6 ast_field" attrs="{'invisible':[('sub_status_id','!=','deal_lost')]}">
+                                                        <label for="deal_loss_reason" /><br />
+                                                        <field name="deal_loss_reason"  attrs="{'required':['|', ('sub_status_id','=','deal_lost')], 'readonly':[('deal_status','in',['Lost'])]}" options="{'no_create':True, 'no_open':True}"/>
+                                                    </div>
+                                                    <div class="col-xs-6 col-md-6 ast_field">
+                                                        <label for="expected_close_date" />
+                                                        <br />
+                                                        <field name="expected_close_date" attrs="{'readonly':[('deal_status','in',['Invoice Issued','Deposit Received','Lost'])]}" />
+                                                    </div>
+	                                                
+		                                        </div>
+		                                    </div>
+                                        </div>
+                                        </div>
+                                        <notebook>
+                                            <page string="Transaction Details">
+                                            <div class="col-md-12 col-xs-12 so-section-end" style="border-bottom:0px;">
+                                                <h3 class="asteco-grp-title">Transaction Details</h3>
+                                                <div class="row asteco-form-div">
+                                                    <!--<div class="col-xs-12 col-md-2 ast_field">
+                                                        <label for="currency_code" />
+                                                        <br />
+                                                        <field name="currency_code" />
+                                                    </div>-->
+                                                    <div class="col-xs-12 col-md-6 ast_field">
+                                                        <label for="deal_price" string="Deal Price"/>
+                                                        <br />
+                                                        <field name="deal_price" required="1" attrs="{'readonly':[('deal_status','in',['Invoice Issued','Deposit Received','Lost'])]}"/>
+                                                    </div>
+                                                    <div class="col-xs-12 col-md-6 ast_field">
+                                                        <label for="deposit" string="Deposit"/>
+                                                        <br />
+                                                        <field name="deposit" attrs="{'readonly':[('deal_status','in',['Invoice Issued','Deposit Received','Lost'])]}"/>
+                                                    </div>
+                                                </div>
+                                                <div class="row asteco-form-div">
+                                                    <div class="col-xs-12 col-md-6 ast_field">
+                                                        <label for="estimated_date" />
+                                                        <br />
+                                                        <field name="estimated_date" attrs="{'readonly':[('deal_status','in',['Invoice Issued','Deposit Received','Lost'])], 'required':[('sub_status_id','!=','deal_lost')]}"/>
+                                                    </div>
+                                                    <div class="col-xs-12 col-md-6 ast_field">
+                                                        <label for="actual_date" />
+                                                        <br />
+                                                        <field name="actual_date" attrs="{'readonly':[('deal_status','in',['Invoice Issued','Deposit Received','Lost'])]}"/>
+                                                    </div>
+                                                </div>
+                                                <div class="row asteco-form-div">
+                                                    <div class="col-xs-12 col-md-6 ast_field">
+                                                        <label for="cheque_id" /><br />
+                                                        <field name="cheque_id" options="{'no_create': True, 'no_open': True}" attrs="{'readonly':[('deal_status','in',['Invoice Issued','Deposit Received','Lost'])]}"/>
+                                                    </div>
+                                                </div>
+                                                <div class="row asteco-form-div">
+                                                    <div class="col-xs-12 col-md-6 ast_field">
+                                                        <label for="tenancy_contract_start_date" />
+                                                        <br />
+                                                        <field name="tenancy_contract_start_date" attrs="{'readonly':[('deal_status','in',['Invoice Issued','Deposit Received','Lost'])]}"/>
+                                                    </div>
+                                                    <div class="col-xs-12 col-md-6 ast_field">
+                                                        <label for="tenancy_renewal_date" />
+                                                        <br />
+                                                        <field name="tenancy_renewal_date" attrs="{'readonly':[('deal_status','in',['Invoice Issued','Deposit Received','Lost'])]}"/>
+                                                    </div>
+                                                </div>
+                                                <div class="row asteco-form-div">
+                                                    <div class="col-xs-12 col-md-6 ast_field">
+                                                        <label for="finance_type" />
+                                                        <br />
+                                                        <field name="finance_type" attrs="{'readonly':[('deal_status','in',['Invoice Issued','Deposit Received','Lost'])]}"/>
+                                                    </div>
+                                                    <div class="col-xs-12 col-md-6 ast_field">
+                                                        <label for="buyer_type" />
+                                                        <br />
+                                                        <field name="buyer_type" attrs="{'readonly':[('deal_status','in',['Invoice Issued','Deposit Received','Lost'])]}"/>
+                                                    </div>
+                                                </div>
+                                                <div class="row asteco-form-div" attrs="{'invisible':[('pro_invoice_id','=',False), ('temp_payment_id','=',False)]}">
+                                                    <div class="col-xs-12 col-md-6 ast_field" attrs="{'invisible':[('pro_invoice_id','=',False)]}">
+                                                        <label for="pro_invoice_id"/>
+                                                        <br />
+                                                        <field name="pro_invoice_id" readonly="1"/>
+                                                    </div>
+                                                    <div class="col-xs-12 col-md-6 ast_field" attrs="{'invisible':[('temp_payment_id','=',False)]}">
+                                                        <label for="temp_payment_id"/>
+                                                        <br />
+                                                        <field name="temp_payment_id" readonly="1"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            </page>
+
+                                            <page string="Commission Details">
+                                                <div class="col-md-12 col-xs-12 so-section-end" style="border-bottom:0px;">
+                                                <h3 class="asteco-grp-title">Commission Details</h3>
+                                                    <div class="row asteco-form-div">
+                                                        <div class="col-xs-12 col-md-6 ast_field">
+                                                            <label for="gross_commission" string="Gross Commission"/><br />
+                                                            <field name="gross_commission" required="1" attrs="{'readonly':[('deal_status','in',['Invoice Issued','Deposit Received','Lost'])]}"/>
+                                                        </div>
+                                                        <div class="col-xs-12 col-md-6 ast_field">
+                                                            <label for="include_commission_vat" /><br />
+                                                            <field name="include_commission_vat" widget="radio" attrs="{'readonly':[('deal_status','in',['Invoice Issued','Deposit Received','Lost'])]}"/>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row asteco-form-div" >
+                                                        <div class="col-xs-12 col-md-6 ast_field" attrs="{'invisible':[('include_commission_vat','!=','yes')]}">
+                                                            <label for="commission_vat_amt" string="Commission VAT Amount"/><br />
+                                                            <field name="commission_vat_amt" attrs="{'readonly':[('deal_status','in',['Invoice Issued','Deposit Received','Lost'])]}"/>
+                                                        </div>
+                                                        <div class="col-xs-12 col-md-6 ast_field">
+                                                            <label for="total_gross_commision" string="Total Gross Commission"/><br />
+                                                            <field name="total_gross_commision" attrs="{'readonly':[('deal_status','in',['Invoice Issued','Deposit Received','Lost'])]}"/>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row asteco-form-div">
+                                                        <div class="col-xs-12 col-md-6 ast_field">
+                                                            <label for="split_ext_ref" /><br />
+                                                            <field name="split_ext_ref" attrs="{'readonly':[('deal_status','in',['Invoice Issued','Deposit Received','Lost'])]}"/>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row asteco-form-div" attrs="{'invisible':[('split_ext_ref','=',False)]}">
+                                                        <div class="col-xs-12 col-md-6 ast_field">
+                                                            <label for="deal_sub_broker" string="Add Sub-broker"/><br />
+                                                            <field name="deal_sub_broker" options="{'no_create':True, 'no_open':True}" attrs="{'readonly':[('deal_status','in',['Invoice Issued','Deposit Received','Lost'])]}"/>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row asteco-form-div" attrs="{'invisible':[('split_ext_ref','=',False)]}">
+                                                        <div class="col-xs-12 col-md-6 ast_field">
+                                                            <label for="external_referral_commision" string="External Referral Commission (%)"/><br />
+                                                            <field name="external_referral_commision" attrs="{'readonly':[('deal_status','in',['Invoice Issued','Deposit Received','Lost'])]}" />
+                                                        </div>
+                                                        <div class="col-xs-12 col-md-6 ast_field">
+                                                            <label for="external_referral_commision_value" string="Commission Value"/><br />
+                                                            <field name="external_referral_commision_value" attrs="{'readonly':[('deal_status','in',['Invoice Issued','Deposit Received','Lost'])]}" />
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+
+                                                <div class="row asteco-form-div so-section-end" style="border-bottom:0px;">
+                                                <label for="deal_split_internal" /><br />
+                                                    <field name="deal_split_internal" attrs="{'readonly':[('deal_status','in',['Invoice Issued','Deposit Received','Lost'])]}">
+                                                        <tree editable="bottom" search="0">
+                                                            <field name="company_id" invisible="1"/>
+                                                            <field name="agent" string="Add Agent" options="{'no_create':True, 'no_open':True}" required="1" domain="[('company_id','=',company_id),('id','!=',agent_temp)]"/>
+<!--                                                            <field name="parent_agent" invisible="1" options="{'no_create':True, 'no_open':True}" required="1"/>-->
+                                                            <field name="commission_internal"/>
+                                                            <field name="commission_value_internal" string="Commission Value"/>
+                                                            <field name="company_id" invisible="1" />
+                                                            <field name="agent_temp" invisible="1" />
+                                                            <field name="deal_id" invisible="1" />
+                                                        </tree>
+                                                    </field>
+                                                </div>
+
+                                                <div class="row asteco-form-div so-section-end" style="border-bottom:0px;">
+                                                <label for="deal_split_network" /><br />
+                                                    <field name="deal_split_network" attrs="{'readonly':[('deal_status','in',['Invoice Issued','Deposit Received','Lost'])]}">
+                                                        <tree editable="bottom" search="0">
+                                                            <field name="agent" string="Add Agent" options="{'no_create':True, 'no_open':True}" required="1"/>
+                                                            <field name="commission_network"/>
+                                                            <field name="commission_value_network" string="Commission Value"/>
+                                                        </tree>
+                                                    </field>
+                                                </div>
+
+                                                <div class="row asteco-form-div">
+                                                    <div class="col-xs-12 col-md-6"  style="padding-bottom:10px;text-align:left;">
+                                                        <span style="font-weight:bold;font-size:14px;">
+                                                            Total Earned Commission : <field name="total_earned_commission_amount"/>
+                                                        </span>
+                                                    </div>
+                                                    <div class="col-xs-12 col-md-6" style="padding-bottom:10px;text-align:left;">
+                                                        <span style="font-weight:bold;font-size:14px;">
+                                                            <span style="margin:5px;">Total </span> <field name="company_id"/> <span style="margin:5px;">Earnings : <field name="total_company_earnings"/>
+                                                        </span>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </page>
+                                            <page string="Unit Details">
+                                            <div class="col-xs-12 col-md-12" style="margin-bottom:30px;">
+                                            <h3 class="asteco-grp-title" >Unit Details</h3>
+                                                <div class="row asteco-form-div">
+                                                    <div class="col-xs-12 col-md-6 ast_field" readonly="True">
+                                                        <label for="listing_emirate_id"/><br/>
+                                                        <field name="listing_emirate_id" readonly="True" options="{'no_create': True, 'no_open': True}" required="1" />
+                                                    </div>
+                                                    <div class="col-xs-12 col-md-6 ast_field" readonly="True">
+                                                        <label for="listing_location_id" string="Location\Project"/><br/>
+                                                        <field name="listing_location_id" required="1" options="{'no_create': True, 'no_open': True}" readonly="True"/>
+                                                    </div>
+                                                </div>
+                                                <div class="row asteco-form-div" readonly="True">
+                                                    <div class="col-xs-12 col-md-6 ast_field">
+                                                        <label for="listing_sub_location_id" string="Sub-location\Building"/><br/>
+                                                        <field name="listing_sub_location_id" required="1" options="{'no_create': True, 'no_open': True}" readonly="True"/>
+                                                    </div>
+                                                    <div class="col-xs-12 col-md-6 ast_field" readonly="True">
+                                                        <label for="listing_category_id"/><br/>
+                                                        <field name="listing_category_id" required="1" options="{'no_create': True, 'no_open': True}" readonly="True"/>
+                                                    </div>
+                                                </div>
+
+    <!--                                            <div class="row" style="border-bottom:1px solid #bec4ce;padding:10px;margin-bottom:15px;" />-->
+                                                <div class="row asteco-form-div">
+                                                    <div class="col-xs-12 col-md-6 ast_field">
+                                                        <label for="listing_bed"/><br/>
+                                                        <field name="listing_bed" attrs="{'readonly':[('deal_status','in',['Invoice Issued','Deposit Received','Lost'])]}"/>
+                                                    </div>
+                                                    <div class="col-xs-12 col-md-6 ast_field">
+                                                        <label for="listing_bath"/><br/>
+                                                        <field name="listing_bath" attrs="{'readonly':[('deal_status','in',['Invoice Issued','Deposit Received','Lost'])]}"/>
+                                                    </div>
+                                                </div>
+                                                <div class="row asteco-form-div">
+                                                    <div class="col-xs-12 col-md-6 ast_field">
+                                                        <label for="listing_floor"/><br/>
+                                                        <field name="listing_floor" attrs="{'readonly':[('deal_status','in',['Invoice Issued','Deposit Received','Lost'])]}"/>
+                                                    </div>
+                                                    <div class="col-xs-12 col-md-6 ast_field">
+                                                        <label for="listing_street"/><br/>
+                                                        <field name="listing_street" attrs="{'readonly':[('deal_status','in',['Invoice Issued','Deposit Received','Lost'])]}"/>
+                                                    </div>
+                                                </div>
+                                                <div class="row asteco-form-div">
+                                                    <div class="col-xs-12 col-md-6 ast_field">
+                                                        <label for="listing_build_up_area_sqf"/><br/>
+                                                        <field name="listing_build_up_area_sqf" attrs="{'readonly':[('deal_status','in',['Invoice Issued','Deposit Received','Lost'])]}"/>
+                                                    </div>
+                                                    <div class="col-xs-12 col-md-6 ast_field">
+                                                        <label for="listing_build_up_area_sqm"/><br/>
+                                                        <field name="listing_build_up_area_sqm" attrs="{'readonly':[('deal_status','in',['Invoice Issued','Deposit Received','Lost'])]}"/>
+                                                    </div>
+                                                </div>
+    <!--                                            <div class="row asteco-form-div">-->
+    <!--                                                <div class="col-xs-12 col-md-6 ast_field">-->
+    <!--                                                    <label for="listing_plot_area"/><br/>-->
+    <!--                                                    <field name="listing_plot_area"/>-->
+    <!--                                                </div>-->
+    <!--                                                <div class="col-xs-12 col-md-6 ast_field">-->
+    <!--                                                    <label for="listing_regulatory_permit"/><br/>-->
+    <!--                                                    <field name="listing_regulatory_permit"/>-->
+    <!--                                                </div>-->
+    <!--                                            </div>-->
+                                                <div class="row asteco-form-div">
+                                                    <div class="col-xs-12 col-md-6 ast_field">
+                                                        <label for="listing_unit"/><br/>
+                                                        <field name="listing_unit" attrs="{'readonly':[('deal_status','in',['Invoice Issued','Deposit Received','Lost'])]}"/>
+                                                    </div>
+                                                    <div class="col-xs-12 col-md-6 ast_field">
+                                                        <label for="listing_unit_geo_tag"/><br/>
+                                                        <field name="listing_unit_geo_tag" attrs="{'readonly':[('deal_status','in',['Invoice Issued','Deposit Received','Lost'])]}"/>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row asteco-form-div">
+                                                    <div class="col-xs-12 col-md-6 ast_field">
+                                                        <label for="listing_listing_detail_type"/><br/>
+                                                        <field name="listing_listing_detail_type" attrs="{'readonly':[('deal_status','in',['Invoice Issued','Deposit Received','Lost'])]}"/>
+                                                    </div>
+                                                    <div class="col-xs-12 col-md-6 ast_field">
+                                                        <label for="listing_property_view"/><br/>
+                                                        <field name="listing_property_view" attrs="{'readonly':[('deal_status','in',['Invoice Issued','Deposit Received','Lost'])]}"/>
+                                                    </div>
+    <!--                                                <div class="col-xs-12 col-md-6 ast_field">-->
+    <!--                                                    <label for="listing_furnished_id"/><br/>-->
+    <!--                                                    <field name="listing_furnished_id"/>-->
+    <!--                                                </div>-->
+                                                    <div class="col-xs-12 col-md-6 ast_field">
+                                                        <label for="listing_parking"/><br/>
+                                                         <field name="listing_parking" attrs="{'readonly':[('deal_status','in',['Invoice Issued','Deposit Received','Lost'])]}"/>
+                                                    </div>
+    <!--                                                <div class="col-xs-12 col-md-6 ast_field">-->
+    <!--                                                    <label for="listing_key_location"/><br/>-->
+    <!--                                                    <field name="listing_key_location"/>-->
+    <!--                                                </div>-->
+                                                    <div class="col-xs-12 col-md-6 ast_field">
+                                                        <label for="list_managed_status_id"/><br/>
+                                                         <field name="list_managed_status_id" attrs="{'readonly':[('deal_status','in',['Invoice Issued','Deposit Received','Lost'])]}"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            </page>
+
+                                    
+<!--                                            <div class="col-md-12 col-xs-12 asteco-form-div" style="border-top: 1px solid #cecaca;margin-top:0;padding-top:10px;"/>-->
+                                        </notebook>
+
+<!--                                        <div class="col-md-6 col-xs-12 ast-6-div">-->
+<!--                                            <div class="col-xs-12 ast_field">-->
+<!--                                                <label for="proforma_invoice_narration" />-->
+<!--                                                <br />-->
+<!--                                                <field name="proforma_invoice_narration" />-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+                                </div>
+                                <div class="col-md-4 col-xs-12">
+                                    <div class="col-md-12 col-xs-12" style="padding-top:0px;">
+                                        <group>
+                                            <notebook class="ast-notebook-page">
+                                                <page string="Notes">
+                                                    <div class="oe_read_only" style="border:1px solid #4494af;border-radius:3px;width:100px;height:30px;background-color:#4494af;color:white;text-align:center;padding:5px;font-size:12px;margin-top:10px;cursor:pointer;">
+                                                        <span>Edit to Create</span>
+                                                    </div>
+                                                    <div style="margin-top:5px;margin-left:10px;">
+                                                        <field name="is_notify_agent" />Notify Agent
+                                                    </div>
+                                                    <div style="margin-top:10px;">
+                                                        <field name="notes_ids">
+                                                            <kanban>
+                                                                <field name="name" />
+                                                                <field name="write_date" />
+                                                                <field name="write_uid" />
+                                                                <templates>
+                                                                    <t t-name="kanban-box">
+                                                                        <div class="row">
+                                                                            <div class="col-xs-12" style="padding:5px;min-height:60px;">
+                                                                                <field name="name" />
+                                                                            </div>
+                                                                            <div class="col-xs-12" style="color:grey;padding:0px;">
+                                                                                <t t-if="record.write_date.raw_value">
+                                                                                    <div class="col-md-6 col-xs-12" style="margin:0px;padding:0px;margin-bottom:0px;">
+                                                                                        <span><field name="write_date"/></span>
+                                                                                    </div>
+                                                                                </t>
+                                                                                <t t-if="record.write_uid.raw_value">
+                                                                                    <div class="col-md-6 col-xs-12 text-right" style="margin:0px;padding:0px;">
+                                                                                        <span>Note by : <field name="write_uid"/></span>
+                                                                                    </div>
+                                                                                </t>
+                                                                            </div>
+                                                                        </div>
+                                                                    </t>
+                                                                </templates>
+                                                            </kanban>
+                                                        </field>
+                                                    </div>
+                                                </page>
+                                                <page string="Documents">
+                                                    <div class="oe_read_only" style="border:1px solid #4494af;border-radius:3px;width:100px;height:30px;background-color:#4494af;color:white;text-align:center;padding:5px;font-size:12px;margin-top:10px;cursor:pointer;">
+                                                        <span>Edit to Upload</span>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-xs-12" style="padding-top:10px;">
+                                                            <field name="document_ids" widget="many2many_binary" string="Upload" class="ast-doc-attach" attrs="{'readonly':[('deal_status','in',['Deposit Received'])]}"/>
+                                                        </div>
+                                                    </div>
+                                                </page>
+                                            </notebook>
+                                        </group>
+                                        <group>
+                                            <notebook class="ast-notebook-page">
+                                                <page string="Actions">
+                                                    <div class="oe_read_only" style="border:1px solid #4494af;border-radius:3px;width:100px;height:30px;background-color:#4494af;color:white;text-align:center;padding:5px;font-size:12px;margin-top:10px;cursor:pointer;">
+                                                        <span>Edit to Create</span>
+                                                    </div>
+                                                    <field name="create_action" mode="kanban" nolabel="1" context="{'default_agents_ids':[(6, 0, [lead_agent])], 'default_contacts_ids':[(6, 0, [lead_contact])]}" />
+                                                </page>
+                                                <page string="Contact History">
+                                                    <header>
+                                                        <button name="action_log_phone_call" type="object" string="Log Phone Call" class="oe_asteco_default" context="{'default_deal_id':active_id}"/>
+                                                    </header>
+                                                    <field name="mail_msg_ids" widget="mail_thread"/>
+                                                        </page>
+                                            </notebook>
+                                        </group>
+                                    </div>
+
+                                </div>
+                                <div class="col-md-12 col-xs-12" style="padding:15px;">
+                                    <div class="col-md-4 col-xs-12 text-center">
+                                        <b>Created Date &amp; Time : </b>
+                                        <field class="ast-create-date" name="create_date" readonly="True" />
+                                    </div>
+                                    <div class="col-md-4 col-xs-12 text-center">
+                                        <b>Last Updated Date &amp; Time : </b>
+                                        <field class="ast-create-date" name="write_date" readonly="True" />
+                                    </div>
+                                    <div class="col-md-4 col-xs-12 text-center">
+                                        <b>Last Updated By : </b>
+                                        <field name="write_uid" readonly="True" />
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="dEAL_filter" model="ir.ui.view">
+            <field name="name">Deal Filter</field>
+            <field name="model">deal.deal</field>
+            <field name="arch" type="xml">
+                <search string="Search Deal">
+                    <field name="name" />
+                    <field name="listing_location_id" />
+                </search>
+            </field>
+        </record>
+
+        <record id="atk_deals_view_tree" model="ir.ui.view">
+                <field name="name">Deals Tree View</field>
+                <field name="model">deal.deal</field>
+                <field name="arch" type="xml">
+                    <tree create="0" duplicate="0" delete="0" default_order='create_date desc'>
+                        <field name="name"/>
+                        <field name="type"/>
+                        <field name="listing_emirate_id"/>
+                        <field name="listing_location_id"/>
+                        <field name="listing_sub_location_id"/>
+                        <field name="create_date"/>
+                        <field name="deal_status"/>
+                    </tree>
+                </field>
+        </record>
+
+
+
+
+
+        <record id="deal_deal_Action" model="ir.actions.act_window">
+            <field name="name">Deals</field>
+            <field name="res_model">deal.deal</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help">You don't have any deals.</field>
+        </record>
+
+        <menuitem id="deal_root_menu" sequence="5" name="Deals" parent="interact_root_menu" action="deal_deal_Action" />
+
+    </data>
+</odoo>

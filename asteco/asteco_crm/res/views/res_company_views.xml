@@ -1,0 +1,635 @@
+<odoo>
+	<record id="view_company_form_inherit" model="ir.ui.view">
+		<field name="name">res.company.form</field>
+		<field name="model">res.company</field>
+		<field name="inherit_id" ref="base.view_company_form"/>
+		<field name="arch" type="xml">
+		
+			<xpath expr='//form' position='attributes'>
+                <!-- <attribute name="change">true</attribute> -->
+                <attribute name="delete">false</attribute>
+                <attribute name="duplicate">false</attribute>
+
+            </xpath>
+
+            <xpath expr="//div[@class='oe_title']" position='replace'>
+				<div class="row" style="margin:0px 10px 0px 30px">
+                    <div class="col-md-12">
+						<div class="col-md-5 col-xs-12" style="padding-left:20px;">
+							<h1>
+								<div class="col-md-12">
+									<label for="name"/><br/>
+									<field name="name" attrs="{'readonly':[('id','!=',False)]}" style="padding-right: 5px;"/>
+									<!-- <field name="country_id" attrs="{'readonly':[('id','!=',False)]}" options="{'no_create' : True, 'no_open' : True}"/> -->
+								</div>
+							</h1>
+						</div>
+						<div class="col-md-5 col-xs-12" style="padding:0">
+							<h1>
+								<div class="col-md-12">
+									<label for="code"/><br/>
+									<field name="code" required='1' attrs="{'readonly':[('id','!=',False)]}"/>
+								</div>
+							</h1>
+						</div>
+                    </div>
+				</div>
+            </xpath>
+
+			<xpath expr="//notebook" position="replace">
+				<script>
+					$(document).ready(function(){
+                        $('.fa-external-link').addClass("hidden");
+						$('#div_company_info').removeClass('hidden');
+						$(".o_required_modifier").siblings('label').addClass('so-mandtry-star');
+                    });
+                    function company_info(input) {
+                    	$(input).removeClass('c-active')
+                    	$(input).addClass('c-active-click')
+                    	$(input).siblings().removeClass('c-active-click')
+                    	$(input).siblings().addClass('c-active')
+
+                    	$('#div_company_info').removeClass('hidden');
+                    	$('#div_xml').addClass('hidden');
+                    	$('#div_system_lead').addClass('hidden');
+                    	$('#div_marketting_setting').addClass('hidden');
+                    	$('#div_smtp_sms').addClass('hidden');
+                        $('#div_alert_email').addClass('hidden');
+                    }
+                    function xml(input) {
+                    	$(input).removeClass('c-active')
+                    	$(input).addClass('c-active-click')
+                    	$(input).siblings().removeClass('c-active-click')
+                    	$(input).siblings().addClass('c-active')
+
+                    	$('#div_company_info').addClass('hidden');
+                    	$('#div_xml').removeClass('hidden');
+                    	$('#div_system_lead').addClass('hidden');
+                    	$('#div_marketting_setting').addClass('hidden');
+                    	$('#div_smtp_sms').addClass('hidden');
+                        $('#div_alert_email').addClass('hidden');
+                    }
+                    function system_lead(input) {
+                    	$(input).removeClass('c-active')
+                    	$(input).addClass('c-active-click')
+                    	$(input).siblings().removeClass('c-active-click')
+                    	$(input).siblings().addClass('c-active')
+
+                    	$('#div_company_info').addClass('hidden');
+                    	$('#div_xml').addClass('hidden');
+                    	$('#div_system_lead').removeClass('hidden');
+                    	$('#div_marketting_setting').addClass('hidden');
+                    	$('#div_smtp_sms').addClass('hidden');
+                        $('#div_alert_email').addClass('hidden');
+                    }
+                    function marketting_setting(input) {
+                    	$(input).removeClass('c-active')
+                    	$(input).addClass('c-active-click')
+                    	$(input).siblings().removeClass('c-active-click')
+                    	$(input).siblings().addClass('c-active')
+
+                    	$('#div_company_info').addClass('hidden');
+                    	$('#div_xml').addClass('hidden');
+                    	$('#div_system_lead').addClass('hidden');
+                    	$('#div_marketting_setting').removeClass('hidden');
+                    	$('#div_smtp_sms').addClass('hidden');
+                        $('#div_alert_email').addClass('hidden');
+                    }
+                    function smtp_sms(input) {
+                    	$(input).removeClass('c-active')
+                    	$(input).addClass('c-active-click')
+                    	$(input).siblings().removeClass('c-active-click')
+                    	$(input).siblings().addClass('c-active')
+
+                    	$('#div_company_info').addClass('hidden');
+                    	$('#div_xml').addClass('hidden');
+                    	$('#div_system_lead').addClass('hidden');
+                    	$('#div_marketting_setting').addClass('hidden');
+                    	$('#div_smtp_sms').removeClass('hidden');
+                        $('#div_alert_email').addClass('hidden');
+                    }
+                    function alert_email(input) {
+                        $(input).removeClass('c-active')
+                        $(input).addClass('c-active-click')
+                        $(input).siblings().removeClass('c-active-click')
+                        $(input).siblings().addClass('c-active')
+
+                        $('#div_company_info').addClass('hidden');
+                        $('#div_xml').addClass('hidden');
+                        $('#div_system_lead').addClass('hidden');
+                        $('#div_marketting_setting').addClass('hidden');
+                        $('#div_smtp_sms').addClass('hidden');
+                        $('#div_alert_email').removeClass('hidden');
+                    }
+				</script>
+				<style>
+					.c-active{
+						background : #75c5e0 !important;
+						color : white;
+					}
+					.c-active-click{
+						background : #0e5871 !important;
+						color : white;
+					}
+					.c-active:hover{
+						background : #4494af !important;
+						color : white;
+					}
+				</style>
+				<div class="row" style="min-height:350px;">
+					<div class="col-xs-12">
+						<div class="col-md-5 col-xs-12" style="margin-top:20px;padding-left:20px;">
+							<div class="row" style="margin:0px 10px 0px 30px;padding-left:40px;">
+								<div id="company_info" onclick="company_info(this)" class="row c-active" style="border:1px solid #c2c2c2;border-radius:20px;min-height:35px;padding-top:6px;padding-bottom:6px;cursor:pointer;">
+									<div class="col-md-1 col-xs-12" style="text-align:center;">
+										<span class="fa fa-users"/>
+									</div>
+									<div class="col-md-11 col-xs-12">
+										<span>Company Info</span>
+									</div>
+								</div>
+								<div id="xml" onclick="xml(this)" class="row c-active" style="border:1px solid #c2c2c2;border-radius:20px;min-height:35px;margin-top:5px;padding-top:6px;padding-bottom:6px;cursor:pointer;">
+									<div class="col-md-1 col-xs-12" style="text-align:center;">
+										<span class="fa fa-cog"/>
+									</div>
+									<div class="col-md-11 col-xs-12">
+										<span>XML</span>
+									</div>
+								</div>
+								<div id="system_lead" onclick="system_lead(this)" class="row c-active" style="border:1px solid #c2c2c2;border-radius:20px;min-height:35px;margin-top:5px;padding-top:6px;padding-bottom:6px;cursor:pointer;">
+									<div class="col-md-1 col-xs-12" style="text-align:center;">
+										<span class="fa fa-cogs"/>
+									</div>
+									<div class="col-md-11 col-xs-12">
+										<span>Company Settings</span>
+									</div>
+								</div>
+								<div id="marketting_setting" onclick="marketting_setting(this)" class="row c-active" style="border:1px solid #c2c2c2;border-radius:20px;min-height:35px;margin-top:5px;padding-top:6px;padding-bottom:6px;cursor:pointer;">
+									<div class="col-md-1 col-xs-12" style="text-align:center;">
+										<span class="fa fa-globe"/>
+									</div>
+									<div class="col-md-11 col-xs-12">
+										<span>Marketing Settings</span>
+									</div>
+								</div>
+								<div id="smtp_sms" onclick="smtp_sms(this)" class="row c-active" style="border:1px solid #c2c2c2;border-radius:20px;min-height:35px;margin-top:5px;padding-top:6px;padding-bottom:6px;cursor:pointer;">
+									<div class="col-md-1 col-xs-12" style="text-align:center;">
+										<span class="fa fa-mobile"/>
+									</div>
+									<div class="col-md-11 col-xs-12">
+										<span>SMTP &amp; SMS Settings</span>
+									</div>
+								</div>
+                                <div id="alert_email" onclick="alert_email(this)" class="row c-active" style="border:1px solid #c2c2c2;border-radius:20px;min-height:35px;margin-top:5px;padding-top:6px;padding-bottom:6px;cursor:pointer;">
+                                    <div class="col-md-1 col-xs-12" style="text-align:center;">
+                                        <span class="fa fa-cog"/>
+                                    </div>
+                                    <div class="col-md-11 col-xs-12">
+                                        <span>Alert and Emails</span>
+                                    </div>
+                                </div>
+							</div>
+							<div class="col-xs-12" style="margin-top:20px;padding:0px;background:none !important;color:#4c4c4c !important;">
+								<div class="col-md-4 col-xs-12 ast_field">
+									<div class="row">
+										<center><label for="company_logo"/></center>
+									</div>
+									<div class="row">
+										<center><field name="company_logo" widget="image"/></center>
+									</div>
+								</div>
+								<div class="col-md-4 col-xs-12 ast_field">
+									<div class="row">
+										<center><label for="company_watermark"/></center>
+									</div>
+									<div class="row">
+										<center><field name="company_watermark" widget="image"/></center>
+									</div>
+								</div>
+								<div class="col-md-4 col-xs-12 ast_field">
+									<div class="raw">
+										<center><label for="company_default_image"/></center>
+									</div>
+									<div class="row">
+										<center><field name="company_default_image" widget="image"/></center>
+									</div>
+								</div>
+							</div>
+						</div>
+						
+
+
+
+						<div class="col-md-7 col-xs-12" style="padding-top:0px;margin-top:0px;padding-right:30px;">
+							
+
+
+							<div id="div_company_info" class="hidden" style="padding:0px;margin:0px;" >
+								<div class="col-xs-12 col-md-12">
+                                	<h1 class="asteco-grp-title">Company Info</h1>
+                                	<!-- <h3 class="asteco-grp-title">Property Details</h3> -->
+                                	<div class="row" style="border-bottom:1px solid #bec4ce;margin-bottom:15px;" />
+                                	<div class="row asteco-form-div">
+                                    	<div class="col-xs-12 col-md-6 ast_field">
+                                        	<label for="rera_orn"/><br/>
+                                        	<field name="rera_orn" readonly="1"/><br/>
+                                    	</div>
+                                    	<div class="col-xs-12 col-md-6 ast_field">
+                                        	<label string="TRN"/><br/>
+                                        	<field name="vat" readonly="1"/><br/>
+                                    	</div><br/>
+                                	</div>
+                            	</div>
+                            	<div class="col-xs-12 col-md-12">
+                                	<div class="row asteco-form-div">
+                                    	<div class="col-xs-12 col-md-6 ast_field">
+                                        	<label for="address"/><br/>
+                                        	<field name="address" readonly="1"/>
+                                    	</div>
+                                    	<div class="col-xs-12 col-md-6 ast_field">
+                                        	<label string="Office Tel"/><br/>
+                                        	<field name="phone" readonly="1"/>
+                                    	</div>
+                                	</div>
+                            	</div>
+                            	<div class="col-xs-12 col-md-12">
+                                	<div class="row asteco-form-div">
+                                    	<div class="col-xs-12 col-md-6 ast_field">
+                                        	<label for="fax"/><br/>
+                                        	<field name="fax" readonly="1"/>
+                                    	</div>
+                                    	<div class="col-xs-12 col-md-6 ast_field">
+                                        	<label string="Primary Email"/><br/>
+                                        	<field name="email" readonly="0" required="1"/>
+                                    	</div>
+                                	</div>
+                            	</div>
+                            	<div class="col-xs-12 col-md-12">
+                                	<div class="row asteco-form-div">
+                                    	<div class="col-xs-12 col-md-6 ast_field">
+                                        	<label for="website"/><br/>
+                                        	<field name="website" readonly="1"/>
+                                    	</div>
+                                    	<div class="col-xs-12 col-md-6 ast_field">
+                                       		<label for="company_signature"/><br/>
+                                        	<field name="company_signature" readonly="1"/>
+                                    	</div>
+                                	</div>
+                            	</div>
+                            	<div class="col-xs-12 col-md-12">
+                                	<div class="row asteco-form-div">
+<!--                                    	<div class="col-xs-12 col-md-6 ast_field">-->
+<!--                                        	<label for="admin_user_id"/><br/>-->
+<!--                                        	<field name="admin_user_id" invisible="0" required="1" options="{'no_create':True, 'no_open':True}"/>-->
+<!--                                    	</div>-->
+                                    	<div class="col-xs-12 col-md-6 ast_field">
+                                        	<label for="partner_id" invisible="1"/><br/>
+                                        	<field name="partner_id" invisible="1" required="0"/>
+                                    	</div>
+                                	</div>
+                            	</div>
+
+							
+								<group string="Company Info" invisible='1'>
+									<field name="rera_orn" invisible="1"/>
+									<field name="vat" string="TRN" invisible="1"/>
+									<field name="address" invisible="1"/>
+									<field name="phone" string="Office Tel" invisible="1"/>
+									<field name="fax" invisible="1"/>
+									<field name="email" string="Primary Email" invisible="1"/>
+									<field name="website" invisible="1"/>
+									<field name="company_profile" invisible="1"/>
+									<field name="admin_user_id" invisible="1" required="0" options="{'no_create':True, 'no_open':True}"/>
+									<field name="partner_id" invisible="1" required="0"/>
+                                    <field name="parent_id" invisible="1"/>
+								</group>
+                                <group invisible="1">
+                                    <group name="social_media" invisible="1"/>
+                                </group>
+							</div>
+						
+
+
+
+
+
+							<div id="div_xml" class="hidden" style="padding:0px;margin:0px;" >
+								<div class="col-xs-12 col-md-12">
+                                	<h1 class="asteco-grp-title">XML</h1>
+                                	<!-- <h3 class="asteco-grp-title">Property Details</h3> -->
+                                	<div class="row" style="border-bottom:1px solid #bec4ce;margin-bottom:15px;" />
+                                	<div class="row asteco-form-div">
+                                   		<div class="col-xs-12 col-md-6 ast_field">
+                                        	<label for="xml_name"/><br/>
+                                        	<field name="xml_name" widget="radio" options="{'horizontal':True}"/><br/>
+                                    	</div>
+                                    	<div class="col-xs-12 col-md-6 ast_field">
+                                        	<label for="xml_number"/><br/>
+                                        	<field name="xml_number" widget="radio" options="{'horizontal':True}"/><br/>
+                                    	</div><br/>
+                                	</div>
+                            	</div>
+                            	<div class="col-xs-12 col-md-12">
+                                	<div class="row asteco-form-div">
+                                    	<div class="col-xs-12 col-md-6 ast_field">
+                                        	<label for="xml_email"/><br/>
+                                        	<field name="xml_email" widget="radio" options="{'horizontal':True}"/>
+                                    	</div>
+                                    	<div class="col-xs-12 col-md-6 ast_field">
+                                        	<label for="watermark"/><br/>
+                                        	<field name="watermark" />
+                                    	</div>
+                                	</div>
+                            	</div>
+
+
+
+								<div id="div_xml" class="hidden" style="padding:0px;margin:0px;" invisible='1' >
+									<group string="XML" invisible='1'>
+										<field name="xml_name" widget="radio" options="{'horizontal':True}" invisible='1'/>
+										<field name="xml_number" widget="radio" options="{'horizontal':True}" invisible='1'/>
+										<field name="xml_email" widget="radio" options="{'horizontal':True}" invisible='1'/>
+										<field name="watermark" invisible='1'/>
+									</group>
+								</div>
+							</div>
+
+							<div id="div_system_lead" class="hidden" style="padding:0px;margin:0px;" >
+								<div class="col-xs-12 col-md-12">
+                                	<h1 class="asteco-grp-title">Company Settings</h1>
+                                	<!-- <h3 class="asteco-grp-title">Property Details</h3> -->
+                                	<div class="row" style="border-bottom:1px solid #bec4ce;margin-bottom:15px;" />
+                                	<div class="row asteco-form-div">
+                                   		<div class="col-xs-12 col-md-6 ast_field">
+                                        	<label for="currency_id"/><br/>
+                                        	<field name="currency_id" options="{'no_create_edit':True,'no_quick_create':True}"/><br/>
+                                    	</div>
+										<div class="col-xs-12 col-md-6 ast_field">
+		                                    <label for="tz"/><br/>
+		                                    <field name="tz"/>
+		                                </div>
+                                	</div>
+									<div class="row asteco-form-div">
+										<div class="col-xs-12 col-md-6 ast_field">
+											<label for="country_id"/><br/>
+											<field name="country_id" options="{'no_create' : True, 'no_open' : True}"/>
+										</div>
+										<div class="col-xs-12 col-md-6 ast_field">
+											<label for="enable_vat"/><br/>
+											<field name="enable_vat" /><br/>
+										</div>
+									</div>
+                            	</div>
+
+                            	<div class="col-xs-12 col-md-12">
+                                	<div class="row asteco-form-div">
+
+                                		<div class="col-xs-12 col-md-6 ast_field">
+                                        	<label string="Lead Pool Limit Per Day"/><br/>
+                                        	<field name="lead_pool_limit" />
+                                    	</div>
+                                    	<div class="col-xs-12 col-md-6 ast_field" invisible='1'>
+                                        	<label for="vat"/><br/>
+                                        	<field name="vat" attrs="{'invisible':[('enable_vat','=',False)]}" required="0"/>
+                                    	</div>
+                                	</div>
+                            	</div>
+
+
+                            	<div class="col-xs-12 col-md-12">
+                                	<div class="row asteco-form-div">
+                                    	<div class="col-xs-12 col-md-12 ast_field">
+                                        	<label string="Bank Payment Details"/><br/>
+                                        	<field name="bank_payment_details"/>
+                                    	</div>
+                                    	
+                                	</div>
+                            	</div>
+
+
+								<div id="div_system_lead" class="hidden" style="padding:0px;margin:0px;" invisible='1'>
+									<group string="Company Settings" invisible='1'>
+										<field name="currency_id" options="{'no_create_edit':True,'no_quick_create':True}" invisible='1'/>
+										<!-- <field name="inv_template" invisible="1"/> -->
+										<field name="enable_vat" invisible='1'/>
+										<field name="vat" attrs="{'invisible':[('enable_vat','=',False)]}" invisible='1'/>
+										<!-- <field name="unit_measure" invisible="1"/> -->
+										<!-- <field name="pos_watermark" invisible="1"/> -->
+                                        <field name="lead_pool_limit" invisible='1'/>
+										<!-- <field name="tz" invisible='0'/> -->
+									</group>
+								</div>
+							</div>
+						
+
+
+
+
+							<div id="div_marketting_setting" class="hidden" style="padding:0px;margin:0px;" >
+								<div class="col-xs-12 col-md-12">
+                                	<h1 class="asteco-grp-title">Marketing Settings</h1>
+                                	<!-- <h3 class="asteco-grp-title">Property Details</h3> -->
+                                	<div class="row" style="border-bottom:1px solid #bec4ce;margin-bottom:15px;" />
+                                	<div class="row asteco-form-div">
+                                   		<div class="col-xs-12 col-md-6 ast_field">
+                                        	<label for="api_key_type"/><br/>
+                                        	<field name="api_key_type" /><br/>
+                                    	</div>
+                                    	<div class="col-xs-12 col-md-6 ast_field">
+                                        	<label for="api_key"/><br/>
+                                        	<field name="api_key" /><br/>
+                                    	</div><br/>
+                                	</div>
+                            	</div>
+                            </div>
+                            <div id="div_alert_email" class="hidden" style="padding:0px;margin:0px;" >
+                                <div class="col-xs-12 col-md-12">
+                                    <h1 class="asteco-grp-title">Alert and Emails</h1>
+                                    <div class="row" style="border-bottom:1px solid #bec4ce;margin-bottom:15px;" />
+                                    <div class="row asteco-form-div">
+                                        <div class="col-xs-12 col-md-6 ast_field">
+                                            <label for="email_invoice_template"/><br/>
+                                            <field name="email_invoice_template" options="{'no_create':True}" /><br/>
+                                        </div>
+                                        <div class="col-xs-12 col-md-6 ast_field">
+                                            <label for="email_lead_template"/><br/>
+                                            <field name="email_lead_template" options="{'no_create':True}"/><br/>
+                                        </div>
+
+
+										<div class="col-xs-12 col-md-6 ast_field">
+                                            <label for="marketing_email_temp_id"/><br/>
+                                            <field name="marketing_email_temp_id" options="{'no_create':True}" /><br/>
+                                        </div>
+										<div class="col-xs-12 col-md-6 ast_field">
+                                            <label for="receipt_email_temp_id"/><br/>
+                                            <field name="receipt_email_temp_id" options="{'no_create':True}"/><br/>
+                                        </div>
+										<div class="col-xs-12 col-md-6 ast_field">
+                                            <label for="lead_assign_agent_mail_temp_id"/><br/>
+                                            <field name="lead_assign_agent_mail_temp_id" options="{'no_create':True}"/><br/>
+                                        </div>
+										<div class="col-xs-12 col-md-6 ast_field">
+                                            <label for="lead_assign_coordinator_mail_temp_id"/><br/>
+                                            <field name="lead_assign_coordinator_mail_temp_id" options="{'no_create':True}"/><br/>
+                                        </div>
+										<div class="col-xs-12 col-md-6 ast_field">
+                                            <label for="alert_mail_temp_id"/><br/>
+                                            <field name="alert_mail_temp_id" options="{'no_create':True}"/><br/>
+                                        </div>
+										<div class="col-xs-12 col-md-6 ast_field">
+                                            <label for="share_lead_temp_id"/><br/>
+                                            <field name="share_lead_temp_id" options="{'no_create':True}" /><br/>
+                                        </div>
+										<div class="col-xs-12 col-md-6 ast_field">
+                                            <label for="meeting_mail_temp_id"/><br/>
+                                            <field name="meeting_mail_temp_id" options="{'no_create':True}" /><br/>
+                                        </div>
+										<div class="col-xs-12 col-md-6 ast_field">
+                                            <label for="email_template"/><br/>
+                                            <field name="email_template" options="{'no_create':True}" /><br/>
+                                        </div>
+                                        <div class="col-xs-12 col-md-12 ast_field">
+                                            <!-- <label for="company_signature"/><br/>
+                                            <field name="company_signature" invisible='1'/><br/> -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                          
+<!-- 
+								<div id="div_marketting_setting" class="hidden" style="padding:0px;margin:0px;" invisible='1'>
+									<group string="Marketing Settings" invisible='1'>
+										<field name="pdf_template" invisible="1"/>
+										<field name="pdf_color" invisible="1"/>
+										<field name="prev_color" invisible="1"/>
+										<field name="email_html_color" invisible="1"/>
+										<field name="email_html_template" invisible="1"/>
+										<field name="api_key_type" invisible='1'/>
+										<field name="api_key" invisible='1'/>
+									</group>
+								</div> -->
+                            
+
+							<div id="div_smtp_sms" class="hidden" style="padding:0px;margin:0px;" >
+								<div class="col-xs-12 col-md-12">
+                                	<h1 class="asteco-grp-title">SMTP &amp; SMS Settings</h1>
+                                	<!-- <h3 class="asteco-grp-title">Property Details</h3> -->
+                                	<div class="row" style="border-bottom:1px solid #bec4ce;margin-bottom:15px;" />
+                                	<div class="row asteco-form-div">
+                                   		<div class="col-xs-12 col-md-6 ast_field">
+                                        	<label for="imap_server"/><br/>
+                                        	<field name="imap_server" attrs="{'required':[('outbound_server','!=',False)]}"/><br/>
+                                    	</div>
+                                	</div>
+                            	</div>
+                            	<div class="col-xs-12 col-md-12">
+                                	<div class="row asteco-form-div">
+                                    	<div class="col-xs-12 col-md-6 ast_field">
+                                        	<label for="inbound_server"/><br/>
+                                        	<field name="inbound_server" /><br/>
+                                    	</div>
+                                    	<div class="col-xs-12 col-md-6 ast_field">
+                                        	<label for="outbound_server"/><br/>
+                                        	<field name="outbound_server" />
+                                    	</div>
+                                	</div>
+                            	</div>
+                            	<div class="col-xs-12 col-md-12">
+                                	<div class="row asteco-form-div">
+                                    	<div class="col-xs-12 col-md-6 ast_field">
+                                        	<label for="company_mail"/><br/>
+                                            <field name="company_mail" attrs="{'required':[('outbound_server','!=',False)]}"/>
+                                    	</div>
+                                        <div class="col-xs-12 col-md-6 ast_field">
+                                            <label for="company_email_password"/><br/>
+                                            <field name="company_email_password" password="true" attrs="{'required':[('outbound_server','!=',False)]}"/>
+                                        </div>
+										<div class="col-xs-12 col-md-6 ast_field">
+                                            <label for="smtp_encryption"/><br/>
+                                            <field name="smtp_encryption" password="true" attrs="{'required':[('outbound_server','!=',False)]}"/>
+                                        </div>
+                                    	<div class="col-xs-12 col-md-6 ast_field">
+                                        	<label for="sms_credit_limit"/><br/>
+                                            <field name="sms_credit_limit" /><br />
+                                            <field name="base_url" groups="base.group_system" placeholder="base url"/>
+                                            <field name="listing_count" groups="base.group_system"/>
+                                            <field name="stage_pull_time" groups="base.group_system"/>
+                                    	</div>
+                                	</div>
+                            	</div>
+
+								<div id="div_smtp_sms" class="hidden" style="padding:0px;margin:0px;">
+									<group string="SMTP &amp; SMS Settings">
+										<field name="imap_server"/>
+										<field name="inbound_server"/>
+										<field name="outbound_server"/>
+										<field name="company_mail"/>
+                                        <field name="company_email_password" password="true"/>
+										<field name="sms_credit_limit"/>
+									</group>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</xpath>
+		</field>
+	</record>
+
+	<record id="view_company_tree_inherit" model="ir.ui.view">
+		<field name="name">res.company.tree</field>
+		<field name="model">res.company</field>
+		<field name="inherit_id" ref="base.view_company_tree"/>
+		<field name="arch" type="xml">
+			<xpath expr="//field[@name='name']" position="after">
+				<field name="phone"/>
+			</xpath>
+			<xpath expr="//field[@name='sequence']" position="attributes">
+				<attribute name="invisible">1</attribute>
+			</xpath>
+
+			<xpath expr="//field[@name='partner_id']" position="after">
+				<field name="admin_mobile"/>
+				<field name="email"/>
+				<field name="create_date"/>
+				<field name="website"/>
+			</xpath>
+			<xpath expr="//field[@name='partner_id']" position="replace">
+				<field name="admin_user_id"/>
+			</xpath>
+		</field>
+	</record>
+
+	<record id="action_crm_company" model="ir.actions.act_window">
+		<field name="name">Company</field>
+		<field name="res_model">res.company</field>
+		<field name="view_mode">tree,form</field>
+		<field name="view_type">form</field>
+		<field name="view_ids" eval="[(5, 0, 0), 
+				(0, 0, {'view_mode': 'tree', 'view_id': ref('base.view_company_tree')}),
+				(0, 0, {'view_mode': 'form', 'view_id': ref('base.view_company_form')})]"/>
+	</record>
+
+	<report id="web.action_report_internalpreview"
+        model="res.company"
+        name="web.preview_internalreport"
+        file="web.preview_internalreport"
+        string="Preview Internal Report"
+        report_type="qweb-pdf"
+        menu='False'/>
+    <report id="web.action_report_externalpreview"
+        model="res.company"
+        name="web.preview_externalreport"
+        file="web.preview_externalreport"
+        string="Preview External Report"
+        report_type="qweb-pdf"
+        menu='False'/>
+
+	<menuitem parent="admin_crm_root_menu" sequence="2" name="Company" id="crm_company_menu" action="action_crm_company" groups="group_sales_manager"/>
+
+    <record id="base.main_company" model="res.company">
+        <field name="name">Asteco</field>
+        <field name="code">AST</field>
+    </record>
+</odoo>

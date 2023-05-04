@@ -1,0 +1,10 @@
+<odoo>
+    <data noupdate="0">
+        <record id="atk_contacts_seq" model="ir.sequence">
+			<field name="name">Contact Sequence</field>
+            <field name="code">res.partner.contact.seq</field>
+            <field name="padding">4</field>
+            <field name="prefix">-C-</field>
+		</record>
+    </data>
+</odoo>

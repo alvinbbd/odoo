@@ -1,0 +1,82 @@
+<odoo>
+	<data>
+		<record id="audit_trail_tree" model="ir.ui.view">
+			<field name="name">mail.message.form</field>
+			<field name="model">mail.message</field>
+			<field name="arch" type="xml">
+				<tree default_order="id desc">
+					<field name="model_name"/>
+					<field name="record_name"/>
+					<field name="date"/>
+          <field name="body"/>
+					<field name="data"/>
+					<field name="author_id"/>
+				</tree>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="view_message_search">
+            <field name="name">mail.message.search</field>
+            <field name="model">mail.message</field>
+            <field name="priority">25</field>
+            <field name="inherit_id" ref="mail.view_message_search"/>
+            <field name="arch" type="xml">
+               	
+               	<xpath expr="//search/filter[@name='attachments']" position="after">
+               		<filter string="Contact"
+                    	    name="contact"
+                    	    domain="[('model_name','=','Contact')]"
+                    	    />
+                    <!-- <separator/> -->
+                    <filter string="Deals"
+                    	    name="deal"
+                    	    domain="[('model_name','=','Deal')]"
+                    	    />
+                    <filter string="Leads"
+                            name="leads"
+                            domain="[('model_name','=','Asteco Lead')]"
+                            />
+                    <!-- <separator/> -->
+                    <filter string="Listing"
+                            name="listing"
+                            domain="[('model_name','=','Listing')]"
+                            />
+                    <!-- <separator/>  -->
+                    
+                    <!-- <separator/>					                   -->
+                </xpath>
+                <xpath expr="//search/filter[@name='filter_has_mentions']" position="attributes">
+               		<attribute name="invisible">1</attribute>
+                </xpath>
+               	<xpath expr="//search/filter[@name='message_needaction']" position='attributes'>
+               		<attribute name="invisible">1</attribute>
+               	</xpath>
+               	<xpath expr="//search/filter[@name='attachments']" position='attributes'>
+               		<attribute name="invisible">1</attribute>
+               	</xpath>
+
+               	<xpath expr="//search/filter[@name='listing']" position="after">
+                    <group expand="0" string="Group By">
+               			<filter name="model_name" string="Module" domain="[]" context="{'group_by':'model_name'}"/>
+               			<filter name="record_name" string="Record" domain="[]" context="{'group_by':'record_name'}"/>
+               			<filter name="author" string="Author" domain="[]" context="{'group_by':'author_id'}"/>
+               		</group>
+               	</xpath>
+
+            </field>
+        </record>
+
+		<record id="action_audit_trail" model="ir.actions.act_window">
+			<field name="name">Audit Trail</field>
+			<field name="res_model">mail.message</field>
+			<field name="view_mode">tree</field>
+			<field name="view_type">form</field>
+			<field name="domain">[('message_type','=','notification'),('model','in',['listing.listing','res.partner','atk.lead.lead','lead.opportunity','deal.deal','crm.proforma.invoice','crm.temporary.receipt','crm.portal','res.users','res.company','lead.rotation','auto.action','listing.enquiry','source.master','res.location','res.sub.location'])]</field>
+			<field name="sequence">100</field>
+			<field name="view_ids" eval="[(5, 0, 0), 
+				(0, 0, {'view_mode': 'tree', 'view_id': ref('asteco_crm.audit_trail_tree')})]"/>
+		</record>
+
+		<menuitem id="action_audit_trail_root_menu" name="Audit Trail" sequence="2" parent="analytics_crm_root_menu" action="action_audit_trail" groups="asteco_crm.group_super_admin"/>
+	</data>
+</odoo>

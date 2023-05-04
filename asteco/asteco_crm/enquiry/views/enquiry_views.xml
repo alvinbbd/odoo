@@ -1,0 +1,76 @@
+<odoo>
+
+	<record id="listing_enquiry_form" model="ir.ui.view">
+		<field name="name">listing.enquiry.form</field>
+		<field name="model">listing.enquiry</field>
+		<field name="arch" type="xml">
+			<form create="0">
+				<script>
+                    $(document).ready(function(){
+                        $('.fa-external-link').addClass("hidden");
+                    });
+                </script>
+				<header>
+					<button type="object" name="confirm_enquiry" string="Confirm" class="oe_asteco_default" attrs="{'invisible':[('status','in',['Rejected','Converted to Lead'])]}"/>
+					<button type="object" name="reject_enquiry" string="Reject" class="oe_asteco_default" attrs="{'invisible':[('status','in',['Rejected','Converted to Lead'])]}"/>
+					<field name="status" widget="statusbar"/>
+				</header>
+				<sheet>
+					<group>
+						<group>
+							<field name="name" readonly="1"/>
+						</group>
+						<group>
+						</group>
+					</group>
+					<group>
+						<group>
+							<field name="contact_name" attrs="{'readonly':[('status','in',['Rejected','Converted to Lead'])]}"/>
+							<field name="mobile" attrs="{'readonly':[('status','in',['Rejected','Converted to Lead'])]}"/>
+							<field name="listing_id" options="{'no_create':1}" attrs="{'readonly':[('status','in',['Rejected','Converted to Lead'])]}"/>
+							<field name="lead_id" options="{'no_create':1}" attrs="{'readonly':[('status','in',['Rejected','Converted to Lead'])], 'invisible':[('lead_id','=',False)]}"/>
+						</group>
+						<group>
+							<field name="email" attrs="{'readonly':[('status','in',['Rejected','Converted to Lead'])]}"/>
+							<field name="prefered_date" attrs="{'readonly':[('status','in',['Rejected','Converted to Lead'])]}"/>
+							<field name="comments" attrs="{'readonly':[('status','in',['Rejected','Converted to Lead'])]}"/>
+						</group>
+					</group>
+				</sheet>
+			</form>
+		</field>
+	</record>
+
+	<record id="listing_enquiry_tree" model="ir.ui.view">
+		<field name="name">listing.enquiry.tree</field>
+		<field name="model">listing.enquiry</field>
+		<field name="arch" type="xml">
+			<tree create="0" default_order="id desc">
+				<field name="name"/>
+				<field name="contact_name"/>
+				<field name="email"/>
+				<field name="mobile"/>
+				<field name="listing_id"/>
+				<field name="prefered_date"/>
+				<field name="status"/>
+			</tree>
+		</field>
+	</record>
+
+	<record id="action_listing_enquiry" model="ir.actions.act_window">
+		<field name="name">Enquiries</field>
+		<field name="res_model">listing.enquiry</field>
+		<field name="view_mode">tree,form</field>
+		<field name="view_type">form</field>
+	</record>
+
+	<data noupdate="1">
+		<record id="enquiry_seq" model="ir.sequence">
+			<field name="name">Enquiry Sequence</field>
+			<field name="code">listing.enquiry</field>
+			<field name="prefix">-ENQ-</field>
+			<field name="padding">3</field>
+		</record>
+	</data>
+
+</odoo>

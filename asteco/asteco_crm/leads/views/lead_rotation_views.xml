@@ -1,0 +1,166 @@
+<odoo>
+    <data>
+        
+        <record id="lead_rotation_form" model="ir.ui.view">
+            <field name="name">Leads Rotation Form</field>
+            <field name="model">lead.rotation</field>
+            <field name="arch" type="xml">
+                <form>
+                    <script>
+                        $(document).ready(function(){
+                            $('div[name="lead_rotation_ids"] > div[class="table-responsive"] > table > tbody > tr:not(.o_data_row)').hide();
+                        });
+                    </script>
+                    <sheet>
+                        <div>
+                            <span><b>Reference # </b></span><span style="margin-left:5px;"><field name="name" readonly="1"/></span>
+                        </div>
+                        <div class="row">
+                            <!-- <div class="col-xs-12 col-md-8 col-lg-8 col-sm-8" > -->
+                            <div class="col-xs-12 col-md-12 col-lg-12 col-sm-12" >
+                            
+                                <div class="col-xs-12 col-md-12">
+                                    <div class="row" style="border-bottom:1px solid #bec4ce;margin-bottom:15px;" />
+                                    <div class="row asteco-form-div">
+                                        <div class="col-xs-12 col-md-6 ast_field">
+                                            <label for="agent_id"/><br/>
+                                            <field name="agent_id" options="{'no_create': True, 'no_open':True}" required="1" attrs="{'readonly':[('id','!=',False)]}" domain="[('company_id','=',company_id)]"/>
+                                            <br/><field name="company_id" invisible="1"/>
+                                        </div>
+                                        <div class="col-xs-12 col-md-6 ast_field">
+                                            <label for="emirate_id" string="Emirate/ City"/>
+                                                <div class="o_address_format">
+                                                    <field name="emirate_any_null" widget="radio" style="width:30%;"/>
+                                                    <field name="emirate_id" options="{'no_create': True, 'no_open':True}" style="width:70%;" attrs="{'required':[('emirate_any_null','=', False)]}"/>
+                                                </div>
+                                        </div><br/>
+                                    </div>
+                                    </div>
+                                        <div class="col-xs-12 col-md-12">
+                                            <div class="row asteco-form-div">
+                                                <div class="col-xs-12 col-md-6 ast_field">
+                                                    <label for="manager_id"/><br/>
+                                                    <field name="manager_id" options="{'no_create': True, 'no_open':True}"/>
+                                                </div>
+                                                <div class="col-xs-12 col-md-6 ast_field">
+                                                    <label for="location_id" string="Location"/>
+                                                    <div class="o_address_format">
+                                                        <field name="location_any_null" widget="radio" style="width:30%;"/>
+                                                        <field name="location_id" options="{'no_create': True, 'no_open':True}" domain="[('emirate_id','=',emirate_id)]" style="width:70%;" attrs="{'required':[('location_any_null','=', False)]}"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row asteco-form-div">
+                                                <div class="col-xs-12 col-md-6 ast_field">
+                                                    <label for="team_id"/><br/>
+                                                    <field name="team_id" options="{'no_create': True, 'no_open':True}"/>
+                                                </div>
+                                                <div class="col-xs-12 col-md-6 ast_field">
+                                                    <label for="sub_location_id"/>
+                                                    <div class="o_address_format">
+                                                        <field name="sub_location_any_null" widget="radio" style="width:30%;"/>
+                                                        <field name="sub_location_id" options="{'no_create': True, 'no_open':True}" domain="[('location_id','=',location_id)]" style="width:70%;" attrs="{'required':[('sub_location_any_null','=', False)]}"/>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-xs-12 col-md-6 ast_field">
+                                                    <label for="lead_type"/><br/>
+                                                    <field name="lead_type" required="1"/>
+                                                </div>
+                                                
+                                                <div class="row asteco-form-div">
+                                                    <div class="col-xs-12 col-md-6 ast_field">
+                                                        <label for="commercial_residential"/><br/>
+                                                        <field name="commercial_residential" required="1" />
+                                                    </div>
+                                                </div>
+                                                <field name="leads_count" invisible="1" />
+                                            </div>
+                                        </div>
+                            </div>
+                        </div>
+                    </sheet>
+                    <div class="col-xs-12" attrs="{'invisible':[('id','!=',False)]}">
+                        <h3 class="asteco-grp-title">Assigned Rules</h3>
+                        <div class="col-xs-12" style="border-bottom:1px solid #bec4ce;margin-bottom:15px;" />
+                        <field name="lead_rotation_ids" readonly="1"/>
+                    </div>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="lead_rotation_tree" model="ir.ui.view">
+            <field name="name">Leads Rotation</field>
+            <field name="model">lead.rotation</field>
+            <field name="arch" type="xml">
+                <tree default_order='last_assingned_date desc'>
+                    <field name="name" string="Ref #"/>
+                    <field name="agent_id" options="{'no_create': True, 'no_open':True}"/>
+                    <field name="team_id" options="{'no_create': True, 'no_open':True}"/>
+                    <field name="manager_id" options="{'no_create': True, 'no_open':True}"/>
+                    <field name="lead_type" />
+                    <field name="commercial_residential" />
+                    <field name="emirate_id" domain="[('country_id', '=', country_id)]" options="{'no_create': True, 'no_open':True}"/>
+                    <field name="country_id" options="{'no_create': True, 'no_open':True}" invisible="1"/>
+                    <field name="location_id" options="{'no_create': True, 'no_open':True}"/>
+                    <field name="sub_location_id" options="{'no_create': True, 'no_open':True}"/>
+                    <field name="additional_languages" options="{'no_create': True, 'no_open':True}" invisible="1"/>
+                    <field name="agent_status" />
+                    <field name="last_assingned_date" invisible="0"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="lead_rotation_Action" model="ir.actions.act_window">
+            <field name="name">Leads Rotation</field>
+            <field name="res_model">lead.rotation</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="lead_rotation_tree"/>
+<!--            <field name="search_view_id" ref="ir_access_view_search"/>-->
+        </record>
+        <!--
+        <record id="lead_rotation_Action" model="ir.actions.act_window">
+            <field name="name">Leads</field>
+            <field name="res_model">lead.rotation</field>
+            <field name="view_type">tree</field>
+            <field name="view_mode">tree</field>
+            <field name="help">You don't have any leads rotation.</field>
+        </record>
+-->
+        <record id="lead_assign_history_tree" model="ir.ui.view">
+            <field name="name">Lead Assign History</field>
+            <field name="model">lead.assign.history</field>
+            <field name="arch" type="xml">
+                <tree create="0" default_order='assign_time desc'>
+                    <field name="agent_id" />
+                    <field name="lead_id" />
+                    <field name="assign_time" />
+                    <field name="auto_assign" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="lead_assign_history_Action" model="ir.actions.act_window">
+            <field name="name">Lead Assign History</field>
+            <field name="res_model">lead.assign.history</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+            <field name="help">You don't have any leads assign history.</field>
+        </record>
+
+        <menuitem id="lead_rotation_menu" sequence="3" name="Lead Rotation" parent="admin_crm_root_menu" action="lead_rotation_Action" groups="group_work_manager"/>
+
+        <menuitem id="lead_assign_history_menu" sequence="100" name="Leads Assign History" parent="admin_crm_root_menu"
+                  action="lead_assign_history_Action" groups="asteco_crm.group_super_user"/>
+
+        <record model="ir.ui.menu" id="asteco_crm.lead_assign_history_menu">
+            <field name="groups_id" eval="[(6,0,[ref('asteco_crm.group_super_user')])]"/>
+        </record>
+
+    </data>
+</odoo>

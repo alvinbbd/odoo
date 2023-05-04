@@ -1,0 +1,13 @@
+<odoo>
+	<data>
+
+
+		<menuitem id="dashboard_root_menu" name="Dashboard" sequence="1" parent="analytics_crm_root_menu" action="atk_contacts_contacts_Action"/>
+
+		<menuitem id="audit_trail_root_menu" name="Audit Trail" sequence="2" parent="analytics_crm_root_menu" action="atk_contacts_contacts_Action"/>
+		
+		<menuitem id="management_reports_root_menu" name="Management Reports" sequence="3" parent="analytics_crm_root_menu" action="atk_contacts_contacts_Action"/>
+		
+		<menuitem id="market_intelligence_root_menu" name="Market Intelligence" sequence="4" parent="analytics_crm_root_menu" action="atk_contacts_contacts_Action"/>
+	</data>
+</odoo>

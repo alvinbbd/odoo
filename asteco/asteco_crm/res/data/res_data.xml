@@ -1,0 +1,39 @@
+<odoo>
+	<data noupdate="1">
+
+		<record id="agent_broker" model="res.user.type">
+			<field name="name">Agent Broker</field>
+			<field name="group_ids" eval="[(6, 0, [ref('asteco_crm.group_agent_broker')])]"/>
+		</record>
+		<record id="work_manager" model="res.user.type">
+			<field name="name">Work Manager</field>
+			<field name="group_ids" eval="[(6, 0, [ref('asteco_crm.group_work_manager')])]"/>
+		</record>
+		<record id="sales_manager" model="res.user.type">
+			<field name="name">Sales Manager</field>
+			<field name="group_ids" eval="[(6, 0, [ref('asteco_crm.group_sales_manager')])]"/>
+		</record>
+		<record id="direcor" model="res.user.type">
+			<field name="name">Director</field>
+			<field name="group_ids" eval="[(6, 0, [ref('asteco_crm.group_director')])]"/>
+		</record>
+		<record id="coordinator" model="res.user.type">
+			<field name="name">Co-ordinator</field>
+			<field name="group_ids" eval="[(6, 0, [ref('asteco_crm.group_coordinator')])]"/>
+		</record>
+		<record id="agent_call_center" model="res.user.type">
+			<field name="name">Agent Call Center</field>
+			<field name="group_ids" eval="[(6, 0, [ref('asteco_crm.group_call_center_agent')])]"/>
+		</record>
+		<record id="super_user" model="res.user.type">
+			<field name="name">Super User</field>
+			<field name="group_ids" eval="[(6, 0, [ref('asteco_crm.group_super_user')])]"/>
+		</record>
+		<record id="super_admin_it" model="res.user.type">
+			<field name="name">Super Admin (IT)</field>
+			<field name="group_ids" eval="[(6, 0, [ref('asteco_crm.group_super_admin'),ref('base.group_erp_manager')])]"/>
+		</record>
+
+		<function model="res.company" name="update_company_data"/>
+	</data>
+</odoo>

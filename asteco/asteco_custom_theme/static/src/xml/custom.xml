@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-extend="UserMenu">
+        <t t-jquery="ul.dropdown-menu" t-operation="replace">
+            <ul class="dropdown-menu" role="menu">
+                <li class="divider"/>
+                <li><a href="#" data-menu="settings">Profile</a></li>
+                <li><a href="#" data-menu="logout">Log out</a></li>
+            </ul>
+        </t>
+    </t>
+    <t t-extend="ControlPanel">
+        <t t-jquery='.o_cp_left' t-operation='replace'>
+            <div class="o_cp_left">
+                <div class="o_cp_buttons"/>
+                <div class="o_cp_sidebar"/>
+            </div>
+        </t>
+    </t>
+</templates>

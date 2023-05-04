@@ -1,0 +1,146 @@
+<odoo>
+    <data>
+
+        <record id="proforma_invoice_form_view" model="ir.ui.view">
+            <field name="name">Proforma Invoice View</field>
+            <field name="model">crm.proforma.invoice</field>
+            <field name="arch" type="xml">
+                <form create="0" duplicate="0" delete="0">
+                    <header>
+                        <button name="change_state_to_issued" type="object" states="draft" string="Issued" class="oe_asteco_default" style="background-color: #086bbf;border-color: #086bbf;"/>
+                        <field name="state" widget="statusbar"/>
+                        <button name="action_invoice_sent" type="object" string="Send by Email" class="oe_asteco_default o_invoice_send" style="margin-right:15px;"/>
+                        <button name="proforma_invoice_print" string="Print Invoice" type="object" class="oe_asteco_default"/>
+                        <!-- <button name="test_button" type="object" string="Test Button" class="oe_asteco_default"/> -->
+                    </header>
+                    <sheet>
+                        <script>
+                            $(document).ready(function(){
+                                $('.fa-external-link').addClass("hidden");
+                            });    
+                        </script>
+
+                        <div class="row asteco-form-div">
+                            <div class="col-xs-12">
+                                <div class="col-xs-12">
+                                    <div class="col-xs-12 ast_field">
+                                        <label for="name"/>
+                                        <field name="name" readonly="1"/>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-xs-12">
+                                <div class="col-xs-12">
+                                    <div class="col-xs-12 col-md-4 ast_field">
+                                        <label for="deal_id"/><br/>
+                                        <field name="deal_id" options="{'no_create': True, 'no_open': False}" attrs="{'readonly':[('state','in',['received','issued'])]}"/>
+                                    </div>
+                                    <div class="col-xs-12 col-md-4 ast_field">
+                                        <label for="date_invoice"/><br/>
+                                        <field name="date_invoice" attrs="{'readonly':[('state','in',['received','issued'])]}"/>
+                                    </div>
+                                    <div class="col-xs-12 col-md-4 ast_field">
+                                        <!-- <label for="date_due"/><br/>
+                                        <field name="date_due" attrs="{'readonly':['|',('payment_term_id','!=',False),('state','in',['received','issued'])]}" force_save="1"/> -->
+                                    </div>
+                                </div>
+                                <div class="col-xs-12">
+                                    <div class="col-xs-12 col-md-4 ast_field">
+                                        <label for="partner_id"/><br/>
+                                        <field name="partner_id" context="{'search_default_customer':1, 'show_address': 1, 'default_company_type': 'company'}" options="{'no_create':True, 'no_open':True}" domain="[('customer', '=', True),('is_contact', '=', True)]" string="Customer" attrs="{'readonly':[('state','in',['received','issued'])]}"/>
+                                    </div>
+                                    <div class="col-xs-12 col-md-4 ast_field">
+                                        <label for="mobile"/><br/>
+                                        <field name="mobile" attrs="{'readonly':[('state','in',['received','issued'])]}"/>
+                                    </div>
+                                    <div class="col-xs-12 col-md-4 ast_field">
+                                        <label for="email"/><br/>
+                                        <field name="email" attrs="{'readonly':[('state','in',['received','issued'])]}"/>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12">
+                                    <div class="col-xs-12 col-md-4 ast_field">
+                                        <label for="address"/><br/>
+                                        <field name="address" attrs="{'readonly':[('state','in',['received','issued'])]}"/>
+                                    </div>
+                                    <div class="col-xs-12 col-md-4 ast_field">
+                                        <label for="agent_id"/><br/>
+                                        <field name="agent_id" options="{'no_create':True, 'no_open':True}" readonly="1" attrs="{'readonly':[('state','in',['received','issued'])]}"/>
+                                    </div>
+                                    <div class="col-xs-12 col-md-4 ast_field">
+                                        <label for="payment_term_id"/><br/>
+                                        <field name="payment_term_id" invisible="0" options="{'no_create':False, 'no_open':True}" attrs="{'readonly':[('state','in',['received'])]}"/>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12">
+                                    <div class="col-xs-12 col-md-8 ast_field">
+                                        <label for="narration"/><br/>
+                                        <field name="narration" attrs="{'readonly':[('state','in',['received'])]}"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12">
+                                <div class="col-xs-12">
+                                    <div class="col-xs-12" style="border-top:1px solid #bec4ce;margin-top:25px;" />
+                                </div>
+                                <div class="col-md-6 col-xs-12" style="padding-left:25px;">
+                                </div>
+                                <div class="col-md-2 col-xs-12">
+                                    <group invisible="1">
+                                        <field name="currency_id" invisible="1"/>
+                                        <field name="company_id" invisible="1"/>
+                                    </group>
+                                </div>
+                                <div class="col-md-4 col-xs-12" style="padding-right:30px;">
+                                    <group class="oe_subtotal_footer oe_right">
+                                        <field name="Payment_amount" attrs="{'readonly':[('state','in',['received','issued'])]}"/>
+                                        <field name="vat_amount" attrs="{'readonly':[('state','in',['received','issued'])]}"/>
+                                        <field name="net_amount" class="oe_subtotal_footer_separator"/>
+                                    </group>
+                                </div>
+                            </div>
+
+                        </div>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+            
+        </record>
+
+         <record id="proforma_view_tree" model="ir.ui.view">
+                <field name="name">Invoice Tree View</field>
+                <field name="model">crm.proforma.invoice</field>
+                <field name="arch" type="xml">
+                    <tree create="0" duplicate="0" delete="0" default_order='date_invoice desc'>
+                        <field name="partner_id"/>
+                        <field name="date_invoice"/>
+                        <field name="name" string="Number"/>
+                        <field name="company_id"/>
+                        <field name="agent_id"/>
+                        <field name="date_due" invisible = 'True'/>
+                        <field name="Payment_amount"/>
+                        <field name="state"/>
+                    </tree>
+                </field>
+        </record>
+
+        <record id="invoice_action" model="ir.actions.act_window">
+			<field name="name">Proforma Invoices</field>
+            <field name="res_model">crm.proforma.invoice</field>
+            <field name="view_mode">tree,form</field>
+		</record>
+
+        <menuitem id="invoice_root_menu" sequence="1" name="Proforma Invoice" parent="transaction_crm_root_menu" action="invoice_action" />
+
+        <record model="ir.ui.menu" id="account.menu_finance">
+            <field name="groups_id" eval="[(6,0,[ref('asteco_crm.group_super_admin')])]"/>
+        </record>
+
+    </data>
+</odoo>

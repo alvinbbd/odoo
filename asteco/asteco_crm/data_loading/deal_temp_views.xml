@@ -1,0 +1,59 @@
+<odoo>
+	<data>
+		<record id="deal_temp_form" model="ir.ui.view">
+			<field name="name">deal.temp.form</field>
+			<field name="model">deal.temp</field>
+			<field name="arch" type="xml">
+				<form>
+					<sheet>
+						<group>
+							<group>
+								<field name="reference"/>
+								<field name="deposit_aed"/>
+							</group>
+							<group>
+							</group>
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+		<record id="deal_temp_search" model="ir.ui.view">
+			<field name="name">deal.temp.search</field>
+			<field name="model">deal.temp</field>
+			<field name="arch" type="xml">
+				<search>
+					<field name="reference"/>
+					<field name="estimated_deal_date"/>
+					<field name="actual_deal_date"/>
+					<field name="tenancy_contract_start_date"/>
+					<field name="tenancy_renewal_date"/>
+					<field name="created_date_and_time"/>
+					<field name="last_updated_date_and_time"/>
+				</search>
+			</field>
+		</record>
+		<record id="deal_temp_tree" model="ir.ui.view">
+			<field name="name">deal.temp.tree</field>
+			<field name="model">deal.temp</field>
+			<field name="arch" type="xml">
+				<tree>
+					<field name="reference"/>
+					<field name="estimated_deal_date"/>
+					<field name="actual_deal_date"/>
+					<field name="tenancy_contract_start_date"/>
+					<field name="tenancy_renewal_date"/>
+					<field name="created_date_and_time"/>
+					<field name="last_updated_date_and_time"/>
+				</tree>
+			</field>
+		</record>
+		<record id="action_deals_temp" model="ir.actions.act_window">
+			<field name="name">Deals Temp.</field>
+			<field name="res_model">deal.temp</field>
+			<field name="view_mode">tree,form</field>
+			<field name="view_type">form</field>
+		</record>
+		<menuitem id="deals_temp_menu" sequence="4" name="Deals Temp." parent="configuration_root" action="action_deals_temp" groups="base.group_system"/>
+	</data>
+</odoo>

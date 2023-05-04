@@ -1,0 +1,25 @@
+<odoo>
+    <data>
+<!--        <act_window id="deal_wizard_form_view" name="Deal Wizard"-->
+<!--                    res_model="deal.wizard" src_model="deals" view_mode="form" target="new" multi="true"/>-->
+
+        <record id="deal_wizard_form_view" model="ir.ui.view">
+            <field name="name">Deal Wizard</field>
+            <field name="model">deal.wizard</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <p>Do you want to unpublish the listing?</p><br/>
+                            <field name="unpublish"/>
+                        </group>
+                        <footer>
+                            <button name="action_done" string="
+                            Confirm" type="object" class="btn-primary"/>
+                        </footer>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

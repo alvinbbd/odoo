@@ -1,0 +1,19 @@
+<odoo>
+	<data>
+
+		<record id="action_management_reports" model="ir.actions.act_window">
+			<field name="name">Management Reports</field>
+			<field name="res_model">analytics.management.reports</field>
+			<field name="view_mode">kanban,form</field>
+			<field name="view_type">form</field>
+		</record>
+
+		<menuitem id="management_reports_root_menu" name="Management Reports" sequence="4" parent="analytics_crm_root_menu" action="action_management_reports"/>
+
+		<!-- <menuitem id="audit_trail_root_menu" name="Audit Trail" sequence="2" parent="analytics_crm_root_menu" action="atk_contacts_contacts_Action"/>
+		
+		<menuitem id="management_reports_root_menu" name="Management Reports" sequence="3" parent="analytics_crm_root_menu" action="atk_contacts_contacts_Action"/>
+		
+		<menuitem id="market_intelligence_root_menu" name="Market Intelligence" sequence="4" parent="analytics_crm_root_menu" action="atk_contacts_contacts_Action"/> -->
+	</data>
+</odoo>

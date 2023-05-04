@@ -1,0 +1,108 @@
+<odoo>
+    <data noupdate="1">
+
+<!--classification_id-->
+        <record id="classification_1" model="contact.classification">
+            <field name="name">Supplier</field>
+        </record>
+        <record id="classification_2" model="contact.classification">
+            <field name="name">Part of corporate</field>
+        </record>
+        <record id="classification_3" model="contact.classification">
+            <field name="name">Sub-broker</field>
+        </record>
+
+<!--religion-->
+
+        <record id="religion_1" model="res.religion">
+            <field name="name">Christianity</field>
+        </record>
+        <record id="religion_2" model="res.religion">
+            <field name="name">Islam</field>
+        </record>
+        <record id="religion_3" model="res.religion">
+            <field name="name">Secular/Nonreligious/Agnostic/Atheist</field>
+        </record>
+        <record id="religion_4" model="res.religion">
+            <field name="name">Hinduism</field>
+        </record>
+        <record id="religion_5" model="res.religion">
+            <field name="name">Chinese traditional religion</field>
+        </record>
+        <record id="religion_6" model="res.religion">
+            <field name="name">Buddhism</field>
+        </record>
+        <record id="religion_7" model="res.religion">
+            <field name="name">primal-indigenous</field>
+        </record>
+        <record id="religion_8" model="res.religion">
+            <field name="name">African Traditional &amp; Diasporic</field>
+        </record>
+        <record id="religion_9" model="res.religion">
+            <field name="name">Sikhism</field>
+        </record>
+        <record id="religion_10" model="res.religion">
+            <field name="name">Juche</field>
+        </record>
+        <record id="religion_11" model="res.religion">
+            <field name="name">Judaism</field>
+        </record>
+        <record id="religion_12" model="res.religion">
+            <field name="name">Bahai</field>
+        </record>
+        <record id="religion_13" model="res.religion">
+            <field name="name">Jainism</field>
+        </record>
+        <record id="religion_14" model="res.religion">
+            <field name="name">Shinto</field>
+        </record>
+        <record id="religion_15" model="res.religion">
+            <field name="name">Cao Dai</field>
+        </record>
+        <record id="religion_16" model="res.religion">
+            <field name="name">Zoroastrianism</field>
+        </record>
+        <record id="religion_17" model="res.religion">
+            <field name="name">Tenrikyo</field>
+        </record>
+        <record id="religion_18" model="res.religion">
+            <field name="name">Neo-Paganism</field>
+        </record>
+        <record id="religion_19" model="res.religion">
+            <field name="name">Unitarian-Universalism</field>
+        </record>
+        <record id="religion_20" model="res.religion">
+            <field name="name">Rastafarianism</field>
+        </record>
+        <record id="religion_21" model="res.religion">
+            <field name="name">Scientology</field>
+        </record>
+        <record id="religion_22" model="res.religion">
+            <field name="name">Russian Orthodox</field>
+        </record>
+        <record id="religion_23" model="res.religion">
+            <field name="name">Greek Orthodox</field>
+        </record>
+
+<!--hobbies-->
+        <record id="hobbies_1" model="res.hobbies">
+            <field name="name">Reading</field>
+        </record>
+        <record id="hobbies_2" model="res.hobbies">
+            <field name="name">Writing</field>
+        </record>
+        <record id="hobbies_3" model="res.hobbies">
+            <field name="name">Cooking</field>
+        </record>
+        <record id="hobbies_4" model="res.hobbies">
+            <field name="name">Painting</field>
+        </record>
+        <record id="hobbies_5" model="res.hobbies">
+            <field name="name">Gaming</field>
+        </record>
+        <record id="hobbies_6" model="res.hobbies">
+            <field name="name">Listening Music</field>
+        </record>
+    </data>
+
+</odoo>

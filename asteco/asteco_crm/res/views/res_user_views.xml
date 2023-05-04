@@ -1,0 +1,485 @@
+<odoo>
+	<data>
+		<record id="view_users_form_inherit" model="ir.ui.view">
+			<field name="name">res.users.form</field>
+			<field name="model">res.users</field>
+			<field name="inherit_id" ref="base.view_users_form"/>
+			<field name="arch" type="xml">
+				<xpath expr="//form" position="inside">
+					<script>
+						$(document).ready(function(){
+	                        $('.fa-external-link').addClass("hidden");
+	                        $(".o_required_modifier").siblings('label').addClass('so-mandtry-star');
+	                    });
+	                </script>
+                    <style>
+						.img-responsive{
+							max-height:225px !important;
+							max-width:225px !important;
+						}
+						.oe_form_field_html_text{
+							background-color:white !important;
+						}
+					</style>
+				</xpath>
+				<xpath expr="//form" position="attributes">
+					<attribute name="delete">false</attribute>
+					<attribute name="duplicate">false</attribute>
+
+				</xpath>
+
+				<xpath expr="//label[@for='name']" position="attributes">
+					<attribute name="string">Full Name</attribute>
+				</xpath>
+				<xpath expr="//label[@for='login']" position="attributes">
+					<attribute name="string">Login ID</attribute>
+				</xpath>
+				<xpath expr="//field[@name='tz']" position="attributes">
+					<attribute name="invisible">1</attribute>
+				</xpath>
+
+				<xpath expr="//notebook//page[@name='access_rights']" position="after">
+					<page string="Preferences">
+						<div class="row asteco-form-div">
+	                        <div class="col-xs-12 col-md-9" style="padding-top:0px;">
+	                        	<h3 class="asteco-grp-title">Localization</h3>
+	                            <div class="col-xs-12 col-md-12 so-pa-0px ast_field" style="padding-left:0px;">
+	                                <div class="col-xs-12" style="padding-left:0px;">
+		                                <div class="col-xs-12 col-md-6 ast_field">
+		                                    <label for="lang"/><br/>
+		                                    <field name="lang"/>
+		                                </div>
+		                                <div class="col-xs-12 col-md-6 ast_field">
+		                                    <label for="address"/><br/>
+		                                    <field name="address"/>
+		                                </div>
+		                            </div>
+	                                <div class="col-xs-12" style="padding-left:0px;">
+		                                <div class="col-xs-12 col-md-6 ast_field">
+		                                    <label for="mobile" string="Mobile"/><br/>
+		                                    <field name="mobile"/>
+		                                </div>
+		                                <div class="col-xs-12 col-md-6 ast_field">
+		                                    <label for="phone_office"/><br/>
+		                                    <field name="phone_office"/>
+		                                </div>
+		                            </div>
+		                            <div class="col-xs-12" style="padding-left:0px;">
+		                                <div class="col-xs-12 col-md-6 ast_field" name="rera#">
+		                                    <label for="rera_brn"/><br/>
+		                                    <field name="rera_brn"/>
+		                                </div>
+										<div class="col-xs-12 col-md-6 ast_field" invisible="1">
+		                                    <label for="tz"/><br/>
+		                                    <field name="tz"/>
+		                                </div>
+		                            </div>
+		                            <div class="col-xs-12" style="padding-left:0px;">
+		                                <div class="col-xs-12 col-md-6 ast_field">
+		                                    <label for="signature"/><br/>
+		                                    <field name="signature"/>
+		                                </div>
+		                            </div>
+		                        </div>
+	                            <div class="col-xs-12 col-md-3"/>
+	                        </div>
+	                    </div>
+	                </page>
+				</xpath>
+
+				<xpath expr="//notebook//page[@name='access_rights']" position="attributes">
+					<attribute name="invisible">1</attribute>
+				</xpath>
+				<xpath expr="//notebook//page[3]" position="attributes">
+					<attribute name="invisible">1</attribute>
+				</xpath>
+				<xpath expr="//field[@name='image']" position="attributes">
+					<attribute name="invisible">1</attribute>
+				</xpath>
+				<xpath expr="//div[@class='oe_button_box']" position="attributes">
+					<attribute name="invisible">1</attribute>
+				</xpath>
+				<xpath expr="//page[@name='access_rights']" position="before">
+					<page name="additional_settings" string="Additional Settings">
+						<div class="row asteco-form-div">
+	                        <div class="col-xs-12 col-md-9" style="padding-top:0px;">
+	                            <div class="col-xs-12"  />
+	                            <div class="col-xs-12 col-md-12 so-pa-0px ast_field" style="padding-left:0px;">
+									<!-- <div class="col-xs-12" style="padding-left:0px;">
+		                                <div class="col-xs-12 col-md-6 ast_field">
+											<label for="team_id"/><br/>
+											<field name="team_id"/>
+										</div>
+									</div> -->
+	                                <div class="col-xs-12" style="padding-left:0px;">
+		                                <div class="col-xs-12 col-md-6 ast_field">
+											<label for="approval_required"/><br/>
+											<field name="approval_required" widget="radio"/>
+										</div>
+										<!-- <div class="col-xs-12 col-md-6 ast_field">
+											<label for="tz"/><br/>
+											<field name="tz"/>
+										</div> -->
+									</div>
+									<div class="col-xs-12" style="padding-left:0px;" >
+										<h3 class="asteco-grp-title">Two Factor Authentication</h3>
+		                                <div class="col-xs-12 col-md-6 ast_field" >
+											<label for="email_otp"/><br/>
+											<field name="email_otp" />
+										</div>
+										<div class="col-xs-12 col-md-6 ast_field">
+											<label for="sms_otp"/><br/>
+											<field name="sms_otp" />
+										</div>
+									</div>
+									<div class="col-xs-12" style="padding-left:0px;" >
+										<h3 class="asteco-grp-title">Multi Companies</h3>
+		                                <div class="col-xs-12 col-md-6 ast_field" >
+											<label for="company_id" string="Active Company"/><br/>
+											<field name="company_id"/><br/>
+											<label for="company_ids" string="Allowed Companies"/><br/>
+											<field name="company_ids" />
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</page>
+					<page name="email_settings" string="Email Settings">
+						<div class="row asteco-form-div">
+	                        <div class="col-xs-12 col-md-9" style="padding-top:0px;">
+	                            <div class="col-xs-12" style="border-bottom:1px solid #bec4ce;margin-bottom:5px;" />
+	                            <div class="col-xs-12 col-md-12 so-pa-0px ast_field" style="padding-left:0px;">
+	                                <div class="col-xs-12" style="padding-left:0px;">
+		                                <div class="col-xs-12 col-md-4 ast_field">
+											<label for="imap"/><br/>
+											<field string="IMAP" name="imap" />
+										</div>
+									</div>
+									<div class="col-xs-12" style="padding-left:0px;">
+										<div class="col-xs-12 col-md-6 ast_field">
+											<label for="inbound_smtp_settings" string="Inbound SMTP Settings" /><br/>
+											<field name="inbound_smtp_settings"/>
+										</div>
+										<div class="col-xs-12 col-md-6 ast_field">
+											<label for="outbound_smtp_settings" string="Outbound SMTP Settings"/><br/>
+											<field name="outbound_smtp_settings"/>
+										</div>
+									</div>
+									<div class="col-xs-12" style="padding-left:0px;">
+										<div class="col-xs-12 col-md-6 ast_field">
+											<label for="email"/><br/>
+											<field string="Email" name="email"/>
+										</div>
+										<div class="col-xs-12 col-md-6 ast_field">
+											<label for="email_password"/><br/>
+											<field string="Password" name="email_password" password="true"/>
+										</div>
+									</div>
+									
+								</div>
+							</div>
+						</div>
+					</page>
+				</xpath>
+				<xpath expr="//div[@class='oe_title']" position="attributes">
+					<attribute name="invisible">1</attribute>
+				</xpath>
+				<xpath expr="//field[@name='state']" position="attributes">
+					<attribute name="invisible">1</attribute>
+				</xpath>
+
+				<xpath expr="//div[@class='oe_title']" position="before">
+					<div class="row asteco-form-div">
+                        <div class="col-xs-12 col-md-12" style="padding-top:0px;">
+                        	<h3 class="asteco-grp-title">User Details</h3>
+                            <div class="col-xs-12" style="border-bottom:1px solid #bec4ce;margin-bottom:5px;" />
+                            <div class="col-xs-12 col-md-3 so-pa-0px ast_field" style="padding-right:0px;padding-top:20px;">
+                                <field name="image" widget="image"/>
+                            </div>
+                            <div class="col-xs-12 col-md-9 so-pa-0px ast_field" style="padding-left:0px;">
+                                <div class="col-xs-12" style="padding-left:0px;">
+	                                <div class="col-xs-12 col-md-6 ast_field">
+	                                    <label for="name"/><br/>
+	                                    <field name="name" required="1"/>
+	                                </div>
+	                                <div class="col-xs-12 col-md-6 ast_field">
+	                                    <label for="login"/><br/>
+	                                    <field name="login" required="1" attrs="{'readonly':[('id','!=',False)]}"/>
+	                                </div>
+	                            </div>
+                                <div class="col-xs-12" style="padding-left:0px;">
+	                                <div class="col-xs-12 col-md-6 ast_field">
+	                                    <label for="user_type" string="User Type"/><br/>
+	                                    <field name="user_type" options="{'no_create_edit':True,'no_open':True,'no_quick_create':True}" required="1"/>
+	                                </div>
+	                                <div class="col-xs-12 col-md-6 ast_field">
+	                                    <label for="user_status"/><br/>
+	                                    <field name="user_status" attrs="{'required':[('is_agent','=',True)]}"/>
+	                                </div>
+	                            </div>
+	                            <div class="col-xs-12" groups="asteco_crm.group_super_admin_main" style="padding-left:0px;">
+	                            	<div class="col-xs-12 col-md-6 ast_field">
+	                                    <label for="is_super_admin_it_main" string="Super Admin IT Main"/><br/>
+	                                    <field name="is_super_admin_it_main"/>
+	                                </div>
+	                            </div>
+	                            <div class="col-xs-12" style="padding-left:0px;">
+	                                <div class="col-xs-12 col-md-6 ast_field">
+	                                	<field name="is_agent" invisible="True"/>
+	                                    <label for="parent_is"/><br/>
+	                                    <field name="parent_is" attrs="{'required':[('is_agent','=',True)]}" options ="{'no_create':True,'no_open':True}"/>
+	                                </div>
+	                                <div class="col-xs-12 col-md-6 ast_field">
+	                                    <label for="company_id" string="Network"/><br/>
+	                                    <field name="company_id" attrs="{'required':[('is_agent','=',True)]}" options="{'no_create':True, 'no_open':True}"/>
+	                                </div>
+	                            </div>
+	                            <div class="col-xs-12" style="padding-left:0px;">
+	                                <div class="col-xs-12 col-md-6 ast_field">
+	                                    <label for="job_title"/><br/>
+	                                    <field name="job_title" attrs="{'required':[('is_agent','=',True)]}"/>
+	                                </div>
+	                                <div class="col-xs-12 col-md-6 ast_field">
+	                                    <label for="department_id"/><br/>
+	                                    <field name="department_id" attrs="{'required':[('is_agent','=',True)]}" options="{'no_open':True}"/>
+	                                </div>
+	                            </div>
+	                            <div class="col-xs-12" style="padding-left:0px;">
+	                                <div class="col-xs-12 col-md-6 ast_field">
+	                                    <label for="team_id"/><br/>
+	                                    <field name="team_id" attrs="{'required':[('is_agent','=',True)]}"/>
+	                                </div>
+									<div class="col-xs-12 col-md-6 ast_field">
+	                                    <label for="agent_status"/><br/>
+	                                    <field name="agent_status" attrs="{'required':[('is_agent','=',True)]}"/>
+	                                </div>
+	                            </div>
+	                            <div class="col-xs-12" style="padding-left:0px;">
+
+	                                <div class="col-xs-12 col-md-6 ast_field">
+	                                    <label for="login_date" string="Last Connected On"/><br/>
+	                                    <field name="login_date"  readonly="True"/>
+	                                </div>
+<!--									<div class="col-xs-12 col-md-4 ast_field">&ndash;&gt;-->
+<!--	                                    <field name="is_rota" invisible="True"/>-->
+<!--	                                    <label for="manage_rota" string="Manage Agent Rota"/><br/>-->
+<!--	                                    <field name="manage_rota" widget="radio" attrs="{'readonly':[('is_rota','=',True)]}" default="no"/>-->
+<!--	                                </div>-->
+	                            </div>
+                            </div>
+                        </div>
+                    </div>
+				</xpath>
+			</field>
+		</record>
+		<record id="view_users_form_base_inherit" model="ir.ui.view">
+			<field name="name">res.users.form.base</field>
+			<field name="model">res.users</field>
+			<field name="inherit_id" ref="base.view_users_form_simple_modif"/>
+			<field name="arch" type="xml">
+				
+				<!-- <xpath expr="//group[@name='preferences']" position="before">
+					<h1>
+                        <field name="name" readonly="1" class="oe_inline"/>
+                    </h1>
+				</xpath> -->
+				<xpath expr="//field[@name='lang']" position="replace">
+				</xpath>
+				<xpath expr="//field[@name='tz']" position="replace">
+				</xpath>
+				<xpath expr="//field[@name='company_id']" position="replace">
+				</xpath>
+				<xpath expr="//group[@name='preference_email']" position="replace">
+				</xpath>
+				<xpath expr="//group//field[@name='signature']" position="replace">
+				</xpath>
+				<xpath expr="//group[2]" position="replace">
+				</xpath>
+				<xpath expr="//group[@name='preferences']" position="after">
+					<notebook colspan="4">
+						<page string="Preferences">
+							<div class="row asteco-form-div">
+		                    	<div class="col-xs-12 col-md-12" style="padding-top:0px;">
+		                       		<h3 class="asteco-grp-title">Localization</h3>
+		                            <div class="col-xs-12 col-md-12 so-pa-0px ast_field" style="padding-left:0px;">
+		                                <div class="col-xs-12" style="padding-left:0px;">
+			                                <div class="col-xs-12 col-md-6 ast_field">
+			                                    <label for="lang"/><br/>
+			                                    <field name="lang"/>
+			                                </div>
+			                                <div class="col-xs-12 col-md-6 ast_field">
+			                                    <label for="phone_office"/><br/>
+			                                    <field name="phone_office"/>
+			                                </div>
+			                            </div>
+		                                <div class="col-xs-12" style="padding-left:0px;">
+		                                	
+		                                	<div class="col-xs-12 col-md-6 ast_field">
+			                                    <label for="mobile" string="Administrator Contact"/><br/>
+			                                    <field name="mobile"/>
+			                                </div>
+			                                <div class="col-xs-12 col-md-6 ast_field">
+			                                    <label for="rera_brn"/><br/>
+			                                    <field name="rera_brn"/>
+			                                </div>
+			                            </div>
+			                            <div class="col-xs-12" style="padding-left:0px;">
+			                                <div class="col-xs-12 col-md-6 ast_field">
+			                                    <label for="address"/><br/>
+			                                    <field name="address"/>
+			                                </div>
+			                            </div>
+			                            <div class="col-xs-12" style="padding-left:0px;">
+			                                <div class="col-xs-12 col-md-12 ast_field">
+			                                    <label for="signature"/><br/>
+			                                    <field name="signature"/>
+			                                </div>
+			                            </div>
+			                        </div>
+		                            <div class="col-xs-12 col-md-3"/>
+		                        </div>
+		                    </div>
+		            	</page>
+		            	<page name="email_settings" string="Email Settings">
+						<div class="row asteco-form-div">
+	                        <div class="col-xs-12 col-md-12" style="padding-top:0px;">
+	                            <div class="col-xs-12" style="border-bottom:1px solid #bec4ce;margin-bottom:5px;" />
+	                            <div class="col-xs-12 col-md-12 so-pa-0px ast_field" style="padding-left:0px;">
+	                                <div class="col-xs-12" style="padding-left:0px;">
+		                                <div class="col-xs-12 col-md-6 ast_field">
+											<label for="imap"/><br/>
+											<field string="IMAP" name="imap" />
+										</div>
+									</div>
+									<div class="col-xs-12" style="padding-left:0px;">
+										<div class="col-xs-12 col-md-6 ast_field">
+											<label for="email"/><br/>
+											<field string="Email" name="email"/>
+										</div>
+										<div class="col-xs-12 col-md-6 ast_field">
+											<label for="email_password"/><br/>
+											<field string="Password" name="email_password" password="true"/>
+										</div>
+									</div>
+									<div class="col-xs-12" style="padding-left:0px;">
+										<div class="col-xs-12 col-md-6 ast_field">
+											<label for="inbound_smtp_settings" string="Inbound SMTP Settings" /><br/>
+											<field name="inbound_smtp_settings"/>
+										</div>
+										<div class="col-xs-12 col-md-6 ast_field">
+											<label for="outbound_smtp_settings" string="Outbound SMTP Settings"/><br/>
+											<field name="outbound_smtp_settings"/>
+										</div>
+									</div>
+
+									
+								</div>
+							</div>
+						</div>
+						</page>
+		            </notebook>
+				</xpath>
+			</field>
+		</record>
+
+		<record id="view_users_form_mail_inherit_2" model="ir.ui.view">
+			<field name="name">res.users.form.mail</field>
+			<field name="model">res.users</field>
+			<field name="inherit_id" ref="mail.view_users_form_simple_modif_mail"/>
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='notification_type']" position="replace">
+				</xpath>
+			</field>
+		</record>
+
+				
+
+
+
+		<record id="view_users_form_mail_inherit" model="ir.ui.view">
+			<field name="name">res.users.form.mail</field>
+			<field name="model">res.users</field>
+			<field name="inherit_id" ref="mail.view_users_form_mail"/>
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='alias_id']" position="attributes">
+					<attribute name="invisible">1</attribute>
+				</xpath>
+				<xpath expr="//field[@name='notification_type']" position="attributes">
+					<attribute name="widget">selection</attribute>
+					<attribute name="invisible">1</attribute>
+				</xpath>
+			</field>
+		</record>
+
+		<record model="ir.module.category" id="base.module_category_human_resources">
+            <field name="name">User Groups</field>
+        </record>
+
+
+		<record id="atk_users_view_tree" model="ir.ui.view">
+                <field name="name">Users Tree View</field>
+                <field name="model">res.users</field>
+				<field name="inherit_id" ref="base.view_users_tree"/>
+                <field name="arch" type="xml">
+					<xpath expr="//tree" position="replace">
+						<tree default_order='id desc'>
+							<field name="name" string="Full Name"/>
+	                        <field name="team_id"/>
+							<field name="job_title"/>
+							<field name="department_id"/>
+							<field name="user_type" string="User Role" invisible="True"/>
+							<field name="parent_is" string="Manager"/>
+							<field name="login_date" string="Last Connected On" invisible="True"/>
+							<field name="company_id" string="Network"/>
+							
+							<field name="login" string="Email Address"/>
+							<field name="mobile" string="Mobile Number"/>
+							<field name="user_status" string="Status" invisible="True"/>
+						</tree>
+					</xpath>
+                </field>
+        </record>
+
+		<record id="action_crm_users" model="ir.actions.act_window">
+			<field name="name">Users</field>
+			<field name="res_model">res.users</field>
+			<field name="view_mode">tree,form</field>
+			<field name="view_type">form</field>
+			<field name="view_ids" eval="[(5, 0, 0), 
+					(0, 0, {'view_mode': 'tree', 'view_id': ref('base.view_users_tree')}),
+					(0, 0, {'view_mode': 'form', 'view_id': ref('base.view_users_form')})]"/>
+		</record>
+
+		<record id="crm_users_list_view_tree" model="ir.ui.view">
+                <field name="name">Users Tree View</field>
+                <field name="model">res.users</field>
+                <field name="arch" type="xml">
+					<tree edit="0" create="0" >
+						<field name="name" string="Full Name"/>
+						<field name="team_id"/>
+						<field name="job_title"/>
+						<field name="department_id"/>
+						<field name="user_type" string="User Role" invisible="True"/>
+						<field name="parent_is" string="Manager"/>
+						<field name="login_date" string="Last Connected On" invisible="True"/>
+						<field name="company_id" string="Network"/>
+						<field name="login" string="Email Address"/>
+						<field name="mobile" string="Mobile Number"/>
+						<field name="user_status" string="Status" invisible="True"/>
+					</tree>
+                </field>
+        </record>
+
+		<record id="action_crm_users_list_view" model="ir.actions.act_window">
+			<field name="name">Users</field>
+			<field name="res_model">res.users</field>
+			<field name="view_mode">tree</field>
+			<field name="view_ids" eval="[(5, 0, 0),
+					(0, 0, {'view_mode': 'tree', 'view_id': ref('asteco_crm.crm_users_list_view_tree')})]"/>
+		</record>
+
+		<menuitem parent="admin_crm_root_menu" sequence="1" name="Users" id="crm_users_menu" action="action_crm_users" groups="group_super_admin"/>
+		<menuitem parent="admin_crm_root_menu" sequence="1" name="Users" id="crm_users_list_view_menu" action="action_crm_users_list_view" groups="group_limit_user_view"/>
+	</data>
+</odoo>

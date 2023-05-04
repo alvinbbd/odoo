@@ -1,0 +1,107 @@
+<odoo>
+	<data>
+		<record id="source_master_form" model="ir.ui.view">
+			<field name="name">source.master.form</field>
+			<field name="model">source.master</field>
+			<field name="arch" type="xml">
+				<form>
+					<sheet>
+						<div class="row" style="padding:30px;">
+							<div class="col-xs-12 col-md-5 ast_field" >
+                                <label for="name"/><br/>
+                                <field name="name"/>
+                            </div>
+                        </div>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record id="location_form" model="ir.ui.view">
+			<field name="name">res.location.form</field>
+			<field name="model">res.location</field>
+			<field name="arch" type="xml">
+				<form>
+					<sheet>
+						<div class="row" style="padding:30px;">
+							<div class="col-xs-12 col-md-5 ast_field" >
+                                <label for="name"/><br/>
+                                <field name="name"/>
+                            </div>
+                            <div class="col-xs-12 col-md-5 ast_field" >
+                                <label for="emirate_id"/><br/>
+                                <field name="emirate_id" options="{'no_create':True, 'no_open':True}"/>
+                            </div>
+                        </div>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record id="location_tree" model="ir.ui.view">
+			<field name="name">res.location.tree</field>
+			<field name="model">res.location</field>
+			<field name="arch" type="xml">
+				<tree>
+					<field name="name"/>
+					<field name="emirate_id"/>
+				</tree>
+			</field>
+		</record>
+
+		<record id="sub_location_from" model="ir.ui.view">
+			<field name="name">res.sub.location.form</field>
+			<field name="model">res.sub.location</field>
+			<field name="arch" type="xml">
+				<form>
+					<sheet>
+						<div class="row" style="padding:30px;">
+							<div class="col-xs-12 col-md-5 ast_field" >
+                                <label for="name"/><br/>
+                                <field name="name"/>
+                            </div>
+                            <div class="col-xs-12 col-md-5 ast_field" >
+                                <label for="location_id"/><br/>
+                                <field name="location_id" options="{'no_create':True, 'no_open':True}"/>
+                            </div>
+                        </div>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record id="sub_location_tree" model="ir.ui.view">
+			<field name="name">res.sub.location.tree</field>
+			<field name="model">res.sub.location</field>
+			<field name="arch" type="xml">
+				<tree>
+					<field name="name"/>
+					<field name="location_id"/>
+				</tree>
+			</field>
+		</record>
+
+		<record id="listing_source_master" model="ir.actions.act_window">
+			<field name="name">Source Master</field>
+			<field name="res_model">source.master</field>
+			<field name="view_mode">tree,form</field>
+			<field name="view_type">form</field>
+		</record>
+		<record id="action_res_location" model="ir.actions.act_window">
+			<field name="name">Locations</field>
+			<field name="res_model">res.location</field>
+			<field name="view_mode">tree,form</field>
+			<field name="view_type">form</field>
+		</record>
+		<record id="action_res_sub_location" model="ir.actions.act_window">
+			<field name="name">Sub-Locations</field>
+			<field name="res_model">res.sub.location</field>
+			<field name="view_mode">tree,form</field>
+			<field name="view_type">form</field>
+		</record>
+		<menuitem id="configuration_root" sequence="200" name="Configuration" parent="crm_root_menu" groups="asteco_crm.group_super_admin_main"/>
+			<menuitem id="listing_source_menu" sequence="1" name="Source Master" parent="configuration_root" action="listing_source_master"/>
+			<menuitem id="location_menu" sequence="2" name="Locations" parent="configuration_root" action="action_res_location"/>
+			<menuitem id="sub_location_menu" sequence="3" name="Sub-Locations" parent="configuration_root" action="action_res_sub_location"/>
+	</data>
+</odoo>

@@ -1,0 +1,10 @@
+<odoo>
+    <data noupdate="1">
+        <record id="atk_opportunity_seq" model="ir.sequence">
+			<field name="name">Lead Opportunity</field>
+            <field name="code">lead.opportunity</field>
+            <field name="padding">4</field>
+            <field name="prefix">AST-OPT-</field>
+		</record>
+    </data>
+</odoo>

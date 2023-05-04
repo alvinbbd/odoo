@@ -1,0 +1,11 @@
+<odoo>
+	<data>
+		<template id="ControlPanel_inherit" xml:space="preserve">
+            <t t-name="ControlPanelInherit" t-extend="ControlPanel">
+                <t t-jquery='.o_cp_left' t-operation='replace'>
+                    <div class="o_cp_buttons"/>
+                </t>
+            </t>
+        </template>
+	</data>
+</odoo>

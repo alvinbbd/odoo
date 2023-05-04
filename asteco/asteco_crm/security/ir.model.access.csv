@@ -1,0 +1,226 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_religion_employee,Religion call center,model_res_religion,base.group_user,1,1,1,0
+access_country_code_employee,Country code call center,model_res_country_code,base.group_user,1,1,1,0
+access_hobbies_employee,Hobbies employee,model_res_hobbies,base.group_user,1,1,1,0
+access_social_employee,Social call center,model_contacts_social_media,base.group_user,1,1,1,0
+access_hr_desig_employee,Hr desig employee,model_hr_designation,base.group_user,1,1,1,0
+access_source_master_employee,Source master employee,model_source_master,base.group_user,1,1,1,0
+access_social_media_employee,Social media employee,model_social_media,base.group_user,1,1,1,0
+access_res_location_employee,Location employee,model_res_location,base.group_user,1,1,1,0
+access_res_sub_location_employee,Sub location employee,model_res_sub_location,base.group_user,1,1,1,0
+access_user_type_employee,User type employee,model_res_user_type,base.group_user,1,0,0,0
+,,,,,,,
+access_contact_classifl_center,Contact classifl center,model_contact_classification,group_call_center_agent,1,0,0,0
+access_crm_notes_center,Crm notes center,model_crm_notes,group_call_center_agent,1,1,1,0
+access_lead_call_center,Lead Call Center,model_atk_lead_lead,group_call_center_agent,1,1,1,0
+access_lead_sub_status_call_center,Lead sub status call center,model_lead_sub_status,group_call_center_agent,1,0,0,0
+access_action_call_center,Action call center,model_action_action,group_call_center_agent,1,0,0,0
+access_lead_offered_call_center,Lead offered call center,model_lead_offered_unit,group_call_center_agent,1,1,0,0
+access_lead_req_call_center,Lead req call center,model_atk_lead_requirement,group_call_center_agent,1,1,1,1
+access_listing_call_center,Listing Call Center,model_listing_listing,group_call_center_agent,1,1,0,0
+access_listing_categ_call_center,Listing categ call center,model_listing_category,group_call_center_agent,1,0,0,0
+access_listing_bed_call_center,Listing bed call center,model_listing_bed,group_call_center_agent,1,0,0,0
+access_media_call_center,Media call center,model_media_media,group_call_center_agent,1,0,0,0
+access_floor_call_center,Floor call center,model_floor_plan,group_call_center_agent,1,0,0,0
+access_listing_neibrhd_call_center,Listing neighborhood call center,model_listing_neighborhood,group_call_center_agent,1,0,0,0
+access_manage_status_call_center,Manage status call center,model_listing_managed_status,group_call_center_agent,1,0,0,0
+access_price_freq_call_center,Price freq call center,model_listing_price_frequency,group_call_center_agent,1,0,0,0
+access_number_cheque_call_center,Number cheque call center,model_number_of_cheque,group_call_center_agent,1,0,0,0
+access_property_status_call_center,Property status call center,model_listing_property_status,group_call_center_agent,1,0,0,0
+access_list_tenture_call_center,List tenture call center,model_listing_tenure,group_call_center_agent,1,0,0,0
+access_list_complt_status_call_center,List complt status call center,model_listing_completion_status,group_call_center_agent,1,0,0,0
+access_list_fitted_call_center,List fitted call center,model_listing_fitted,group_call_center_agent,1,0,0,0
+access_list_bath_call_center,List bath call center,model_listing_bath,group_call_center_agent,1,0,0,0
+access_list_visible_call_center,List visible call center,model_listing_visibility,group_call_center_agent,1,0,0,0
+access_lead_rotation_call_center,Lead rotation call center,model_lead_rotation,group_call_center_agent,1,1,0,0
+access_lead_assign_history_call_center,Lead assign history call center,model_lead_assign_history,group_call_center_agent,1,1,1,0
+access_listing_features_call_center_agent,Listing features call center agent,model_listing_features,group_call_center_agent,1,1,1,0
+access_auto_action_scheduler_call_center_agent,Auto action scheduler call center agent,model_auto_action_scheduler,group_call_center_agent,1,1,1,1
+access_ir_model_fields_call_center_agent,ir fields call center agent,base.model_ir_model_fields,group_call_center_agent,1,0,0,0
+access_email_recipients_call_center_agent,Email recipients call center agent,model_email_recipients,group_call_center_agent,1,1,1,0
+access_action_update_line_call_center_agent,Action update line call center agent,model_action_update_line,group_call_center_agent,1,1,1,0
+access_action_field_value_call_center_agent,action field value call center agent,model_action_field_value,group_call_center_agent,1,1,1,0
+access_auto_action_call_center_agent,Auto action call center agent,model_auto_action,group_call_center_agent,1,1,1,0
+,,,,,,,
+,,,,,,,
+access_contact_classifl_agent_broker,Contact classifl Agent Broker,model_contact_classification,group_agent_broker,1,0,0,0
+access_crm_notes_agent_broker,Crm notes Agent Broker,model_crm_notes,group_agent_broker,1,1,1,0
+access_lead_agent_broker,Lead Call Agent Broker,model_atk_lead_lead,group_agent_broker,1,1,1,0
+access_lead_sub_status_agent_broker,Lead sub status call Agent Broker,model_lead_sub_status,group_agent_broker,1,0,0,0
+access_action_agent_broker,Action Agent Broker,model_action_action,group_agent_broker,1,1,1,0
+access_lead_offered_agent_broker,Lead offered Agent Broker,model_lead_offered_unit,group_agent_broker,1,1,0,0
+access_lead_req_agent_broker,Lead req Agent Broker,model_atk_lead_requirement,group_agent_broker,1,1,1,1
+access_listing_agent_broker,Listing Agent Broker,model_listing_listing,group_agent_broker,1,1,1,0
+access_listing_categ_agent_broker,Listing categ Agent Broker,model_listing_category,group_agent_broker,1,0,0,0
+access_listing_bed_agent_broker,Listing bed Agent Broker,model_listing_bed,group_agent_broker,1,0,0,0
+access_media_agent_broker,Media Agent Broker,model_media_media,group_agent_broker,1,1,1,1
+access_floor_agent_broker,Floor Agent Broker,model_floor_plan,group_agent_broker,1,1,1,1
+access_listing_neibrhd_agent_broker,Listing neighborhood Agent Broker,model_listing_neighborhood,group_agent_broker,1,1,1,1
+access_manage_status_agent_broker,Manage status Agent Broker,model_listing_managed_status,group_agent_broker,1,0,0,0
+access_price_freq_agent_broker,Price freq Agent Broker,model_listing_price_frequency,group_agent_broker,1,0,0,0
+access_number_cheque_agent_broker,Number cheque Agent Broker,model_number_of_cheque,group_agent_broker,1,0,0,0
+access_property_status_agent_broker,Property status Agent Broker,model_listing_property_status,group_agent_broker,1,0,0,0
+access_list_tenture_agent_broker,List tenture Agent Broker,model_listing_tenure,group_agent_broker,1,0,0,0
+access_list_complt_status_agent_broker,List complt status Agent Broker,model_listing_completion_status,group_agent_broker,1,0,0,0
+access_list_fitted_agent_broker,List fitted Agent Broker,model_listing_fitted,group_agent_broker,1,0,0,0
+access_list_bath_agent_broker,List bath Agent Broker,model_listing_bath,group_agent_broker,1,0,0,0
+access_list_visible_agent_broker,List visible Agent Broker,model_listing_visibility,group_agent_broker,1,0,0,0
+access_lead_agent_broker,Lead Agent Broker,model_atk_lead_lead,group_agent_broker,1,1,1,0
+access_deal_agent_broker,Deal Agent Broker,model_deal_deal,group_agent_broker,1,1,1,0
+access_calender_event_agent_broker,Calender event agent broker,calendar.model_calendar_event,group_agent_broker,1,1,1,0
+access_deal_split_int_agent_broker,Deal split int agent broker,model_deal_split_internal,group_agent_broker,1,1,1,0
+access_deal_split_nwt_agent_broker,Deal split nwt agent broker,model_deal_split_network,group_agent_broker,1,1,1,0
+access_crm_portal_agent_broker,Crm Portal agent broker,model_crm_portal,group_agent_broker,1,0,0,0
+access_proforma_invoice_agent_broker,Proforma invoice agent broker,model_crm_proforma_invoice,group_agent_broker,1,1,1,0
+access_temporary_receipt_agent_broker,Temporary receipt agent broker,model_crm_temporary_receipt,group_agent_broker,1,1,1,0
+access_lead_rotation_agent_broker,Lead rotation agent broker,model_lead_rotation,group_agent_broker,1,1,0,0
+access_lead_assign_history_agent_broker,Lead assign history agent broker,model_lead_assign_history,group_agent_broker,1,1,1,0
+access_auto_action_agent_broker,Auto action agent broker,model_auto_action,group_agent_broker,1,1,1,0
+access_listing_features_agent_broker,Listing features agent broker,model_listing_features,group_agent_broker,1,1,1,0
+access_agent_performan_agent_broker,Agent performance agent broker,model_agent_performance,group_agent_broker,1,1,1,0
+access_commission_yearly_agent_broker,Commission yearly agent broker,model_commission_yearly,group_agent_broker,1,1,1,0
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+access_res_neighborhood_agent_broker,Res neighborhood agent broker,model_res_neighborhood,group_agent_broker,1,1,1,0
+access_ir_model_fields_agent_broker,ir fields call agent broker,base.model_ir_model_fields,group_agent_broker,1,0,0,0
+access_email_recipients_agent_broker,email recipients  agent broker,model_email_recipients,group_agent_broker,1,1,1,0
+access_action_update_line_agent_broker,Action update line agent broker,model_action_update_line,group_agent_broker,1,1,1,0
+access_action_field_value_agent_broker,action field value agent broker,model_action_field_value,group_agent_broker,1,1,1,0
+access_portal_xml_definition_agent_broker,Portal xml definition agent broker,model_portal_xml_definition,group_agent_broker,1,1,1,0
+access_listing_preview_agent_broker,Listing preview agent broker,model_listing_preview,group_agent_broker,1,1,1,0
+access_lead_score_agent_broker,Lead score agent broker,model_agent_lead_score,group_agent_broker,1,1,1,0
+access_loss_reason_agent_broker,Loss reason agent broker,model_loss_reason,group_agent_broker,1,0,0,0
+,,,,,,,
+access_lead_oppor_agent_broker,Lead oppor agent broker,model_lead_opportunity,group_agent_broker,1,1,1,0
+access_lead_oppor_stage_agent_broker,Lead oppor stage agent broker,model_opportunity_stage,group_agent_broker,1,1,1,0
+access_auto_action_scheduler_agent_broker,Auto action scheduler agent_broker,model_auto_action_scheduler,group_agent_broker,1,1,1,1
+,,,,,,,
+,,,,,,,
+access_lead_rotation_work_manager,Lead rotation work manager,model_lead_rotation,group_work_manager,1,1,1,0
+access_action_field_value_work_manager,Action field value work manager,model_action_field_value,group_work_manager,1,1,1,1
+,,,,,,,
+access_res_company_sales_manager,Company sales manager,base.model_res_company,group_sales_manager,1,1,0,0
+access_company_public_user,res company public read,base.model_res_company,base.group_public,1,0,0,0
+,,,,,,,
+access_user_type_coordinator,User type coordinator,model_res_user_type,group_coordinator,1,1,1,0
+access_sale_team_coordinator,Sale team coordinator,model_asteco_sale_team,group_coordinator,1,1,1,0
+access_hr_emp_coordinator,hr emp coordinator,model_hr_employee,group_coordinator,1,1,0,0
+access_agent_coordinator,agent coordinator,model_agent_agent,group_coordinator,1,1,1,0
+access_auto_action_coordinator,Auto action coordinator,model_auto_action,group_coordinator,1,1,1,0
+,,,,,,,
+,,,,,,,
+access_contact_classifl_super_user,Contact classifl Super User,model_contact_classification,group_super_user,1,1,1,0
+access_crm_notes_super_user,Crm notes Super User,model_crm_notes,group_super_user,1,0,1,0
+access_lead_super_user,Lead Call Super User,model_atk_lead_lead,group_super_user,1,1,1,0
+access_lead_sub_status_super_user,Lead sub status call Super User,model_lead_sub_status,group_super_user,1,1,1,0
+access_action_super_user,Action Super User,model_action_action,group_super_user,1,1,1,0
+access_lead_offered_super_user,Lead offered Super User,model_lead_offered_unit,group_super_user,1,1,1,0
+access_lead_req_super_user,Lead req Super User,model_atk_lead_requirement,group_super_user,1,1,1,1
+access_listing_super_user,Listing Super User,model_listing_listing,group_super_user,1,1,1,0
+access_listing_categ_super_user,Listing categ Super User,model_listing_category,group_super_user,1,1,1,0
+access_listing_bed_super_user,Listing bed Super User,model_listing_bed,group_super_user,1,1,1,0
+access_media_super_user,Media Super User,model_media_media,group_super_user,1,1,1,0
+access_floor_super_user,Floor Super User,model_floor_plan,group_super_user,1,1,1,0
+access_listing_neibrhd_super_user,Listing neighborhood Super User,model_listing_neighborhood,group_super_user,1,1,1,0
+access_manage_status_super_user,Manage status Super User,model_listing_managed_status,group_super_user,1,1,1,0
+access_price_freq_super_user,Price freq Super User,model_listing_price_frequency,group_super_user,1,1,1,0
+access_number_cheque_super_user,Number cheque Super User,model_number_of_cheque,group_super_user,1,1,1,0
+access_property_status_super_user,Property status Super User,model_listing_property_status,group_super_user,1,1,1,0
+access_list_tenture_super_user,List tenture Super User,model_listing_tenure,group_super_user,1,1,1,0
+access_list_complt_status_super_user,List complt status Super User,model_listing_completion_status,group_super_user,1,1,1,0
+access_list_fitted_super_user,List fitted Super User,model_listing_fitted,group_super_user,1,1,1,0
+access_list_bath_super_user,List bath Super User,model_listing_bath,group_super_user,1,1,1,0
+access_list_visible_super_user,List visible Super User,model_listing_visibility,group_super_user,1,1,1,0
+access_lead_super_user,Lead Super User,model_atk_lead_lead,group_super_user,1,1,1,0
+access_deal_super_user,Deal Super User,model_deal_deal,group_super_user,1,1,1,0
+access_calender_event_super_user,Calender event Super User,calendar.model_calendar_event,group_super_user,1,1,1,0
+access_deal_split_int_super_user,Deal split int Super User,model_deal_split_internal,group_super_user,1,1,1,0
+access_deal_split_nwt_super_user,Deal split nwt Super User,model_deal_split_network,group_super_user,1,1,1,0
+access_user_type_super_user,User type super user,model_res_user_type,group_super_user,1,1,1,0
+,,,,,,,
+access_fetchmail_server_super_user,Fetchmail server super user,fetchmail.model_fetchmail_server,group_super_user,1,1,1,1
+access_action_update_line_super_user,Action update line super user,model_action_update_line,group_super_user,1,1,1,1
+access_email_recipients_super_user,Email recipients super user,model_email_recipients,group_super_user,1,1,1,1
+access_ir_mail_server_super_user,Ir mail server super user,base.model_ir_mail_server,group_super_user,1,1,1,1
+access_ir_cron_super_user,Ir cron super user,base.model_ir_cron,group_super_user,1,1,1,1
+access_lead_rotation_super_user,Lead rotation super user,model_lead_rotation,group_super_user,1,1,1,1
+access_loss_reason_super_user,Loss reason super user,model_loss_reason,group_super_user,1,1,1,0
+access_staging_images_table_super_user,staging_images_table super user,model_staging_images_table,group_super_user,1,1,1,1
+access_staging_facilities_table_super_user,staging_facilities_table super user,model_staging_facilities_table,group_super_user,1,1,1,1
+access_portal_xml_definition_super_user,portal_xml_definition super user,model_portal_xml_definition,group_super_user,1,1,1,1
+access_staging_detailed_table_super_user,staging_detailed_table super user,model_staging_detailed_table,group_super_user,1,1,1,1
+,,,,,,,
+access_crm_portal_super_admin,Crm Portal super admin,model_crm_portal,group_super_admin,1,1,1,1
+access_res_partner_super_user,Res partner super user,base.model_res_partner,group_super_user,1,1,1,1
+,,,,,,,
+,,,,,,,
+access_users_super_admin,Users super admin,base.model_res_users,group_super_admin,1,1,1,1
+access_company_super_admin,Company super admin,base.model_res_company,group_super_admin,1,1,1,1
+,,,,,,,
+access_listing_listing_public,Listing listing public,model_listing_listing,base.group_public,1,0,0,0
+access_res_location_public,Res location public,model_res_location,base.group_public,1,0,0,0
+access_res_sub_location_public,Res sub_location public,model_res_sub_location,base.group_public,1,0,0,0
+access_listing_price_frequency_public,Listing price frequency public,model_listing_price_frequency,base.group_public,1,0,0,0
+access_media_media_public,Media media public,model_media_media,base.group_public,1,0,0,0
+access_floor_plan_public,Floor plan public,model_floor_plan,base.group_public,1,0,0,0
+access_hr_employee_public,Hr employee public,model_hr_employee,base.group_public,1,0,0,0
+access_listing_category_public,Listing category public,model_listing_category,base.group_public,1,0,0,0
+access_listing_bed_public,Listing bed public,model_listing_bed,base.group_public,1,0,0,0
+access_listing_fitted_public,Listing fitted public,model_listing_fitted,base.group_public,1,0,0,0
+access_listing_features_public,Listing features public,model_listing_features,base.group_public,1,0,0,0
+access_action_criteria_line_public,Action criteria_line public,model_action_criteria_line,base.group_public,1,0,0,0
+access_listing_bath_public,Listing bath public,model_listing_bath,base.group_public,1,0,0,0
+access_res_partner_public,Res partner public,model_res_partner,base.group_public,1,0,0,0
+access_source_master_public,Source public,model_source_master,base.group_public,1,0,0,0
+access_lead_public,Lead public,model_atk_lead_lead,base.group_public,1,0,1,0
+access_country_code_public,Country code public,model_res_country_code,base.group_public,1,0,0,0
+access_lead_offered_public,Lead offered public,model_lead_offered_unit,base.group_public,1,0,0,0
+access_lead_requirement_public,Lead requirement public,model_atk_lead_requirement,base.group_public,1,0,1,0
+,,,,,,,
+access_staging_detailed_public,staging detailed bath public,model_staging_detailed_table,base.group_public,1,0,0,0
+access_staging_images_table_public,staging images table public,model_staging_images_table,base.group_public,1,0,0,0
+access_staging_facilities_table_public,staging facilities table public,model_staging_facilities_table,base.group_public,1,0,0,0
+access_portal_xml_definition_public,portal xml definition table public,model_portal_xml_definition,base.group_public,1,0,0,0
+access_crm_portal_public,crm portal public,model_crm_portal,base.group_public,1,0,0,0
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+access_listing_enquiry_public,listing.enquiry.public,model_listing_enquiry,base.group_public,1,1,1,0
+access_listing_enquiry_call_centre,listing.enquiry.call.centre,model_listing_enquiry,group_call_center_agent,1,1,1,0
+access_listing_enquiry_super_admin,listing.enquiry.super.admin,model_listing_enquiry,group_super_admin,1,1,1,0
+access_listing_enquiry_super_user,listing.enquiry.super.user,model_listing_enquiry,group_super_user,1,1,1,0
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+access_resource_calender_super_user,resource.calender.super.user,resource.model_resource_calendar,group_super_user,1,1,1,0
+access_resource_calender_attendance_super_user,resource.calender.attendance.super.user,resource.model_resource_calendar_attendance,group_super_user,1,1,1,0
+access_ir_sequence_super_user,ir.sequence.super.user,base.model_ir_sequence,group_super_user,1,1,1,0
+,,,,,,,
+base_access_res_users_all,res_users all,model_res_users,,1,1,0,0
+,,,,,,,
+access_source_master_admin_main,source.master.admin.main,model_source_master,group_super_admin_main,1,1,1,1
+access_res_location_admin_main,res.location.admin.main,model_res_location,group_super_admin_main,1,1,1,1
+access_res_sub_location_admin_main,res.sub.location.admin.main,model_res_sub_location,group_super_admin_main,1,1,1,1
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+access_asteco_sale_team_group_user,asteco.sale.team.group.user,model_asteco_sale_team,base.group_user,1,0,0,0
+access_lead_offered_unit_group_user,lead.offered.unit.group.user,model_lead_offered_unit,base.group_user,1,1,1,0
+,,,,,,,
+access_action_criteria_line_super_user,Action criteria line super user,model_action_criteria_line,group_super_user,1,1,1,1
+access_action_criteria_line_super_admin,Action criteria line super admin,model_action_criteria_line,group_super_admin,1,1,1,1
+,,,,,,,
+access_proforma_invoice_coordinator,Proforma invoice co-ordinator,model_crm_proforma_invoice,group_coordinator,1,1,1,0
+access_temporary_receipt_coordinator,Temporary Receipt co-ordinator,model_crm_temporary_receipt,group_coordinator,1,1,1,0
+,,,,,,,
+access_staging_table_master_public,Staging Table Master Public,model_staging_table_master,base.group_public,1,0,0,0
+access_staging_table_master_user,Staging Table Master User,model_staging_table_master,base.group_user,1,0,0,0

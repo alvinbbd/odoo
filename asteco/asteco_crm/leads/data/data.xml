@@ -1,0 +1,182 @@
+<odoo>
+    <data noupdate="1">
+        <record id="sub_status1" model="lead.sub.status">
+            <field name="name">In progress</field>
+        </record>
+        <record id="sub_status3" model="lead.sub.status">
+            <field name="name">Called no reply</field>
+        </record>
+        <record id="sub_status4" model="lead.sub.status">
+            <field name="name">Follow up</field>
+        </record>
+        <record id="sub_status5" model="lead.sub.status">
+            <field name="name">Needs more info</field>
+        </record>
+        <record id="sub_status6" model="lead.sub.status">
+            <field name="name">Need time</field>
+        </record>
+        <record id="sub_status7" model="lead.sub.status">
+            <field name="name">Client to revert</field>
+        </record>
+        <record id="sub_status8" model="lead.sub.status">
+            <field name="name">Looks see</field>
+        </record>
+        <record id="sub_status9" model="lead.sub.status">
+            <field name="name">Client not reachable</field>
+        </record>
+        <record id="sub_status10" model="lead.sub.status">
+            <field name="name">Qualified</field>
+        </record>
+        <record id="sub_status12" model="lead.sub.status">
+            <field name="name">Lead Lost</field>
+        </record>
+        <record id="sub_status13" model="lead.sub.status">
+            <field name="name">New</field>
+        </record>
+        <record id="lang_1" model="res.lang">
+            <field name="name">Afrikkaans</field>
+            <field name="code">af</field>
+            <!-- <field name="iso_code">af</field> -->
+            <field name="active">True</field>
+        </record>
+        <record id="lang_2" model="res.lang">
+            <field name="name">Armenian</field>
+            <field name="code">hy</field>
+            <!-- <field name="iso_code">hy</field> -->
+            <field name="active">True</field>
+        </record>
+        <record id="lang_3" model="res.lang">
+            <field name="name">Bengali</field>
+            <field name="code">bn</field>
+            <!-- <field name="iso_code">bn_BD</field> -->
+            <field name="active">True</field>
+        </record>
+        <record id="lang_4" model="res.lang">
+            <field name="name">Cambodian</field>
+            <field name="code">khm</field>
+            <!-- <field name="iso_code">km</field> -->
+            <field name="active">True</field>
+        </record>
+        <record id="lang_5" model="res.lang">
+            <field name="name">Fiji</field>
+            <field name="code">fij</field>
+            <!-- <field name="iso_code">fij</field> -->
+            <field name="active">True</field>
+        </record>
+        <record id="lang_6" model="res.lang">
+            <field name="name">Irish</field>
+            <field name="code">ga</field>
+            <!-- <field name="iso_code"en_ie></field> -->
+            <field name="active">True</field>
+        </record>
+        <record id="lang_7" model="res.lang">
+            <field name="name">Javanese</field>
+            <field name="code">jv</field>
+            <!-- <field name="iso_code">jv_ID</field -->
+            <field name="active">True</field>
+        </record>
+        <record id="lang_8" model="res.lang">
+            <field name="name">Icelandic</field>
+            <field name="code">is</field>
+            <!-- <field name="iso_code">is_IS</field> -->
+            <field name="active">True</field>
+        </record>
+        <record id="lang_9" model="res.lang">
+            <field name="name">Latin</field>
+            <field name="code">la</field>
+            <field name="active">True</field>
+        </record>
+        <record id="lang_10" model="res.lang">
+            <field name="name">Malay</field>
+            <field name="code">ms_MY</field>
+            <field name="active">True</field>
+        </record>
+        <record id="lang_11" model="res.lang">
+            <field name="name">Malayalam</field>
+            <field name="code">ml_IN</field>
+            <field name="active">True</field>
+        </record>
+        <record id="lang_12" model="res.lang">
+            <field name="name">Maltese</field>
+            <field name="code">mt</field>
+            <field name="active">True</field>
+        </record>
+        <record id="lang_13" model="res.lang">
+            <field name="name">Maori</field>
+            <field name="code">mi</field>
+            <field name="active">True</field>
+        </record>
+        <record id="lang_14" model="res.lang">
+            <field name="name">Marathi</field>
+            <field name="code">mr</field>
+            <field name="active">True</field>
+        </record>
+        <record id="lang_15" model="res.lang">
+            <field name="name">Nepali</field>
+            <field name="code">ne_NP</field>
+            <field name="active">True</field>
+        </record>
+        <record id="lang_16" model="res.lang">
+            <field name="name">Punjabi</field>
+            <field name="code">pa_IN</field>
+            <field name="active">True</field>
+        </record>
+        <record id="lang_17" model="res.lang">
+            <field name="name">Quechua</field>
+            <field name="code">qu</field>
+            <field name="active">True</field>
+        </record>
+        <record id="lang_18" model="res.lang">
+            <field name="name">Samoan</field>
+            <field name="code">sm</field>
+            <field name="active">True</field>
+        </record>
+        <record id="lang_19" model="res.lang">
+            <field name="name">Swahili</field>
+            <field name="code">sw</field>
+            <field name="active">True</field>
+        </record>
+        <record id="lang_20" model="res.lang">
+            <field name="name">Tamil</field>
+            <field name="code">ta</field>
+            <field name="active">True</field>
+        </record>
+        <record id="lang_21" model="res.lang">
+            <field name="name">Tatar</field>
+            <field name="code">tt</field>
+            <field name="active">True</field>
+        </record>
+        <record id="lang_22" model="res.lang">
+            <field name="name">Tibetan</field>
+            <field name="code">bo</field>
+            <field name="active">True</field>
+        </record>
+        <record id="lang_23" model="res.lang">
+            <field name="name">Tonga</field>
+            <field name="code">to</field>
+            <field name="active">True</field>
+        </record>
+        <record id="lang_24" model="res.lang">
+            <field name="name">Urdu</field>
+            <field name="code">ur</field>
+            <field name="active">True</field>
+        </record>
+        <record id="lang_25" model="res.lang">
+            <field name="name">Uzbek</field>
+            <field name="code">uz</field>
+            <field name="active">True</field>
+        </record>
+        <record id="lang_26" model="res.lang">
+            <field name="name">Welsh</field>
+            <field name="code">cy</field>
+            <field name="active">True</field>
+        </record>
+        <record id="lang_27" model="res.lang">
+            <field name="name">Xhosa</field>
+            <field name="code">xh</field>
+            <field name="active">True</field>
+        </record>
+    </data>
+</odoo>
+
+

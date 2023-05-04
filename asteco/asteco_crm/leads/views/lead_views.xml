@@ -1,0 +1,980 @@
+<odoo>
+    <data>
+        <record id="atk_lead_lead_view_form" model="ir.ui.view">
+            <field name="name">Leads Form view</field>
+            <field name="model">atk.lead.lead</field>
+            <field name="arch" type="xml">
+                <form delete="0">
+                    <script type="text/javascript" src="/asteco_crm/static/src/js/sweetalert.min.js"></script>
+                    <script>
+                        $(document).ready(function(){
+                            $('.fa-external-link').addClass("hidden");
+                            $('div[name="list_ids"] .o-kanban-button-new').html("Add from Listing");
+                            $('div[name="match_list_ids"] .o-kanban-button-new').html("Add from Listing");
+                           
+                            $('div[name="match_list_ids"] .o_kanban_ungrouped').addClass("hidden");
+
+                            $('div[name="create_action"] .o-kanban-button-new').html("Add");
+                            $('div[name="note_ids"] .o-kanban-button-new').html("Add");
+                            $( "input.o_required_modifier:text" ).each(function() {
+                            console.log("test test tes");
+                            $(this).siblings().attr("class", "so-mandtry-star");;
+                            });
+                            $( "select.o_required_modifier" ).each(function() {
+                            $(this).siblings().attr("class", "so-mandtry-star");;
+                            });
+
+                            $('div[name="matching_listing"] > div[class="table-responsive"] > table > tbody > tr:not(.o_data_row)').hide();
+                            $('div[name="lead_offered_unit_ids"] > div[class="table-responsive"] > table > tbody > tr:not(.o_data_row)').hide();
+                            
+                            $('div[name="matching_listing"] > div[class="table-responsive"] > table > thead > tr').prepend("&amp;lt;td class='sang-in-chk'>&amp;lt;td>")
+                            $('div[name="matching_listing"] > div[class="table-responsive"] > table > tbody > tr').prepend("&amp;lt;td class='sang-in-chk'> &amp;lt;input type='checkbox' />&amp;lt;td>");
+
+                            $('div[name="matching_listing"] > div[class="table-responsive"] > table > thead > tr > td:nth-child(2)').addClass("hidden");
+                            $('div[name="matching_listing"] > div[class="table-responsive"] > table > tbody > tr > td:nth-child(2)').addClass("hidden");
+                            $('div[name="matching_listing"] > div[class="table-responsive"] > table > thead > tr > th:last').addClass("hidden");
+
+                            $('div[name="lead_offered_unit_ids"] > div[class="table-responsive"] > table > thead > tr').prepend("&amp;lt;td class='sang-in-chk'>&amp;lt;td>")
+                            $('div[name="lead_offered_unit_ids"] > div[class="table-responsive"] > table > tbody > tr').prepend("&amp;lt;td class='sang-in-chk'> &amp;lt;input type='checkbox' />&amp;lt;td>");
+                            $('div[name="lead_offered_unit_ids"] > div[class="table-responsive"] > table > thead > tr > th:last').addClass("hidden");
+
+                            $('.sang-in-chk').click(function(e){
+                                e.stopPropagation();
+                                e.stopImmediatePropagation();
+                            })
+                            $(".o_required_modifier").siblings('label').addClass('so-mandtry-star');
+                        });
+
+                        $(".ldo-match-list").on('click', function(){
+                            list_ids = [];
+                            $('div[name="matching_listing"] > div[class="table-responsive"] > table > tbody > tr').each(function() {
+                                if($(this).find('.sang-in-chk').find('input').is(':checked')){
+                                    item = $(this).find('.ast-match-list-id').text();
+                                    if (item){
+                                        list_ids.push(item);
+                                    }
+                                }
+                            });
+                            lead_id = $('.ast-lead-id').text()
+                            $.ajax({
+                                url: "/match/listing",
+                                type: "post",
+                                data: {'list_ids':JSON.stringify(list_ids), 'lead_id':lead_id},
+                                cache: false,
+                                dataType:"json",
+                                success: function(response){
+                                    console.log(response);
+                                },
+                                error:function(a,b,c){
+                                    console.log(a);
+                                    console.log(b);
+                                    console.log(c);
+                                },  
+                            });
+                        });
+
+                        $(".ast-share-whatsapp").on('click', function(){
+                            list_ids = [];
+                            $('div[name="matching_listing"] > div[class="table-responsive"] > table > tbody > tr').each(function() {
+                                if($(this).find('.sang-in-chk').find('input').is(':checked')){
+                                    item = $(this).find('.ast-match-list-id').text();
+                                    if (item){
+                                        list_ids.push(item);
+                                    }
+                                }
+                            });
+                            lead_id = $('.ast-lead-id').text()
+                            $.ajax({
+                                url: "/lead/send/whatsapp",
+                                type: "post",
+                                data: {'list_ids':JSON.stringify(list_ids), 'lead_id':lead_id},
+                                cache: false,
+                                dataType:"json",
+                                success: function(response){
+                                    if(response['success'] == '1'){
+                                        window.open(response['whatsapp_url']);
+                                        console.log(response);
+                                    }
+                                    else{
+                                        swal("Sorry!!!", "No Matching Listing Selected!");
+                                    }
+                                },
+                                error:function(a,b,c){
+                                    console.log(a);
+                                    console.log(b);
+                                    console.log(c);
+                                },  
+                            });
+                        });                        
+
+                        $(".ast-lead-send-mail").on('click', function(){
+                            list_ids = [];
+                            $('div[name="matching_listing"] > div[class="table-responsive"] > table > tbody > tr').each(function() {
+                                if($(this).find('.sang-in-chk').find('input').is(':checked')){
+                                    item = $(this).find('.ast-match-list-id').text();
+                                    if (item){
+                                        list_ids.push(item);
+                                    }
+                                }
+                            });
+                            lead_id = $('.ast-lead-id').text()
+                            $.ajax({
+                                url: "/lead/send/mail",
+                                type: "post",
+                                data: {'list_ids':JSON.stringify(list_ids), 'lead_id':lead_id},
+                                cache: false,
+                                dataType:"json",
+                                success: function(response){
+                                    if(response['success'] == '0'){
+                                        swal("Sorry!!!", "No Matching Listing Selected!");
+                                    }
+                                    else{
+                                        swal("Email has been successfully sent!");
+                                    }
+                                },
+                                error:function(a,b,c){
+                                    console.log(a);
+                                    console.log(b);
+                                    console.log(c);
+                                },  
+                            });
+                        });
+                        
+                        $(".send-offered-unit").on('click', function(){
+                            lead_id = $('.ast-lead-id').text()
+                            offered_unit_ids = [];
+                            $('div[name="lead_offered_unit_ids"] > div[class="table-responsive"] > table > tbody > tr').each(function() {
+                                if($(this).find('.sang-in-chk').find('input').is(':checked')){
+                                    item = $(this).find('.ast-offered-unit-id').text();
+                                    if (item){
+                                        offered_unit_ids.push(item);
+                                    }
+                                }
+                            });
+                            $.ajax({
+                                url: "/send/offered/mail",
+                                type: "post",
+                                data: {'offered_unit_ids':JSON.stringify(offered_unit_ids), 'lead_id':lead_id},
+                                cache: false,
+                                dataType:"json",
+                                success: function(response){
+                                    if(response['success'] == '1'){
+                                        swal("Email has been successfully sent!");
+                                    }
+                                    else{
+                                        swal("Sorry!!!", "No Offered Unit Selected!");
+                                    }
+                                },
+                                error:function(a,b,c){
+                                    console.log(a);
+                                    console.log(b);
+                                    console.log(c);
+                                },  
+                            });
+                        });
+
+                        $(".ast-send-sms").on('click', function(){
+                            list_ids = [];
+                            $('div[name="matching_listing"] > div[class="table-responsive"] > table > tbody > tr').each(function() {
+                                if($(this).find('.sang-in-chk').find('input').is(':checked')){
+                                    item = $(this).find('.ast-match-list-id').text();
+                                    if (item){
+                                        list_ids.push(item);
+                                    }
+                                }
+                            });
+                            lead_id = $('.ast-lead-id').text()
+                            $.ajax({
+                                url: "/lead/send/sms",
+                                type: "post",
+                                data: {'list_ids':JSON.stringify(list_ids), 'lead_id':lead_id},
+                                cache: false,
+                                dataType:"json",
+                                success: function(response){
+                                    if(response['success'] == '0'){
+                                        swal("Sorry!!!", "No Matching Listing Selected!");
+                                    }
+                                },
+ 
+                            });                            
+                        });
+
+                    </script>
+                    <style>
+                        .ast-create-date.o_field_date{ width : auto;}
+                        .ast-m2m-tag .o_tag{
+                            font-size:14px !important;
+			            }
+                        .ast-doc-attach .btn-default{
+                            background-color:#4494af !important;
+                            border:none;
+                            color:white;
+                        }
+                    </style>
+                    <header>
+                        <!-- <button name="action_lead_sent" type="object" string="Send by Email" class="oe_asteco_default o_lead_send" style="margin-right:15px;"/> -->
+                        <!-- <button type="object" name="add_listing" string="Add listing" class="oe_asteco_default" /> -->
+                        <button type="object" name="convert_deal" string="Convert To Deal" class="oe_asteco_default" attrs="{'invisible':['|', ('nego_won_or_lost','=','Won'),('is_qualified','=',False)]}"/>
+
+                        <field name="state" widget="statusbar" statusbar_visible="new,work_Progress,closed"/>
+                    </header>
+                    <sheet>
+                        <h2 style="margin:-5px 0 5px 0;" class="col-xs-12 col-md-8 col-lg-8 col-sm-8">
+                            <field name="title" readonly="1"/>
+                        </h2>
+                        <div class="row">
+                            <div class="col-xs-12 col-md-8 col-lg-8 col-sm-8">
+                                <notebook>
+                                    <page string="Lead">
+                                        <div class="col-xs-12 col-md-12" style="padding-top:15px;">
+                                            <h3 class="asteco-grp-title">Lead details</h3>
+                                            <div class="row" style="border-bottom:1px solid #bec4ce;margin-bottom:5px;" />
+                                            <div class="row asteco-form-div">
+                                                <div class="col-xs-12 col-md-12" style="padding-top:0px;">
+                                                    <div class="col-xs-12 col-md-4 so-pa-0px ast_field">
+                                                        <field name="photo" widget="image_popup"/>
+                                                    </div>
+                                                    <div class="col-xs-12 col-md-8 so-pa-0px ast_field">
+                                                        <div class="col-xs-12 col-md-6 ast_field">
+                                                            <label for="name"/><br/>
+                                                             <field name="name" readonly="1"/>
+                                                        </div>
+                                                        <div class="col-xs-12 col-md-6 ast_field">
+                                                            <label for="lead_type"/><br/>
+                                                            <field name="lead_type" widget="selection" required="1" attrs="{'readonly':[('id','!=',False)]}"/><br/>
+                                                        </div>
+                                                        <div class="col-xs-12 col-md-12 ast_field">
+                                                            <label for="contact_id" /><br />
+                                                            <field name="contact_id" required="1" options="{'no_create' : False, 'no_open' : False, 'no_quick_create': True}" context="{'form_view_ref':'asteco_crm.atk_contacts_view_form','default_is_contact':True}" attrs="{'readonly':[('id','!=',False)]}"/>
+                                                        </div>
+                                                        <div class="col-md-2 col-xs-4 ast_field" >
+                                                            <label for="isd_code_id"/><br />
+                                                            <field name="isd_code_id" required="1" options="{'no_create':True, 'no_open':True}" attrs="{'readonly':[('id','!=',False)]}"/>
+                                                        </div>
+                                                        <div class="col-md-4 col-xs-8 ast_field">
+                                                            <label for="customer_mobile" string="Mobile"/><br/>
+                                                            <field name="customer_mobile" required="1" attrs="{'readonly':[('id','!=',False)]}"/>
+                                                        </div>
+                                                        <div class="col-md-6 col-xs-12 ast_field">
+                                                            <label for="customer_email_id"/><br/>
+                                                            <field name="customer_email_id" attrs="{'readonly':[('id','!=',False)]}"/>
+                                                        </div>
+
+                                                        <div class="col-xs-12" style="padding:0;">
+                                                            <div class="col-xs-12 col-md-4 ast_field" >
+                                                                <label for="agent_id"/><br />
+                                                                <field name="agent_id" options="{'no_create' : True, 'no_open' : True}" domain="[('company_id','=',company_id)]"/>
+                                                                <field name="company_id" invisible="1"/>
+                                                            </div>
+                                                            <div class="col-xs-12 col-md-4 ast_field" groups="asteco_crm.group_super_admin,asteco_crm.group_super_user,
+										                        asteco_crm.group_coordinator,asteco_crm.group_director,asteco_crm.sales_manager,asteco_crm.work_manager">
+                                                                <label for="auto_assign"/><br/>
+                                                                <field name="auto_assign" /><br/>
+                                                            </div>
+                                                            <div class="col-xs-12 col-md-4 ast_field">
+                                                                <label for="priority" /><br />
+                                                                <field name="priority" />
+                                                            </div>
+                                                        </div>
+                                                        <!-- Commanded due to multiple occurence -->
+                                                        <div class="col-xs-12" style="padding:0;">
+                                                            <div class="col-xs-12 col-md-6 ast_field">
+                                                                <label for="lead_source_id" /><br />
+                                                                <field name="lead_source_id" options="{'no_create' : True, 'no_open' : True}"/>
+                                                            </div>
+                                                            <!-- <div class="col-xs-12 col-md-6 ast_field">
+                                                                <label for="language_id" /><br />
+                                                                <field name="language_id" options="{'no_create' : True, 'no_open' :True}"/>
+                                                            </div> -->
+                                                             <div class="col-xs-12 col-md-6 ast_field">
+                                                                <label for="lang_ids" /><br />
+                                                                <field name="lang_ids" widget="many2many_tags" options="{'no_create': True, 'no_open': True}"/> 
+                                                            </div>
+                                                        </div>
+                                                    <div>
+                                                        <div class="col-xs-12 col-md-6 ast_field">
+                                                            <label for="future_action_date"/><br />
+                                                            <field name="future_action_date" attrs="{'readonly':[('is_qualified','=',True)], 'required':[('is_qualified','=',False),('id','!=',False),('is_assigned','=',True)]}"/>
+                                                            <field name="is_assigned" invisible="1"/>
+                                                        </div>
+                                                        <div class="col-xs-12 col-md-6 ast_field">
+                                                            <label for="sub_status_id" string="Pre-qualified Status"/><br />
+                                                            <field name="sub_status_id" options="{'no_create' : True, 'no_open' : True}" widget="selection" attrs="{'readonly':[('is_qualified','=',True)]}"/>
+                                                            <field name="is_qualified" invisible="1"/>
+                                                        </div>
+                                                        <div class="col-xs-12 col-md-6 ast_field">
+                                                            <label for="is_hot_lead" /><br />
+                                                            <field name="is_hot_lead" />
+                                                        </div>
+                                                        <div class="col-xs-12 col-md-6 ast_field" attrs="{'invisible':[('is_lost','=',False)]}">
+                                                                <label for="loss_reason" /><br />
+                                                                <field name="loss_reason" options="{'no_create':True,'no_open':True}" attrs="{'required':[('is_lost','=',True)]}"/>
+                                                                <field name="is_lost" invisible="1"/>
+                                                            </div>
+                                                    </div>
+                                                    </div>
+                                                </div>
+<!--                                                <div class="col-xs-12 col-md-12" style="padding-top:0px;">-->
+<!--                                                    <div class="col-xs-12 col-md-4 so-pa-0px ast_field" style="padding:0px 10px 0px 10px;">-->
+<!--                                                        -->
+<!--                                                    </div>-->
+<!--                                                    <div class="col-xs-12 col-md-8 so-pa-0px ast_field" style="padding:0px 10px 0px 10px;">-->
+<!--                                                        <div class="col-xs-12 col-md-6 ast_field">-->
+<!--                                                            <label for="sub_status_id" string="Pre-qualified Status"/><br />-->
+<!--                                                            <field name="sub_status_id" options="{'no_create' : True, 'no_open' : True}" widget="selection" attrs="{'readonly':[('is_qualified','=',True)]}"/>-->
+<!--                                                            <field name="is_qualified" invisible="1"/>-->
+<!--                                                        </div>-->
+<!--                                                    </div>-->
+<!--                                                    <div class="col-xs-12" style="padding:0;" >-->
+
+<!--                                                        </div>-->
+<!--                                                </div>-->
+                                            </div>
+
+                                            <h3 class="asteco-grp-title" attrs="{'invisible':[('is_qualified','=',False)]}">Opportunity Stage</h3>
+                                            <div class="col-xs-12" style="border-bottom:1px solid #bec4ce;margin-bottom:5px;" attrs="{'invisible':[('is_qualified','=',False)]}"/>
+                                            <div class="row asteco-form-div" attrs="{'invisible':[('is_qualified','=',False)]}">
+                                                <div class="col-xs-12 asteco-form-div" style="padding:5px;">
+                                                    <div class="col-xs-12 col-md-6 ast_field" >
+                                                        <label for="close_date_opportunity" /><br />
+
+                                                        <field name="close_date_opportunity" attrs="{'readonly':[('nego_won_or_lost','=','Won')],'required':[('is_qualified','=',True)]}"/>
+                                                    </div>
+                                                    <div class="col-xs-12 col-md-6 ast_field" >
+                                                        <label for="commission_value_opportunity" /><br />
+                                                        <field name="commission_value_opportunity" attrs="{'readonly':[('nego_won_or_lost','=','Won')],'required':[('is_qualified','=',True)]}"/>
+
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-12 asteco-form-div" attrs="{'invisible':[('is_qualified','=',False)]}" style="padding:5px;">
+                                                    <div class="col-xs-12 col-md-6 ast_field" >
+                                                        <label for="opportuninty_stage" /><br />
+                                                        <field name="opportuninty_stage" readonly="1"/>
+                                                    </div>
+                                                    <div class="col-xs-12 col-md-6 ast_field" attrs="{'invisible':[('opportuninty_stage','not in',['Negotiation'])]}">
+                                                        <label for="nego_won_or_lost" string="Negotiation Status"/><br />
+                                                        <field name="nego_won_or_lost" widget="radio"/>
+                                                    </div>
+                                                    <div class="col-xs-12 col-md-6 ast_field" attrs="{'invisible':[('opportuninty_stage','not in',['Viewing'])]}">
+                                                        <label for="view_won_or_lost" string="Viewing Status"/><br />
+                                                        <field name="view_won_or_lost" widget="radio"/>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-12 asteco-form-div" attrs="{'invisible':[('view_won_or_lost','not in',['Won'])]}" style="padding:5px;">
+                                                    <div class="col-xs-12 col-md-6 ast_field">
+                                                        <label for="offered_unit_id" /><br />
+                                                        <field name="offered_unit_id" options="{'no_create':True, 'no_open':True}" attrs="{'required':[('view_won_or_lost','in',['Won'])],'readonly':[('nego_won_or_lost','=','Won')]}"/>
+                                                    </div>
+<!--                                                    <div class="col-xs-12 col-md-2 ast_field">-->
+<!--                                                        <label for="add_from_listing" /><br />-->
+<!--                                                        <field name="add_from_listing" options="{'no_create':True, 'no_open':True}" attrs="{'invisible':[('view_won_or_lost','not in',['Won'])]}"/>-->
+<!--                                                    </div>-->
+<!--                                                    <div class="col-xs-12 col-md-4 ast_field" style="padding-top:30px">-->
+<!--                                                        <button type="object" name="add_listings" string="Add From Listing"  attrs="{'invisible':[('add_from_listing','=',False)]}"/>-->
+<!--                                                    </div>-->
+
+                                                </div>
+<!--                                                <div class="col-xs-12 asteco-form-div" attrs="{'invisible':[('view_won_or_lost','not in',['Won'])]}" style="padding:5px;">-->
+                                                    <!-- <div class="col-xs-12 col-md-6 ast_field">
+                                                        <label for="offered_unit_id" /><br />
+                                                        <field name="offered_unit_id" options="{'no_create':True, 'no_open':True}" attrs="{'required':[('view_won_or_lost','in',['Won'])],'readonly':[('nego_won_or_lost','=','Won')]}"/>
+                                                    </div> -->
+
+                                                    <!-- changes -->
+<!--                                                    <div class="col-xs-12 col-md-6 ast_field" >-->
+<!--                                                        <label for="default_or_adhoc" string="Finalized Unit"/><br />-->
+<!--                                                        <field name="default_or_adhoc" widget="radio" attrs="{'readonly':[('nego_won_or_lost','=','Won')]}"/>-->
+<!--                                                    &lt;!&ndash; </div> &ndash;&gt;-->
+
+<!--                                                    <div>-->
+<!--                                                        <div class="col-xs-12 col-md-6 ast_field" attrs="{'invisible':[('default_or_adhoc','=','Adhoc Listing')]}" style="padding:5px;">-->
+<!--                                                            <field name="offered_unit_id" options="{'no_create':True, 'no_open':True}" attrs="{-->
+<!--                                                                'required':[('default_or_adhoc','!=','Adhoc Listing'),-->
+<!--                                                                            ('view_won_or_lost','in',['Won'])],-->
+<!--                                                                'readonly':[('nego_won_or_lost','=','Won')]}"/>-->
+<!--                                                        </div>-->
+<!--                                                  -->
+<!--                                                        <div class="col-xs-12 col-md-6 ast_field" attrs="{'invisible':[('default_or_adhoc','!=','Adhoc Listing')]}" style="padding:5px;">-->
+<!--                                                            <field name="adhoc_listing" attrs="{'required':[('default_or_adhoc','=','Adhoc Listing'), ('view_won_or_lost','in',['Won'])],'readonly':[('nego_won_or_lost','=','Won')]}"/>-->
+<!--                                                        </div>-->
+<!--                                                    </div>-->
+
+<!--                                                </div>-->
+                                                    <!-- change -->
+
+<!--                                                    <div class="col-xs-12 col-md-6 ast_field" attrs="{'invisible':[('nego_won_or_lost','!=','Won')]}" style="padding:5px;">-->
+<!--                                                        <label for="deal_id" /><br />-->
+<!--                                                        <field name="deal_id" readonly="1" options="{'no_create':True, 'no_open':True}"/>-->
+<!--                                                    </div>-->
+<!--                                                </div>-->
+                                                <div class="col-xs-12 asteco-form-div" attrs="{'invisible':[('sub_status_id','=','Qualified')]}" style="padding:5px;">
+                                                    <div class="col-xs-24 col-md-6 ast_field" >
+                                                        <label for="comment" /><br />
+                                                        <field name="comment" attrs="{'readonly':[('nego_won_or_lost','=','Won')]}"/>
+                                                    </div>
+                                                    <div class="col-xs-12 col-md-6 ast_field" attrs="{'invisible':[('nego_won_or_lost','!=','Won')]}" style="padding:5px;">
+                                                        <label for="deal_id" /><br />
+                                                        <field name="deal_id" readonly="1" options="{'no_create':True, 'no_open':True}"/>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-xs-12 asteco-form-div" attrs="{'invisible':[('sub_status_id','=','Qualified')]}" style="padding:5px;">
+                                                    <div class="col-xs-12 col-md-6 ast_field" attrs="{'invisible':[('nego_won_or_lost','!=','Lost'), ('view_won_or_lost','!=','Lost')]}">
+                                                        <label for="loss_reason" /><br />
+                                                        <field name="loss_reason"  attrs="{'required':['|', ('nego_won_or_lost','=','Lost'), ('view_won_or_lost','=','Lost')]}" options="{'no_create':True, 'no_open':True}"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <h3 class="asteco-grp-title">Property Requirements</h3>
+                                            <div class="row" style="border-bottom:1px solid #bec4ce;margin-bottom:5px;" />
+                                            <div class="row asteco-form-div so-section-end" name="list_ids">
+                                                <field name="list_ids" invisible="1">
+                                                    <kanban>
+                                                        <field name="ref_name"/>
+                                                        <templates>
+                                                            <t t-name="kanban-box">
+                                                                <div class="col-xs-12">
+                                                                    <field name="ref_name" />
+                                                                </div>
+                                                            </t>
+                                                        </templates>
+                                                    </kanban>
+                                                </field>
+
+                                                <field name="lead_req_ids" >
+                                                    <tree editable="bottom" search="0">
+                                                        <field name="slno" readonly="1" />
+                                                        <field name="category_id" options="{'no_create' : True, 'no_open':True}" required="1"/>
+                                                        <field name="country_id" invisible="1"/>
+                                                        <field name="emirate_id" domain="[('country_id', '=', country_id)]" options="{'no_create': True, 'no_open': True}" required="1" />
+                                                        <!-- <field name="location_id" domain="[('emirate_id', '=', 'True')]" options="{'no_create' : True, 'no_open':True}"/> -->
+                                                        <!-- <field name="sub_location_id" domain="[('location_id', '=', 'True')]" options="{'no_create' : True, 'no_open':True}"/> -->
+
+                                                        <!-- Changes -->
+                                                        <field name="location_id" options="{'no_create' : True, 'no_open':True}"/>
+                                                        <field name="sub_location_id" options="{'no_create' : True, 'no_open':True}" />
+                                                        <!-- End -->
+
+                                                        <field name="bed_id" options="{'no_create' : True, 'no_open':True}" attrs="{'readonly':[('is_office','=',True)]}"/>
+                                                        <field name="fitted_id" options="{'no_create' : True, 'no_open':True}" attrs="{'readonly':[('is_office','=',False)]}"/>
+                                                        <field name="min_bua" />
+                                                        <field name="max_bua" />
+                                                        <field name="min_price" />
+                                                        <field name="max_price" />
+                                                        <field name="lead_id" invisible="1"/>
+                                                        <field name="is_office" invisible="1"/>
+                                                        <!-- <button type="object" class="fa fa-search" name="get_filtered_listing"></button> -->
+                                                    </tree>
+                                                    <form>
+                                                        <group>
+                                                            <group>
+                                                                <field name="category_id" options="{'no_open':True}"/>
+                                                                <field name="emirate_id" options="{'no_open':True}"/>
+                                                                <field name="location_id" options="{'no_open':True}"/>
+                                                                <field name="sub_location_id" options="{'no_open':True}"/>
+                                                                <field name="bed_id" attrs="{'invisible':[('bed_id','=',False)]}" options="{'no_open':True}"/>
+                                                                <field name="fitted_id" attrs="{'invisible':[('fitted_id','=',False)]}" options="{'no_open':True}"/>
+                                                            </group>
+                                                     how to get the id of div contains another div       <group>
+                                                                <field name="min_bua"/>
+                                                                <field name="max_bua"/>
+                                                                <field name="min_price"/>
+                                                                <field name="max_price"/>
+                                                            </group>
+                                                        </group>
+                                                    </form>
+                                                </field>
+                                            </div>
+                                            <div class="row asteco-form-div">
+                                                <div class="col-xs-12 col-md-12 ast_field" >
+                                                    <label for="title"/><br/>
+                                                    <field name="title"/>
+                                                </div>
+                                            </div>
+                                            <div class="row asteco-form-div">
+                                                <div class="col-xs-12 col-md-7 ast_field">
+                                                    <label for="share_scope" string="Share with"/><br/>
+                                                    <field name="share_scope" widget="radio" options="{'horizontal':True}"/>
+                                                </div>
+                                                <div class="col-xs-12 col-md-5 ast_field" attrs="{'invisible':[('share_scope','=','External')]}">
+                                                    <label for="agent_ids" string="Share with Agents"/><br/>
+                                                    <field name="agent_ids" widget="many2many_tags" class="col-xs-12" options="{'no_create': True, 'no_open': True}"/>
+                                                </div>
+                                                <div class="col-xs-12 col-md-6 ast_field" attrs="{'invisible':[('share_scope','=','Internal')]}">
+                                                    <label for="contact_ids" string="Share with Sub-broker"/><br/>
+                                                    <field name="contact_ids" widget="many2many_tags" options="{'no_create': True, 'no_open': True}"/>
+                                                </div>
+                                            </div>
+                                            <div class="row asteco-form-div">
+                                                <div class="col-xs-12 col-md-6 ast_field" attrs="{'invisible':[('lead_type','not in',['buyer','investor'])]}">
+                                                    <label for="finance" /><br />
+                                                    <field name="finance" attrs="{'invisible':[('lead_type','not in',['buyer','investor'])]}"/>
+                                                </div>
+                                            </div>
+
+                                            <div class="row asteco-form-div">
+                                                <div class="col-xs-12 col-md-7 ast_field">
+                                                    <label for="user_uid" /><br />
+                                                    <field name="user_uid" />
+                                                </div>
+                                                <div class="col-xs-12 col-md-5 ast_field">
+                                                    <label for="enq_date"/><br />
+                                                    <field name="create_date" readonly="1"/>
+                                                </div>
+                                            </div>
+                                            <field name="country_id" invisible="1"/>
+                                        </div>
+                                    </page>
+                                    <page string="Matching Listing" attrs="{'invisible':[('lead_type','in',['land_lord','seller'])]}">
+                                        <div class="row atk-ico" style="padding:20px 0px 0px 20px;">
+                                            <span>
+                                                <button type="object" name="update_matching_listing" class="oe_asteco_default" string="Update Matching Listing"/>
+                                            </span>
+                                        </div>
+                                        <div class="row atk-ico" style="padding:20px 0px 0px 20px;">
+                                            <span>
+                                                <button type="object" class="ast-lead-send-mail" name="send_email" style="color:white;background-color:#d54b3d;border:none;">
+                                                    <i class="fa fa-envelope"/>  Send Mail
+                                                </button>
+                                            </span>
+                                            <span style="margin:15px;">
+                                                <button style="color:white;background-color:#1ebea5;border:none;font-size:24px" class="ast-share-whatsapp" type="action" name="send_whatsapp">
+                                                    <i class="fa fa-whatsapp"/>  Whatsapp
+                                                </button>
+                                            </span>
+                                            <span>
+                                                <button type="object" class="ast-send-sms" name="send_sms" style="color:white;background-color:#58b8d8;border:none;">
+                                                    <i class="fa fa-mobile"/>  Send SMS
+                                                </button>
+                                            </span>
+                                            <span style="margin:15px;">
+                                                <button type="object" class="ldo-match-list" name="add_match_list" string="Add to Offered Units" style="color:white;background-color:#928d91;border:none;"/>
+                                            </span>
+                                            <!-- <style>
+                                                .ldo-match-list{
+                                                    color: white;
+                                                    background-color: #928d91;
+                                                    display: inline-block;
+                                                    margin-bottom: 0;
+                                                    font-weight: normal;
+                                                    text-align: center;
+                                                    vertical-align: middle;
+                                                    touch-action: manipulation;
+                                                    cursor: pointer;
+                                                    background-image: none;
+                                                    border: 1px solid transparent;
+                                                    white-space: nowrap;
+                                                    padding: 6px 12px;
+                                                    font-size: 13px;
+                                                    line-height: 1.42857143;
+                                                    border-radius: 4px;
+                                                    font-size: 14px !important;
+                                                    font-family: OpenSans !important;
+                                                }
+                                            </style>
+                                            <span class="ldo-match-list">
+                                                Match
+                                            </span> -->
+                                        </div>
+                                        <!-- <div class="row atk-ico" style="padding:20px 0px 0px 20px;border:1px solid;">
+                                            <span class="ast-lead-send-mail" style="padding:6px 11px;background-color:#d54b3d;cursor:pointer;color:white;border-radius:3px;margin-right:10px;"><i class="fa fa-envelope"/>  Send Mail</span>
+                                            <span class="ast-share-whatsapp" style="padding:6px 11px;background-color:#1ebea5;cursor:pointer;color:white;border-radius:3px;margin-right:10px;"><i class="fa fa-whatsapp"/>  Whatsapp</span>
+                                            <span class="ast-send-sms" style="padding:6px 11px;background-color:#58b8d8;cursor:pointer;color:white;border-radius:3px;margin-right:10px;"><i class="fa fa-mobile"/>  Send SMS</span>
+                                            <span style="margin-top:0px;padding-top:0px;">
+                                                <button type="object" class="ldo-match-list" name="add_match_list" string="Match" style="color:white;background-color:#928d91;border:none;margin-top:0px;"/>
+                                            </span>
+                                        </div> -->
+
+                                        <!-- Do not hide or remove -->
+                                        <field name="id" class="ast-lead-id" invisible="1"/>
+                                        
+                                        <!-- <button type="object" name="update_matching_leads" string="Update" style="border:none;background-color:green;color:white;margin-top:10px;"/> -->
+                                        <h3 class="asteco-grp-title" attrs="{'invisible':[('is_matching_listing','=',False)]}">Matching Listing</h3>
+                                        <div class="row" style="border-bottom:1px solid #bec4ce;margin:0px 2px 5px 2px;" attrs="{'invisible':[('is_matching_listing','=',False)]}"/>
+                                        <field name="matching_listing" attrs="{'invisible':[('is_matching_listing','=',False)]}">
+                                            <tree create="false" edit="false" delete="false">
+                                                <field name="ref_name" string="Listing Ref"/>
+                                                <field name="category_id"/>
+                                                <field name="emirate_id"/>
+                                                <field name="location_id" string="Location"/>
+                                                <field name="sub_location_id" string="Sub-Location"/>
+                                                <!-- <field name="sub_status_id"/> -->
+                                                <field name="agent_id" string="Assigned To"/>
+                                                <!-- <field name="enq_date"/> -->
+                                                <field name="id" class="ast-match-list-id" style="display:none;"/>
+                                            </tree>
+                                        </field>
+                                        <div style="margin:30px 0px;" attrs="{'invisible':[('is_matching_listing','=',True)]}">
+                                            <span style="font-weight:bold;font-size:18px;">Sorry, No matching listing found!</span>
+                                        </div>
+                                        <field name="is_matching_listing" invisible="1"/>
+                                        <h3 class="asteco-grp-title">Offered Units</h3>
+                                        <div class="row" style="border-bottom:1px solid #bec4ce;margin:0px 2px 20px 2px;"/>
+                                        <field name="match_listing_type" invisible="1"/>
+
+                                        <span class="send-offered-unit" style="color:white;background-color:#d54b3d;border:none;padding:6px 10px;border-radius:3px;cursor:pointer;margin-left:4px;">
+                                            <i class="fa fa-envelope"/>  Send Mail
+                                        </span>
+
+                                        <div class="row asteco-form-div" name="match_list_ids" style="margin-left:3px;margin-top:10px;">
+                                            <field name="match_list_ids" domain="[('listing_type','=',match_listing_type)]">
+                                                <kanban create="false">
+                                                    <field name="ref_name"/>
+                                                    <templates>
+                                                        <t t-name="kanban-box">
+                                                            <div class="col-xs-12">
+                                                                <field name="ref_name" />
+                                                            </div>
+                                                        </t>
+                                                    </templates>
+                                                </kanban>
+                                            </field>
+                                        </div>
+                                        
+                                        <field name="lead_offered_unit_ids">
+                                            <tree create="false" edit="false" delete="true">
+                                                <field name="listing_id" string="Listing Ref"/>
+                                                <field name="category_id" string="Category"/>
+                                                <field name="emirate_id" string="Emirate/City"/>
+                                                <field name="location_id" string="Location"/>
+                                                <field name="sub_location_id" string="Sub-Location"/>
+                                                <field name="agent_id" string="Assigned To" invisible="1"/>
+                                                <field name="bed_id" string="Bed"/>
+                                                <field name="price" string="Price"/>
+                                                <field name="status"/>
+                                                <field name="id" class="ast-offered-unit-id" style="display:none;"/>
+                                            </tree>
+                                            <form>
+                                                <group>
+                                                    <group>
+                                                        <field name="listing_id" string="Listing Ref" options="{'no_open':True}"/>
+                                                        <field name="category_id" string="Category" options="{'no_open':True}"/>
+                                                        <field name="emirate_id" string="Emirate/City" options="{'no_open':True}"/>
+                                                        <field name="location_id" string="Location" options="{'no_open':True}"/>
+                                                        <field name="sub_location_id" string="Sub-Location" options="{'no_open':True}"/>
+                                                        <field name="agent_id" string="Assigned To" options="{'no_open':True}"/>
+                                                        <field name="bed_id" string="Bed" options="{'no_open':True}"/>
+                                                        <field name="price" string="Price" options="{'no_open':True}"/>
+                                                        <field name="status"/>
+
+                                                    </group>
+                                                    <group>
+                                                    </group>
+                                                </group>
+                                            </form>
+                                        </field>
+                                    </page>
+                                    <page string="Marketing">
+                                        <notebook>
+                                            <page string="Send HTML Email">
+                                                <div class="row">
+                                                    <div class="col-xs-12" style="min-height:200px;">
+                                                        <div class="col-xs-12" style="margin-top:30px;">
+                                                            <label for="mail_recipients"/>
+                                                            <field name="mail_recipients" placeholder="Choose Recipients" widget="many2many_tags_email" options="{'no_create':True}" context="{'show_email':True}"/>
+                                                        </div><!-- 
+                                                        <div class="col-xs-12" style="margin-top:20px;">
+                                                            <span class="ast-previe-send-mail" style="padding:5px 10px;border-radius:5px;background-color:#d54b3d;color:white;cursor:pointer;"><i class="fa fa-envelope"/> Send</span>
+                                                        </div> -->
+                                                        <div class="col-xs-12" style="margin-top:20px;">
+                                                            <button type="object" name="send_preview_mail" style="padding:5px 70px;border-radius:5px;background-color:#d54b3d;color:white;cursor:pointer;"><i class="fa fa-envelope"/> Send</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </page>
+                                            <!-- <page string="Share PDF Brochure">
+                                            </page> -->
+                                        </notebook>
+                                    </page>
+                                </notebook>
+                            </div>
+                            <div class="col-md-4 col-xs-12" style="padding-top:0px;border-left:1px solid #bec4ce;min-height:1230px;">
+                                <group>
+                                    <notebook class="ast-notebook-page">
+                                        <page string="Notes" >
+                                            <div style="margin-top:5px;margin-left:10px;">
+                                                <field name="is_notify_agent" />Notify Agent
+                                            </div>
+                                            <div class="oe_read_only" style="border:1px solid #4494af;border-radius:3px;width:100px;height:30px;background-color:#4494af;color:white;text-align:center;padding:5px;font-size:12px;margin-top:10px;cursor:pointer;">
+                                                <span>Edit to Create</span>
+                                            </div>
+                                            <div style="margin-top:10px;">
+                                                <!-- <field name="notes" placeholder="Click Here To Add Notes"/> -->
+                                                <field name="note_ids">
+                                                    <kanban default_order="id desc">
+                                                        <field name="name"/>
+                                                        <field name="write_date"/>
+                                                        <field name="write_uid"/>
+                                                        <templates>
+                                                            <t t-name="kanban-box">
+                                                                <div class="row">
+                                                                    <div class="col-xs-12" style="padding:5px;min-height:60px;">
+                                                                        <field name="name"/>
+                                                                    </div>
+                                                                    <div class="col-xs-12" style="color:grey;padding:0px;">
+                                                                        <t t-if="record.write_date.raw_value">
+                                                                            <div class="col-md-6 col-xs-12" style="margin:0px;padding:0px;margin-bottom:0px;">
+                                                                                <span><field name="write_date"/></span>
+                                                                            </div>
+                                                                        </t>
+                                                                        <t t-if="record.write_uid.raw_value">
+                                                                            <div class="col-md-6 col-xs-12 text-right" style="margin:0px;padding:0px;">
+                                                                                <span>Note by : <field name="write_uid"/></span>
+                                                                            </div>
+                                                                        </t>
+                                                                    </div>
+                                                                </div>
+                                                            </t>
+                                                        </templates>
+                                                    </kanban>
+
+                                                </field>
+                                            </div>
+                                        </page>
+                                        <page string="Contact History">
+                                            <header>
+                                                <button name="action_log_phone_call" type="object" string="Log Phone Call" class="oe_asteco_default" context="{'default_lead_id':active_id}"/>
+                                            </header>
+                                            <field name="mail_msg_ids" widget="mail_thread"/>
+                                        </page>
+                                    </notebook>
+                                </group>
+                                <group>
+                                    <notebook class="ast-notebook-page">
+                                        <page string="Actions" class="ast-page">
+                                            <div class="oe_read_only" style="border:1px solid #4494af;border-radius:3px;width:100px;height:30px;background-color:#4494af;color:white;text-align:center;padding:5px;font-size:12px;margin-top:10px;cursor:pointer;">
+                                                <span>Edit to Create</span>
+                                            </div>
+                                            <field name="create_action" mode="kanban" nolabel="1" context="{'default_lead_id':active_id,'default_agents_ids':[(6, 0, [agent_id])], 'default_contacts_ids':[(6, 0, [contact_id])]}">
+                                                <!--<kanban>
+                                                    <field name="lead_id" widget="selection" invisible="1"/>
+                                                    <field name="name"/>
+                                                    <field name="action_type"/>
+                                                    <field name="start_date"/>
+                                                     <field name="end_date"/>
+                                                    <field name="agents_ids" widget="many2many_tags" options="{'no_create' : True}"/>
+                                                    &lt;!&ndash; <field name="item"/> &ndash;&gt;
+                                                    <field name="contacts_ids" widget="many2many_tags" options="{'no_create' : True}"/>
+                                                    <field name="location"/>
+                                                    <field name="message"/>
+                                                    <field name="status"/>
+                                                    <templates>
+                                                        <t t-name="kanban-box">
+                                                            <div t-att-class="oe_kanban_global_click">
+                                                                <a t-if="!read_only_mode" type="delete" class="fa fa-times pull-right"/>
+                                                                <a t-if="!read_only_mode" type="edit" class="fa fa-edit pull-right"/>
+                                                                <div>
+                                                                    <div>
+                                                                        <table>
+                                                                            <tbody>
+                                                                                <tr invisible="1">
+                                                                                    <td width="50%"><label for="lead_id">Lead ID:</label></td>
+                                                                                    <td width="50%"><field name="lead_id" widget="selection"/></td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td width="50%"><label for="name">Subject:</label></td>
+                                                                                    <td width="50%"><field name="name"/></td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td><label for="action_type">Action Type:</label></td>
+                                                                                    <td><field name="action_type"/></td>
+                                                                                </tr>
+                                                                                <tr attrs="{'invisible':[('offered_unit_id','=',False)]}">
+                                                                                    <td><label for="offered_unit_id">Offered Unit:</label></td>
+                                                                                    <td><field name="offered_unit_id"/></td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td><label for="start_datetime">Start Time:</label></td>
+                                                                                    <td> <field name="start_datetime"/></td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td> <label for="agents_ids">Agents:</label></td>
+                                                                                    <td><field name="agents_ids" widget="many2many_tags" options="{'no_create' : True}"/></td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td><label for="contacts_ids">Contacts:</label></td>
+                                                                                    <td><field name="contacts_ids" widget="many2many_tags" options="{'no_create' : True}"/></td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td><label for="location">Location:</label></td>
+                                                                                    <td><field name="location"/></td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td><label for="status">Status:</label></td>
+                                                                                    <td><field name="status" widget="selection"/></td>
+                                                                                    <td><button name="action_done" type="object">Done</button> </td>
+                                                                                </tr>
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                         </t>
+                                                    </templates>
+                                                </kanban>-->
+                                            </field>
+                                        </page>
+	                                    <page string="Documents">
+                                            <div class="oe_read_only" style="border:1px solid #4494af;border-radius:3px;width:100px;height:30px;background-color:#4494af;color:white;text-align:center;padding:5px;font-size:12px;margin-top:10px;cursor:pointer;">
+                                                <span>Edit to Upload</span>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-xs-12" style="padding-top:10px;">
+                                                    <field name="document_ids" widget="many2many_binary" string="Upload" class="ast-doc-attach" attrs="{'readonly':[('state','in',['success'])]}"/>
+                                                </div>
+                                            </div>
+	                                    </page>
+	                                </notebook>
+	                            </group>
+	                        </div>
+	                        <div class="col-xs-12" style="padding:15px;">
+	                            <div class="col-md-4 col-xs-12 text-center">
+	                                <b>Created Date &amp; Time : </b><field class="ast-create-date" name="create_date" readonly="True"/>
+	                            </div>
+	                            <div class="col-md-4 col-xs-12 text-center">
+	                                <b>Last Updated Date &amp; Time : </b><field class="ast-create-date" name="lead_write_date" readonly="True"/>
+	                            </div>
+	                            <div class="col-md-4 col-xs-12 text-center">
+	                                <b>Last Updated By : </b><field name="lead_write_uid" readonly="True"/>
+	                            </div>
+                            </div>
+                        </div>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <!-- <record model="ir.ui.view" id="wizard_listing_form">
+            <field name="name">Wizard Listing Form</field>
+            <field name="model">listing.selection.wizard</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+              <form string="Select Listing">
+                  <footer>
+                      <button string="Convert To Deal" name="confirm_list" type="object" class="btn-primary"/>
+                  </footer>
+                  <group>
+                      <field name="listing_select" context="{'show_category_id':True}"/>
+                      <field name="expected_close_date" />
+                      <field name="commission_value" />
+                  </group>
+              </form>
+            </field>
+        </record> -->
+
+        <record model="ir.ui.view" id="wizard_listing_form">
+            <field name="name">Wizard Listing Form</field>
+            <field name="model">listing.selection.wizard</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+              <form string="Select Listing">
+                  <footer>
+                      <button string="Confirm" name="confirm_list" type="object" class="btn-primary"/>
+                  </footer>
+                  <group>
+                      <field name="listing_select" options="{'no_open':True, 'no_create':True}"/>
+<!--                      <field name="expected_close_date" />-->
+<!--                      <field name="commission_value" />-->
+                  </group>
+              </form>
+            </field>
+        </record>
+
+        <record id="atk_lead_view_tree" model="ir.ui.view">
+            <field name="name">Leads Tree view</field>
+            <field name="model">atk.lead.lead</field>
+            <field name="arch" type="xml">
+                <tree default_order='create_date desc'>
+                    <field name="name" />
+                    <field name="contact_id" string="Name"/>
+                    <field name="lead_type" />
+                    <field name="category_id_list" />
+                    <field name="emirate_id_list" />
+                    <field name="location_id_list" />
+                    <field name="sub_location_id_list" />
+                    <field name="agent_id"/>
+                    <field name="state"/>
+                    <field name="sub_status_id" string="Pre-qualified Status"/>
+                    <field name="create_date" string="Create Date"/>
+                    <field name="future_action_date" string="Deadline"/>
+                    <field name="pool_status"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="lead_filter" model="ir.ui.view">
+            <field name="name">Lead Filter</field>
+            <field name="model">atk.lead.lead</field>
+            <field name="arch" type="xml">
+                <search string="Search Lead">
+                    <field name="name" string="My Leads" filter_domain="['|',('customer_email_id','ilike',self),'|',('customer_mobile','ilike',self),'|',('name','ilike',self),('contact_id','ilike',self)]"/>
+                    <field name="name" />
+                    <field name="contact_id"  string="Name"/>
+                    <field name="category_id_list"  />
+                    <field name="location_id_list"  />
+                    <!-- <filter string="My Leads" name="leads_all" domain="[('agent_id.user_id','=',uid)]" groups="asteco_crm.agent_broker"/> -->
+                    <filter string="My Leads" name="leads_all" domain="['|', ('user_uid','=',uid), ('agent_id.user_id','=',uid)]" groups="asteco_crm.agent_broker"/>
+
+                    <separator/>
+                    <filter string="Company Pool" domain="[('pool_status','=','Lead Pool')]"/>
+                    <separator/>
+                    <filter string="Network Leads" domain="[('pool_status','=','Network Pool')]"/>
+                    <!-- <filter string="Successful" name="successful_id" domain="[('sub_status_id','=','successful')]"/> -->
+                    <!-- <filter string="Unuccessful" name="unsuccessful_id" domain="[('sub_status_id','=','unsuccessful')]"/> -->
+
+                </search>
+            </field>
+        </record>
+
+<!--        <record id="lead_filter_agent_broker" model="ir.ui.view">-->
+<!--            <field name="name">Lead Filter Agent</field>-->
+<!--            <field name="model">atk.lead.lead</field>-->
+<!--            <field name="arch" type="xml">-->
+<!--                <search string="Search Lead" groups="asteco_crm.agent_broker">-->
+<!--                    <filter string="My Leads" name="leads_all" domain="[('agent_id.user_id','=',uid)]" />-->
+<!--                </search>-->
+<!--            </field>-->
+<!--        </record>-->
+
+
+        <record id="lead_creation_mail_to_customer" model="mail.template">
+           <field name="name">Multiple Listing Preview</field>
+           <field name="email_from">${object.company.email}</field>
+           <field name="subject">Requested Properties</field>
+           <field name="partner_to"></field>
+           <field name="model_id" ref="asteco_crm.model_listing_preview"/>
+           <field name="auto_delete" eval="True"/>
+           <field name="lang">${object.company.partner_id.lang}</field>
+           <field name="reply_to">${object.company.email}</field>
+           <field name="body_html" type="html">
+                <div class="row" style="padding-top:20px;padding-left:20px;">
+                    <div class="col-xs-12">
+                        <p style="font-size:16px;"><b>Dear Customer, <br />We are sharing the below listings for your consideration.</b></p>
+                    </div>
+                    <div class="col-xs-12" style="text-align:center;padding-top:30px;padding-bottom:30px;">
+                        <a target="_blank" href="/preview/listings/${object.listing_ids}" style="background-color:white;padding:20px 80px;text-decoration:none;color:#003580;border-radius:5px;font-size:16px;">View Listings</a>
+                    </div>
+                </div>
+            </field>
+        </record>
+
+        <record id="atk_lead_lead_Action" model="ir.actions.act_window">
+            <field name="name">Leads</field>
+            <field name="res_model">atk.lead.lead</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help">You don't have any leads.</field>
+<!--            <field name="domain">['|',('agent_id.user_id','=',uid),'|',('agent_id.parent_id.user_id','=',uid),('agent_id.parent_id.parent_id.user_id','=',uid)]</field>-->
+            <field name="domain">[('accessible_user_ids','!=',uid)]</field>
+            <field name="context">{'default_is_contact': True, 'search_default_leads_all':uid}</field>
+        </record>
+
+        <menuitem id="lead_root_menu" sequence="2" name="Leads" parent="interact_root_menu" action="atk_lead_lead_Action"/>
+
+    </data>
+</odoo>

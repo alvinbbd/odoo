@@ -1,0 +1,10 @@
+<odoo>
+	<data>
+		<record id="action_main_dashboard" model="ir.actions.client">
+            <field name="name">Dashboard</field>
+            <field name="tag">ast_main_dashboard</field>
+        </record>
+
+		<menuitem id="dashboard_root_menu" name="Dashboard" sequence="0" parent="crm_root_menu" action="action_main_dashboard" groups="base.group_system"/>
+	</data>
+</odoo>

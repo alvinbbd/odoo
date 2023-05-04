@@ -1,0 +1,843 @@
+<odoo>
+    <data noupdate="1">
+
+<!--		Data for Listing.Bed           -->
+
+        <record id="listing_bed_1" model="listing.bed">
+			<field name="name">1 Bed</field>
+		</record>
+        <record id="listing_bed_2" model="listing.bed">
+			<field name="name">2 Bed</field>
+		</record>
+        <record id="listing_bed_2" model="listing.bed">
+			<field name="name">2 Bed</field>
+		</record>
+        <record id="listing_bed_3" model="listing.bed">
+			<field name="name">3 Bed</field>
+		</record>
+        <record id="listing_bed_4" model="listing.bed">
+			<field name="name">4 Bed</field>
+		</record>
+        <record id="listing_bed_5" model="listing.bed">
+			<field name="name">5 Bed</field>
+		</record>
+        <record id="listing_bed_6" model="listing.bed">
+			<field name="name">6 Bed</field>
+		</record>
+        <record id="listing_bed_7" model="listing.bed">
+			<field name="name">7 Bed</field>
+		</record>
+        <record id="listing_bed_8" model="listing.bed">
+			<field name="name">8 Bed</field>
+		</record>
+        <record id="listing_bed_9" model="listing.bed">
+			<field name="name">9 Bed</field>
+		</record>
+        <record id="listing_bed_10" model="listing.bed">
+			<field name="name">10 Bed</field>
+		</record>
+        <record id="listing_bed_11" model="listing.bed">
+			<field name="name">11 Bed</field>
+		</record>
+        <record id="listing_bed_12" model="listing.bed">
+			<field name="name">12 Bed</field>
+		</record>
+
+<!--		Data for Listing.Bath          -->
+
+		<record id="listing_bath_1" model="listing.bath">
+			<field name="name">1</field>
+		</record>
+		<record id="listing_bath_2" model="listing.bath">
+			<field name="name">2</field>
+		</record>
+		<record id="listing_bath_3" model="listing.bath">
+			<field name="name">3</field>
+		</record>
+		<record id="listing_bath_4" model="listing.bath">
+			<field name="name">4</field>
+		</record>
+		<record id="listing_bath_5" model="listing.bath">
+			<field name="name">5</field>
+		</record>
+		<record id="listing_bath_6" model="listing.bath">
+			<field name="name">6</field>
+		</record>
+
+<!--		Data for listing.visibility         -->
+
+		<record id="listing_visibility_network" model="listing.visibility">
+			<field name="name">Network</field>
+		</record>
+		<record id="listing_visibility_public" model="listing.visibility">
+			<field name="name">Within Company</field>
+		</record>
+		<record id="listing_visibility_private" model="listing.visibility">
+			<field name="name">Private</field>
+		</record>
+
+<!--		Data for Source Master         -->
+
+		<record id="source_master_1" model="source.master">
+			<field name="name">7 Days</field>
+		</record>
+		<record id="source_master_2" model="source.master">
+			<field name="name">Agent</field>
+		</record>
+		<record id="source_master_3" model="source.master">
+			<field name="name">Agent External</field>
+		</record>
+		<record id="source_master_4" model="source.master">
+			<field name="name">Agent Internal</field>
+		</record>
+		<record id="source_master_5" model="source.master">
+			<field name="name">Website</field>
+		</record>
+		<record id="source_master_6" model="source.master">
+			<field name="name">Abu Dhabi week</field>
+		</record>
+		<record id="source_master_7" model="source.master">
+			<field name="name">abudhabi.classonet.com</field>
+		</record>
+		<record id="source_master_8" model="source.master">
+			<field name="name">Al Bayan</field>
+		</record>
+		<record id="source_master_9" model="source.master">
+			<field name="name">Al Futtaim</field>
+		</record>
+		<record id="source_master_10" model="source.master">
+			<field name="name">Al Ittihad News paper</field>
+		</record>
+		<record id="source_master_11" model="source.master">
+			<field name="name">Al Khaleej</field>
+		</record>
+		<record id="source_master_12" model="source.master">
+			<field name="name">Al Rai</field>
+		</record>
+		<record id="source_master_13" model="source.master">
+			<field name="name">AL Watan</field>
+		</record>
+		<record id="source_master_14" model="source.master">
+			<field name="name">Arab Times</field>
+		</record>
+		<record id="source_master_15" model="source.master">
+			<field name="name">Asharq Al Awsat</field>
+		</record>
+		<record id="source_master_16" model="source.master">
+			<field name="name">Bank Referral</field>
+		</record>
+		<record id="source_master_17" model="source.master">
+			<field name="name">Bayut.com</field>
+		</record>
+		<record id="source_master_18" model="source.master">
+			<field name="name">Blackberry SMS</field>
+		</record>
+		<record id="source_master_19" model="source.master">
+			<field name="name">Business Card</field>
+		</record>
+		<record id="source_master_20" model="source.master">
+			<field name="name">Client referral</field>
+		</record>
+		<record id="source_master_21" model="source.master">
+			<field name="name">Cold Call</field>
+		</record>
+		<record id="source_master_22" model="source.master">
+			<field name="name">Colours TV</field>
+		</record>
+		<record id="source_master_23" model="source.master">
+			<field name="name">Company Email</field>
+		</record>
+		<record id="source_master_24" model="source.master">
+			<field name="name">Database</field>
+		</record>
+		<record id="source_master_25" model="source.master">
+			<field name="name">Developer</field>
+		</record>
+		<record id="source_master_26" model="source.master">
+			<field name="name">Direct Call</field>
+		</record>
+		<record id="source_master_27" model="source.master">
+			<field name="name">Direct Client</field>
+		</record>
+		<record id="source_master_28" model="source.master">
+			<field name="name">Door hanger</field>
+		</record>
+		<record id="source_master_29" model="source.master">
+			<field name="name">Drive around</field>
+		</record>
+		<record id="source_master_30" model="source.master">
+			<field name="name">Dubizzle Feature</field>
+		</record>
+		<record id="source_master_31" model="source.master">
+			<field name="name">Dubizzle.com</field>
+		</record>
+		<record id="source_master_32" model="source.master">
+			<field name="name">Dzooom.com</field>
+		</record>
+		<record id="source_master_33" model="source.master">
+			<field name="name">Email campaign</field>
+		</record>
+		<record id="source_master_34" model="source.master">
+			<field name="name">Ertebat</field>
+		</record>
+		<record id="source_master_35" model="source.master">
+			<field name="name">Event</field>
+		</record>
+		<record id="source_master_36" model="source.master">
+			<field name="name">Exhibition Stand</field>
+		</record>
+		<record id="source_master_37" model="source.master">
+			<field name="name">Existing client</field>
+		</record>
+		<record id="source_master_38" model="source.master">
+			<field name="name">EzEstate</field>
+		</record>
+		<record id="source_master_39" model="source.master">
+			<field name="name">EzHeights.com</field>
+		</record>
+		<record id="source_master_40" model="source.master">
+			<field name="name">Facebook</field>
+		</record>
+		<record id="source_master_41" model="source.master">
+			<field name="name">Flyers</field>
+		</record>
+		<record id="source_master_42" model="source.master">
+			<field name="name">Forbes Mailer</field>
+		</record>
+		<record id="source_master_43" model="source.master">
+			<field name="name">Friend or Relative</field>
+		</record>
+		<record id="source_master_44" model="source.master">
+			<field name="name">Google</field>
+		</record>
+		<record id="source_master_45" model="source.master">
+			<field name="name">Gulf Daily News</field>
+		</record>
+		<record id="source_master_46" model="source.master">
+			<field name="name">Gulf News</field>
+		</record>
+		<record id="source_master_47" model="source.master">
+			<field name="name">Gulf News Mailer</field>
+		</record>
+		<record id="source_master_48" model="source.master">
+			<field name="name">Gulf Newspaper Freehold</field>
+		</record>
+		<record id="source_master_49" model="source.master">
+			<field name="name">Gulf Newspaper Residential</field>
+		</record>
+		<record id="source_master_50" model="source.master">
+			<field name="name">Gulf Times</field>
+		</record>
+		<record id="source_master_51" model="source.master">
+			<field name="name">Gulfnews Freehold</field>
+		</record>
+		<record id="source_master_52" model="source.master">
+			<field name="name">Hut.ae</field>
+		</record>
+		<record id="source_master_53" model="source.master">
+			<field name="name">Instagram</field>
+		</record>
+		<record id="source_master_54" model="source.master">
+			<field name="name">JustProperty Featured</field>
+		</record>
+		<record id="source_master_55" model="source.master">
+			<field name="name">JustProperty Promoted</field>
+		</record>
+		<record id="source_master_56" model="source.master">
+			<field name="name">JustProperty.com</field>
+		</record>
+		<record id="source_master_57" model="source.master">
+			<field name="name">JustRentals.com</field>
+		</record>
+		<record id="source_master_58" model="source.master">
+			<field name="name">JUWAI</field>
+		</record>
+		<record id="source_master_59" model="source.master">
+			<field name="name">Khaleej Times</field>
+		</record>
+		<record id="source_master_60" model="source.master">
+			<field name="name">LinkedIn</field>
+		</record>
+		<record id="source_master_61" model="source.master">
+			<field name="name">Listanza</field>
+		</record>
+		<record id="source_master_62" model="source.master">
+			<field name="name">Locanto</field>
+		</record>
+		<record id="source_master_63" model="source.master">
+			<field name="name">lookup.ae</field>
+		</record>
+		<record id="source_master_64" model="source.master">
+			<field name="name">Luxury Square Foot</field>
+		</record>
+		<record id="source_master_65" model="source.master">
+			<field name="name">Memaar</field>
+		</record>
+		<record id="source_master_66" model="source.master">
+			<field name="name">LuxuryEstate.com</field>
+		</record>
+		<record id="source_master_67" model="source.master">
+			<field name="name">Magazine</field>
+		</record>
+		<record id="source_master_68" model="source.master">
+			<field name="name">MoneyCamel.com</field>
+		</record>
+		<record id="source_master_69" model="source.master">
+			<field name="name">National News paper</field>
+		</record>
+		<record id="source_master_70" model="source.master">
+			<field name="name">Newsletter</field>
+		</record>
+		<record id="source_master_71" model="source.master">
+			<field name="name">Newspaper advert</field>
+		</record>
+		<record id="source_master_72" model="source.master">
+			<field name="name">Not Specified</field>
+		</record>
+		<record id="source_master_73" model="source.master">
+			<field name="name">Oforo.com</field>
+		</record>
+		<record id="source_master_74" model="source.master">
+			<field name="name">Old Landlord</field>
+		</record>
+		<record id="source_master_75" model="source.master">
+			<field name="name">Online Banners</field>
+		</record>
+		<record id="source_master_76" model="source.master">
+			<field name="name">Online Campaign</field>
+		</record>
+		<record id="source_master_77" model="source.master">
+			<field name="name">Open House</field>
+		</record>
+		<record id="source_master_78" model="source.master">
+			<field name="name">Open House Flyer</field>
+		</record>
+		<record id="source_master_79" model="source.master">
+			<field name="name">Other</field>
+		</record>
+		<record id="source_master_80" model="source.master">
+			<field name="name">Other portal</field>
+		</record>
+		<record id="source_master_81" model="source.master">
+			<field name="name">Outdoor Media</field>
+		</record>
+		<record id="source_master_82" model="source.master">
+			<field name="name">Personal Referral</field>
+		</record>
+		<record id="source_master_83" model="source.master">
+			<field name="name">Property Acquisition Department</field>
+		</record>
+		<record id="source_master_84" model="source.master">
+			<field name="name">Property Finder Premium</field>
+		</record>
+		<record id="source_master_85" model="source.master">
+			<field name="name">Property Inc.</field>
+		</record>
+		<record id="source_master_86" model="source.master">
+			<field name="name">Property life</field>
+		</record>
+		<record id="source_master_87" model="source.master">
+			<field name="name">Property Management</field>
+		</record>
+		<record id="source_master_88" model="source.master">
+			<field name="name">Property Trader</field>
+		</record>
+		<record id="source_master_89" model="source.master">
+			<field name="name">Property Weekly</field>
+		</record>
+		<record id="source_master_90" model="source.master">
+			<field name="name">Propertyfinder.ae</field>
+		</record>
+		<record id="source_master_91" model="source.master">
+			<field name="name">Propertyonline</field>
+		</record>
+		<record id="source_master_92" model="source.master">
+			<field name="name">ropertywifi.com</field>
+		</record>
+		<record id="source_master_93" model="source.master">
+			<field name="name">PropSpace MLS</field>
+		</record>
+		<record id="source_master_94" model="source.master">
+			<field name="name">Radio</field>
+		</record>
+		<record id="source_master_95" model="source.master">
+			<field name="name">Radio Advert</field>
+		</record>
+		<record id="source_master_96" model="source.master">
+			<field name="name">Referral</field>
+		</record>
+		<record id="source_master_97" model="source.master">
+			<field name="name">Referral within company</field>
+		</record>
+		<record id="source_master_98" model="source.master">
+			<field name="name">Relocation</field>
+		</record>
+		<record id="source_master_99" model="source.master">
+			<field name="name">rezora.com</field>
+		</record>
+		<record id="source_master_100" model="source.master">
+			<field name="name">Rightmove.co.uk</field>
+		</record>
+		<record id="source_master_101" model="source.master">
+			<field name="name">Roadshow</field>
+		</record>
+		<record id="source_master_102" model="source.master">
+			<field name="name">Sandcastles.ae</field>
+		</record>
+		<record id="source_master_103" model="source.master">
+			<field name="name">School Communicator</field>
+		</record>
+		<record id="source_master_104" model="source.master">
+			<field name="name">Search Engine</field>
+		</record>
+		<record id="source_master_105" model="source.master">
+			<field name="name">Signboard</field>
+		</record>
+		<record id="source_master_106" model="source.master">
+			<field name="name">SMS campaign</field>
+		</record>
+		<record id="source_master_107" model="source.master">
+			<field name="name">Social media Campaign</field>
+		</record>
+		<record id="source_master_108" model="source.master">
+			<field name="name">Souq.com</field>
+		</record>
+		<record id="source_master_109" model="source.master">
+			<field name="name">Staff Mailer</field>
+		</record>
+		<record id="source_master_110" model="source.master">
+			<field name="name">Twitter</field>
+		</record>
+		<record id="source_master_111" model="source.master">
+			<field name="name">Walk-in</field>
+		</record>
+		<record id="source_master_112" model="source.master">
+			<field name="name">Wasset.net</field>
+		</record>
+		<record id="source_master_113" model="source.master">
+			<field name="name">Website</field>
+		</record>
+		<record id="source_master_114" model="source.master">
+			<field name="name">Whatpricemyhome</field>
+		</record>
+		<record id="source_master_115" model="source.master">
+			<field name="name">Whatsapp</field>
+		</record
+		><record id="source_master_116" model="source.master">
+			<field name="name">Word of Mouth</field>
+		</record>
+		<record id="source_master_117" model="source.master">
+			<field name="name">www.propertyportal.ae</field>
+		</record>
+		<record id="source_master_118" model="source.master">
+			<field name="name">Youtube</field>
+		</record>
+		<record id="source_master_119" model="source.master">
+			<field name="name">Yzer.com</field>
+		</record>
+		<record id="source_master_120" model="source.master">
+			<field name="name">Zawya Mailer</field>
+		</record>
+		<record id="source_master_121" model="source.master">
+			<field name="name">Zoopla</field>
+		</record>
+		<record id="source_master_122" model="source.master">
+			<field name="name">Web Enquiry</field>
+		</record>
+
+
+
+
+
+<!--		Data for category        -->
+
+		<record id="listing_category_1" model="listing.category">
+			<field name="name">Apartment</field>
+		</record>
+		<record id="listing_category_2" model="listing.category">
+			<field name="name">Villa</field>
+		</record>
+		<record id="listing_category_3" model="listing.category">
+			<field name="name">Office</field>
+		</record>
+		<record id="listing_category_4" model="listing.category">
+			<field name="name">Retail</field>
+		</record>
+		<record id="listing_category_5" model="listing.category">
+			<field name="name">Hotel Apartment</field>
+		</record>
+		<record id="listing_category_6" model="listing.category">
+			<field name="name">Warehouse</field>
+		</record>
+		<record id="listing_category_7" model="listing.category">
+			<field name="name">Land Commercial</field>
+		</record>
+		<record id="listing_category_8" model="listing.category">
+			<field name="name">Labour Camp</field>
+		</record>
+		<record id="listing_category_9" model="listing.category">
+			<field name="name">Residential Building</field>
+		</record>
+		<record id="listing_category_10" model="listing.category">
+			<field name="name">Multiple Sale Units</field>
+		</record>
+		<record id="listing_category_11" model="listing.category">
+			<field name="name">Land Residential</field>
+		</record>
+		<record id="listing_category_12" model="listing.category">
+			<field name="name">Commercial Full Building</field>
+		</record>
+		<record id="listing_category_13" model="listing.category">
+			<field name="name">Penthouse</field>
+		</record>
+		<record id="listing_category_14" model="listing.category">
+			<field name="name">Duplex</field>
+		</record>
+		<record id="listing_category_15" model="listing.category">
+			<field name="name">Loft Apartment</field>
+		</record>
+		<record id="listing_category_16" model="listing.category">
+			<field name="name">Town House</field>
+		</record>
+		<record id="listing_category_17" model="listing.category">
+			<field name="name">Hotel</field>
+		</record>
+		<record id="listing_category_18" model="listing.category">
+			<field name="name">Land Mixed Use</field>
+		</record>
+		<record id="listing_category_19" model="listing.category">
+			<field name="name">Compound</field>
+		</record>
+		<record id="listing_category_20" model="listing.category">
+			<field name="name">Half Floor</field>
+		</record>
+		<record id="listing_category_21" model="listing.category">
+			<field name="name">Full Floor</field>
+		</record>
+		<record id="listing_category_22" model="listing.category">
+			<field name="name">Commercial Villa</field>
+		</record>
+		<record id="listing_category_23" model="listing.category">
+			<field name="name">Bungalow</field>
+		</record>
+		<record id="listing_category_24" model="listing.category">
+			<field name="name">Factory</field>
+		</record>
+		<record id="listing_category_25" model="listing.category">
+			<field name="name">Staff Accomodation</field>
+		</record>
+		<record id="listing_category_26" model="listing.category">
+			<field name="name">Multiple Rental Units</field>
+		</record>
+		<record id="listing_category_27" model="listing.category">
+			<field name="name">Residential Full Floor</field>
+		</record>
+		<record id="listing_category_28" model="listing.category">
+			<field name="name">Commercial Full Floor</field>
+		</record>
+		<record id="listing_category_29" model="listing.category">
+			<field name="name">Residential Half Floor</field>
+		</record>
+		<record id="listing_category_30" model="listing.category">
+			<field name="name">Commercial Half Floor</field>
+		</record>
+		<record id="listing_category_31" model="listing.category">
+			<field name="name">Show Room</field>
+		</record>
+		<record id="listing_category_32" model="listing.category">
+			<field name="name">Shop</field>
+		</record>
+		<record id="listing_category_33" model="listing.category">
+			<field name="name">Buisness Centre</field>
+		</record>
+		<record id="listing_category_34" model="listing.category">
+			<field name="name">Land Industrial</field>
+		</record>
+		<record id="listing_category_35" model="listing.category">
+			<field name="name">Open Yard</field>
+		</record>
+
+
+
+
+
+<!--		Data for Listing Price Frequency          -->
+
+		<record id="listing_price_frequency_day" model="listing.price.frequency">
+			<field name="name">Per Day</field>
+		</record>
+		<record id="listing_price_frequency_week" model="listing.price.frequency">
+			<field name="name">Per Week</field>
+		</record>
+		<record id="listing_price_frequency_month" model="listing.price.frequency">
+			<field name="name">Per Month</field>
+		</record>
+		<record id="listing_price_frequency_year" model="listing.price.frequency">
+			<field name="name">Per Year</field>
+		</record>
+
+<!--		Data for No Of Cheque          -->
+
+		<record id="cheque_1" model="number.of.cheque">
+			<field name="name">1 Cheque</field>
+		</record>
+		<record id="cheque_2" model="number.of.cheque">
+			<field name="name">2 Cheque</field>
+		</record>
+		<record id="cheque_3" model="number.of.cheque">
+			<field name="name">3 Cheque</field>
+		</record>
+		<record id="cheque_4" model="number.of.cheque">
+			<field name="name">4 Cheque</field>
+		</record>
+		<record id="cheque_5" model="number.of.cheque">
+			<field name="name">5 Cheque</field>
+		</record>
+		<record id="cheque_6" model="number.of.cheque">
+			<field name="name">6 Cheque</field>
+		</record>
+		<record id="cheque_7" model="number.of.cheque">
+			<field name="name">7 Cheque</field>
+		</record>
+		<record id="cheque_8" model="number.of.cheque">
+			<field name="name">8 Cheque</field>
+		</record>
+		<record id="cheque_9" model="number.of.cheque">
+			<field name="name">9 Cheque</field>
+		</record>
+		<record id="cheque_10" model="number.of.cheque">
+			<field name="name">10 Cheque</field>
+		</record>
+		<record id="cheque_11" model="number.of.cheque">
+			<field name="name">11 Cheque</field>
+		</record>
+		<record id="cheque_12" model="number.of.cheque">
+			<field name="name">12 Cheque</field>
+		</record>
+
+
+<!--		Data for listing.features          -->
+
+		<record id="listing_features_balcony" model="listing.features">
+			<field name="name">Balcony</field>
+		</record>
+		<record id="listing_features_bbq_area" model="listing.features">
+			<field name="name">BBQ Area</field>
+		</record>
+		<record id="listing_features_basement_parking" model="listing.features">
+			<field name="name">Basement Parking</field>
+		</record>
+		<record id="listing_features_broadband" model="listing.features">
+			<field name="name">Broadband Ready</field>
+		</record>
+		<record id="listing_features_buildin_wardrobes37" model="listing.features">
+			<field name="name">Build In Wardrobes</field>
+		</record>
+		<record id="listing_features_buildin_wardrobes36" model="listing.features">
+			<field name="name">Carpets</field>
+		</record>
+		<record id="listing_features_buildin_wardrobes35" model="listing.features">
+			<field name="name">Central air conditioning </field>
+		</record>
+		<record id="listing_features_buildin_wardrobes34" model="listing.features">
+			<field name="name">Central heating </field>
+		</record>
+		<record id="listing_features_buildin_wardrobes33" model="listing.features">
+			<field name="name">Community View </field>
+		</record>
+		<record id="listing_features_buildin_wardrobes32" model="listing.features">
+			<field name="name">Covered parking </field>
+		</record>
+		<record id="listing_features_buildin_wardrobes31" model="listing.features">
+			<field name="name"> Driver's Room </field>
+		</record>
+		<record id="listing_features_buildin_wardrobes30" model="listing.features">
+			<field name="name">Fully fitted kitchen</field>
+		</record>
+		<record id="listing_features_buildin_wardrobes29" model="listing.features">
+			<field name="name">Fully furnished</field>
+		</record>
+		<record id="listing_features_buildin_wardrobes28" model="listing.features">
+			<field name="name">Gazebo and outdoor entertaining area </field>
+		</record>
+		<record id="listing_features_buildin_wardrobes27" model="listing.features">
+			<field name="name"> Gymnasium </field>
+		</record>
+		<record id="listing_features_buildin_wardrobes26" model="listing.features">
+			<field name="name">Intercom</field>
+		</record>
+		<record id="listing_features_buildin_wardrobes25" model="listing.features">
+			<field name="name">Jacuzzi</field>
+		</record>
+		<record id="listing_features_buildin_wardrobes24" model="listing.features">
+			<field name="name">Kitchen white goods </field>
+		</record>
+		<record id="listing_features_buildin_wardrobes23" model="listing.features">
+			<field name="name"> Landscaped Garden </field>
+		</record>
+		<record id="listing_features_buildin_wardrobes22" model="listing.features">
+			<field name="name">Laundry/washing room</field>
+		</record>
+		<record id="listing_features_buildin_wardrobes21" model="listing.features">
+			<field name="name">Maid's room</field>
+		</record>
+		<record id="listing_features_buildin_wardrobes20" model="listing.features">
+			<field name="name">Marble floors </field>
+		</record>
+		<record id="listing_features_buildin_wardrobes19" model="listing.features">
+			<field name="name">On high floor </field>
+		</record>
+		<record id="listing_features_buildin_wardrobes18" model="listing.features">
+			<field name="name">On low floor</field>
+		</record>
+		<record id="listing_features_buildin_wardrobes17" model="listing.features">
+			<field name="name">On mid floor </field>
+		</record>
+		<record id="listing_features_buildin_wardrobes16" model="listing.features">
+			<field name="name">Part furnished</field>
+		</record>
+		<record id="listing_features_buildin_wardrobes15" model="listing.features">
+			<field name="name">Pets allowed </field>
+		</record>
+		<record id="listing_features_buildin_wardrobes14" model="listing.features">
+			<field name="name"> Private garage </field>
+		</record>
+		<record id="listing_features_buildin_wardrobes13" model="listing.features">
+			<field name="name"> Private garden </field>
+		</record>
+		<record id="listing_features_buildin_wardrobes12" model="listing.features">
+			<field name="name">Private swimming pool </field>
+		</record>
+		<record id="listing_features_buildin_wardrobes11" model="listing.features">
+			<field name="name"> Satellite/Cable TV </field>
+		</record>
+		<record id="listing_features_buildin_wardrobes10" model="listing.features">
+			<field name="name">Sauna</field>
+		</record>
+		<record id="listing_features_buildin_wardrobes09" model="listing.features">
+			<field name="name"> Shared swimming pool </field>
+		</record>
+		<record id="listing_features_buildin_wardrobes08" model="listing.features">
+			<field name="name">Solid wood floors</field>
+		</record>
+		<record id="listing_features_buildin_wardrobes07" model="listing.features">
+			<field name="name">Steam room </field>
+		</record>
+		<record id="listing_features_buildin_wardrobes06" model="listing.features">
+			<field name="name">Storage room</field>
+		</record>
+		<record id="listing_features_buildin_wardrobes05" model="listing.features">
+			<field name="name">Study</field>
+		</record>
+		<record id="listing_features_buildin_wardrobes04" model="listing.features">
+			<field name="name">Upgraded interior</field>
+		</record>
+		<record id="listing_features_buildin_wardrobes03" model="listing.features">
+			<field name="name">View of gardens </field>
+		</record>
+		<record id="listing_features_buildin_wardrobes02" model="listing.features">
+			<field name="name">View of golf course </field>
+		</record>
+		<record id="listing_features_buildin_wardrobes01" model="listing.features">
+			<field name="name">View of parkland</field>
+		</record>
+		<record id="listing_features_buildin_wardrobes0" model="listing.features">
+			<field name="name">View of sea/water </field>
+		</record>
+
+<!--		Data for res.neighborhood          -->
+
+		<record id="res_neighborhood_school" model="res.neighborhood">
+			<field name="name">School</field>
+		</record>
+		<record id="res_neighborhood_college" model="res.neighborhood">
+			<field name="name">College</field>
+		</record>
+		<record id="res_neighborhood_hospital" model="res.neighborhood">
+			<field name="name">Hospital</field>
+		</record>
+		<record id="res_neighborhood_mall" model="res.neighborhood">
+			<field name="name">Mall</field>
+		</record>
+
+<!--		Data for listing.property.status          -->
+
+		<record id="listing_property_status_available" model="listing.property.status">
+			<field name="name">Available</field>
+		</record>
+
+		<record id="listing_property_status_blocked" model="listing.property.status">
+			<field name="name">Blocked</field>
+		</record>
+
+		<record id="listing_property_status_movedin" model="listing.property.status">
+			<field name="name">Moved In</field>
+		</record>
+
+		<record id="listing_property_status_pending" model="listing.property.status">
+			<field name="name">Pending</field>
+		</record>
+
+		<record id="listing_property_status_renewed" model="listing.property.status">
+			<field name="name">Renewed</field>
+		</record>
+
+		<record id="listing_property_status_rented" model="listing.property.status">
+			<field name="name">Rented</field>
+		</record>
+
+		<record id="listing_property_status_reserved" model="listing.property.status">
+			<field name="name">Reserved</field>
+		</record>
+
+		<record id="listing_property_status_sold" model="listing.property.status">
+			<field name="name">Sold</field>
+		</record>
+		<record id="listing_property_status_upcoming" model="listing.property.status">
+			<field name="name">Upcoming</field>
+		</record>
+
+
+<!--		Data for Managed Status          -->
+
+		<record id="managed_status_1" model="listing.managed.status">
+			<field name="name">Managed</field>
+		</record>
+		<record id="managed_status_2" model="listing.managed.status">
+			<field name="name">Exclusive</field>
+		</record>
+		<record id="managed_status_3" model="listing.managed.status">
+			<field name="name">Open Market</field>
+		</record>
+
+<!--		Data for Listing Completion Status         -->
+
+		<record id="completion_status_1" model="listing.completion.status">
+			<field name="name">Completed Property</field>
+		</record>
+		<record id="completion_status_2" model="listing.completion.status">
+			<field name="name">Off Plan</field>
+		</record>
+
+<!--		Data for Listing Tenure         -->
+
+		<record id="Listing_Tenure_1" model="listing.tenure">
+			<field name="name">Freehold</field>
+		</record>
+		<record id="Listing_Tenure_2" model="listing.tenure">
+			<field name="name">Leasehold</field>
+		</record>
+
+		<!-- Data for fitted -->
+		<record id="semi_fitted" model="listing.fitted">
+			<field name="name">Semi-Fitted</field>
+		</record>
+		<record id="fitted_space" model="listing.fitted">
+			<field name="name">Fitted Space</field>
+		</record>
+		<record id="shell_and_core" model="listing.fitted">
+			<field name="name">Shell and core</field>
+		</record>
+
+    </data>
+</odoo>

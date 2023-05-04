@@ -1,0 +1,16 @@
+<odoo>
+    <data noupdate="1">
+        <record id="sequence_listing_sale" model="ir.sequence">
+			<field name="name">Sequence Listing Sale</field>
+			<field name="code">listing.listing.sale</field>
+			<field name="padding">4</field>
+			<field name="prefix">-S-</field>
+		</record>
+		<record id="sequence_listing_rental" model="ir.sequence">
+			<field name="name">Sequence Listing Rental</field>
+			<field name="code">listing.listing.rental</field>
+			<field name="padding">4</field>
+			<field name="prefix">-R-</field>
+		</record>
+    </data>
+</odoo>

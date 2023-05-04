@@ -1,0 +1,38 @@
+<odoo>
+	<data noupdate="0">
+		<record id="qualified" model="opportunity.stage">
+			<field name="name">Qualified</field>
+		</record>
+		<record id="viewings" model="opportunity.stage">
+			<field name="name">Viewings</field>
+		</record>
+		<record id="negotiation" model="opportunity.stage">
+			<field name="name">Negotiation</field>
+		</record>
+		<record id="converted_to_deal" model="opportunity.stage">
+			<field name="name">Converted to Deal</field>
+		</record>
+
+		<record id="reason1" model="loss.reason">
+			<field name="name">Overpriced or unrealistic price expectation</field>
+		</record>
+		<record id="reason2" model="loss.reason">
+			<field name="name">Didn’t like the view</field>
+		</record>
+		<record id="reason3" model="loss.reason">
+			<field name="name">Didn’t like the layout</field>
+		</record>
+		<record id="reason4" model="loss.reason">
+			<field name="name">Payment terms / plan not acceptable</field>
+		</record>
+		<record id="reason5" model="loss.reason">
+			<field name="name">Landlord rejected</field>
+		</record>
+		<record id="reason6" model="loss.reason">
+			<field name="name">Credit rating of client is poor</field>
+		</record>
+		<record id="reason7" model="loss.reason">
+			<field name="name">Not Interested</field>
+		</record>
+	</data>
+</odoo>

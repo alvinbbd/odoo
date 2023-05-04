@@ -1,0 +1,10 @@
+<odoo>
+    <data>
+        <record id="sequence_agent_performance" model="ir.sequence">
+			<field name="name">Sequence Agent Performance</field>
+			<field name="code">agent.performance</field>
+			<field name="padding">4</field>
+			<field name="prefix">Agent Performance</field>
+		</record>
+    </data>
+</odoo>
